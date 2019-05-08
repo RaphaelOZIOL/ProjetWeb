@@ -14,6 +14,16 @@ class Product_model extends CI_Model
 				->result();
 	}
 
+  public function get_product_Id($idProd)
+	{
+    $this->db->select('*');
+    $this->db->from('product');
+    $this->db->where(array('IdProd' => $idProd));
+    $query = $this->db->get()->result();
+    return $query;
+
+	}
+
   public function create_product($namePro,$price,$quantity,$compoProd,$idCat){
     return $this->db->set('nameProd',$namePro)
 				->set('price',$price)

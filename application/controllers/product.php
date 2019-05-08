@@ -6,11 +6,12 @@ class Product extends CI_Controller
   public function __construct()
 	{
 		parent::__construct();
-    $this->load->view('header');
+    $this->load->model('product_model');
 	}
 
   public function index()
 	{
+    $this->load->view('header');
 		$this->welcome();
 	}
 
@@ -21,18 +22,18 @@ class Product extends CI_Controller
 
 
   public function list_product(){
-    $this->load->model('product_model');
     $produits=array();
-		$produits['list_product'] = $this->product_model->get_list_product();
-    $nbProduit=$this->product_model->countProduct();
+		$produits= $this->product_model->get_list_product();
+    echo json_encode($produits);
+  }
 
-    if($nbProduit>=4){
-      $produits['nbProd']=$nbProduit/4;
-    }
-    else{
-      $produits['nbProd']=1;
-    }
-    $this->load->view('listProduct',$produits);
+  public function product_info($idProd){
+    $produit= $this->product_model->get_product_Id($idProd);
+    echo json_encode($produit);
+  }
+
+  public function afficher_idProd(){
+    echo json_encode($_GET['id_Prod']);
   }
 
 
