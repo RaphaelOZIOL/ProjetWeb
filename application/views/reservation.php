@@ -4,7 +4,7 @@
 
     <div class="list-group">
       <a href="#" class="list-group-item list-group-item-action active">
-        Pour le 23 mai 2018, pour un total de 8€ à régler en caisse en arrivant
+        Pour le 23 mai 2018, pou un total de 8€ à régler en caisse en arrivant
       </a>
       <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
       <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
