@@ -20,7 +20,7 @@ class Product extends CI_Controller
     $this->load->view('welcomePage');
 	}
 
-
+/* ---------- Functions AJAX -----------*/
   public function list_product(){
     $produits=array();
 		$produits= $this->product_model->get_list_product();
