@@ -208,12 +208,12 @@
                   $.ajax({
                     type : 'GET',
                     async : true,
-                    url: '<?php echo site_url('product/afficher_idProd')?>',
+                    url: '<?php echo site_url('productAJAX/afficher_idProd')?>',
                     data: 'id_Prod='+ idProd,
                     dataType : 'text',
                     success: function(s) {
 
-                      var root = "<?php echo site_url('product/product_info/')?>";
+                      var root = "<?php echo site_url('productAJAX/product_info/')?>";
                       var newS= s.substr(1,s.length-2);
                       var adr = root.concat(newS);
                     $.ajax({

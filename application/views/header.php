@@ -32,7 +32,7 @@
             </div>
           </li>
           <?php if($isAdmin==1){ ?>
-            <li><a class="nav-link border-right mr-2" onclick="loadReservation()">Vos réservations</a></li>
+            <li><a class="nav-link border-right mr-2">Vos réservations</a></li>
           <?php } ?>
         </ul>
 
