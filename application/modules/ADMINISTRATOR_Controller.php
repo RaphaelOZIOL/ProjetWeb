@@ -11,9 +11,9 @@ class ADMINISTRATOR_Controller extends CI_Controller {
                    // 'prefix' => '',
                );
 
-    private $is_Admin;
-    private $_cookie_id_name = "189CDS8CSDC98JCPDSCDSCDSCDSD8C9SD"; // nom d'un cookie
-    private $_cookie_id_password = "1C89DS7CDS8CD89CSD7CSDDSVDSIJPIOCDS"; // nom d'un cookie
+    private $is_Admin; //0 for not connected --- 1 for standart user ---- 2 for admin user
+    private $_cookie_id_name = "743RUT7TF0DLZ0EODKC8CJ294FEDJ34JXWZ";
+    private $_cookie_id_password = "ORP02ESDD6453HCN4BF3KDK3FIZA2DM049C";
 
     function __construct()
     {
@@ -41,14 +41,14 @@ class ADMINISTRATOR_Controller extends CI_Controller {
                 $cookies_password['prefix'] = $this->config->item('cookie_prefix');
                 set_cookie($cookies_password);
 
-                // Tout est ok, ont redirige vers la page d'accueil de l'admin
+
                 $this->is_Admin=1;
                 redirect(site_url("product"));
             }
             else
             {
                 $this->is_Admin=0;
-                // Mauvais identifiant, ont redirige vers la page de connexion
+
                 redirect(site_url("connexion"));
 
             }
@@ -62,19 +62,30 @@ class ADMINISTRATOR_Controller extends CI_Controller {
 
             if ($this->administrator_model->validate($mail, $password) == FALSE){
                 $this->is_Admin=0;
-                redirect(site_url("connexion")); // Mauvais identifiant, ont redirige vers la page de connexion
+                redirect(site_url("connexion"));
               }
 
         }
-        //if rout is LamiDuPain/product and cookies are active
+        //if rout is LamiDuPain/product and cookies are not active
         elseif (($this->router->fetch_class() == "product") && !(get_cookie($this->config->item('cookie_prefix').$this->_cookie_id_name, TRUE) &&
                 get_cookie($this->config->item('cookie_prefix').$this->_cookie_id_password, TRUE)))
         {
             $this->is_Admin=0;
         }
+
+    }
+
+    public function delete_cookie(){
+      delete_cookie("743RUT7TF0DLZ0EODKC8CJ294FEDJ34JXWZ");
+      delete_cookie("ORP02ESDD6453HCN4BF3KDK3FIZA2DM049C");
+      $this->is_Admin=0;
     }
 
     public function get_is_Admin(){
         return $this->is_Admin;
+    }
+
+    public function set_is_Admin_disconnect(){
+      $this->is_Admin=0;
     }
 }

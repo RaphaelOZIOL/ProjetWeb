@@ -1,12 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Connection extends CI_Controller
+class Register extends CI_Controller
 {
   public function __construct()
 	{
 		parent::__construct();
-    $this->load->model('connection_model');
+    $this->load->model('register_model');
 	}
 
   public function index()
@@ -22,7 +22,7 @@ class Connection extends CI_Controller
 
 /* ---------- Functions AJAX -----------*/
   public function registration(){
-        $data= $this->connection_model->user_register();
+        $data= $this->register_model->user_register();
         echo json_encode($data);
   }
 

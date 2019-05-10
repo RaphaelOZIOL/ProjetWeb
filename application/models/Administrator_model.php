@@ -2,7 +2,7 @@
 
 class Administrator_model extends CI_Model {
 
-    private $_table = "user1";
+    private $_table = "user";
 
     function __construct() {
         $this->load->library('encrypt');
@@ -15,7 +15,7 @@ class Administrator_model extends CI_Model {
     }
 
     private function _getUser($mail) {
-        $user = $this->db->select(array('mail', 'password'))->get_where($this->_table, array('mail' => $mail))->row();
+        $user = $this->db->select(array('email', 'password'))->get_where($this->_table, array('email' => $mail))->row();
         if (isset($user->password))
             return $this->encrypt->decode($user->password);
         return false;

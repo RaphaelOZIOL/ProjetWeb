@@ -17,6 +17,7 @@ class ProductAJAX extends ADMINISTRATOR_Controller
     $produits=array();
 		$produits[0]= $this->product_model->get_list_product();
     $produits[1]=parent::get_is_Admin();
+  
     echo json_encode($produits);
   }
 

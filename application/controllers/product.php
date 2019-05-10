@@ -5,18 +5,16 @@ include(APPPATH . 'modules/ADMINISTRATOR_Controller.php');
 
 class Product extends ADMINISTRATOR_Controller
 {
-
-
   public function __construct()
 	{
 		parent::__construct();
     $this->load->model('product_model');
+    $data['isAdmin']=parent::get_is_Admin();
+    $this->load->view('header',$data);
 	}
 
   public function index()
 	{
-    $data['isAdmin']=parent::get_is_Admin();
-    $this->load->view('header',$data);
 		$this->welcome();
 	}
 

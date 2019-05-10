@@ -126,6 +126,20 @@
 <!--  -->
 
   <script>
+
+  function display_button_connected(data){
+      var htmlConnection='';
+      if(data[1]==null){
+        htmlConnection += '<li><a class=nav-link onclick=makeRegistration()><span class="glyphicon glyphicon-user"></span>S\'inscrire</a></li>'+
+        '<li><a class=nav-link href="<?php echo site_url("connexion")?>"><span class="glyphicon glyphicon-log-in"></span>Se connecter</a></li>';
+
+      }
+      else if(data[1]==1){
+        htmlConnection+='<li><a class=nav-link href="<?php echo site_url("connexion/deconnecter")?>"><span class="glyphicon glyphicon-user"></span>Se Déconnecter</a></li>';
+      }
+      $('#nav_bar_connection').html(htmlConnection);
+  }
+
   //function show all product
         function loadListProduct(){
           document.getElementById('welcome').style.display="none";
@@ -184,16 +198,14 @@
                     $('#list_product').html(htmlProduct);
 
 
-                    if(data[1][0]==1){
-                      htmlConnection += '<li><a class=nav-link onclick=makeRegistration()><span class="glyphicon glyphicon-user"></span>S\'inscrire</a></li>'+
-                      '<li><a class=nav-link href="<?php echo site_url("connexion")?>"><span class="glyphicon glyphicon-log-in"></span>Se connecter</a></li>';
-                    }
-                    $('#nav_bar_connection').html(htmlConnection);
+                    display_button_connected(data);
 
                 }
 
             });
         }
+
+
 
         //function show selected product
         function loadProduct(e){
@@ -270,7 +282,7 @@
 
                         $.ajax({
                             type : "POST",
-                            url  : "<?php echo site_url('connection/registration')?>",
+                            url  : "<?php echo site_url('register/registration')?>",
                             dataType : "JSON",
                             data : {firstName:firstName,lastName:lastName,email:email,
                               yearBirth:yearBirth, phoneNumber:phoneNumber , postalCode:postalCode,

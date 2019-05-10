@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-include(APPPATH . 'modules/ADMINISTRATOR_Controller.php'); 
+include(APPPATH . 'modules/ADMINISTRATOR_Controller.php');
 class Connexion extends ADMINISTRATOR_Controller {
 
     function __construct() {
@@ -11,8 +11,9 @@ class Connexion extends ADMINISTRATOR_Controller {
 
     function index(){
         $this->load->view('connexion');
-        var_dump(parent::get_is_Admin());
+
     }
+
 
     public function encrypter(){
         $mdp = $this->encrypt->encode("azer");
@@ -20,9 +21,11 @@ class Connexion extends ADMINISTRATOR_Controller {
     }
 
     public function deconnecter(){
+        parent::delete_cookie();
         $data['isAdmin']=parent::get_is_Admin();
-        delete_cookie("189CDS8CSDC98JCPDSCDSCDSCDSD8C9SD");
-        delete_cookie("1C89DS7CDS8CD89CSD7CSDDSVDSIJPIOCDS");
-        $this->load->view('welcomePage',$data);
+        var_dump(parent::get_is_Admin());
+      //  $this->load->view('header',$data);
+        redirect(site_url('product'));
+        //$this->load->view('welcomePage',$data);
     }
 }
