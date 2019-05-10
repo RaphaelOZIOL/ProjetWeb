@@ -7,8 +7,8 @@
       <h3 class="mb-5">
         <em>Bienvenue sur le site de l'Ami du Pain</em>
       </h3>
-      <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Première visite</a>
-      <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Se connecter</a>
+      <a class="btn btn-primary btn-xl js-scroll-trigger" onclick="loadListProduct()">Liste des produits</a>
+      <a class="btn btn-primary btn-xl js-scroll-trigger" href="<?php echo site_url("connexion")?>">Se connecter</a>
     </div>
   <?php } else {?>
     <div class="container full-height text-center my-auto" id="welcome">
@@ -163,7 +163,7 @@
                           htmlProduct += '<div class="col-md-3">'+
                                     '<div class="card-deck">'+
                                       '<div class="card">'+
-                                          '<img class="card-img-top" src="assets/images/painChocolat.jpg" alt="Card image cap">'+
+                                          '<img class="card-img-top" src="' + data[0][i].srcImg + '" alt="Card image cap">'+
                                         '<div class="card-block">'+
                                             '<h5 class="card-title" onclick=loadProduct(this) id="' + data[0][i].IdProd +'">'+ data[0][i].nameProd +' - ' + data[0][i].price + ' € </h5>'+
                                           '<p class="card-text">' + data[0][i].compoProd + '</p>'+
@@ -205,7 +205,10 @@
             });
         }
 
-
+        /*if()
+        {
+          window.onload(loadListProduct());
+        }*/
 
         //function show selected product
         function loadProduct(e){

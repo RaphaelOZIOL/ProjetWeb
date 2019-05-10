@@ -11,7 +11,6 @@ class Connexion extends ADMINISTRATOR_Controller {
 
     function index(){
         $this->load->view('connexion');
-
     }
 
 

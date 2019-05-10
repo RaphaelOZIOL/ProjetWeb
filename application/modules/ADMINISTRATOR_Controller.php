@@ -85,7 +85,4 @@ class ADMINISTRATOR_Controller extends CI_Controller {
         return $this->is_Admin;
     }
 
-    public function set_is_Admin_disconnect(){
-      $this->is_Admin=0;
-    }
 }

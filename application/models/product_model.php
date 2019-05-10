@@ -24,12 +24,13 @@ class Product_model extends CI_Model
 
 	}
 
-  public function create_product($namePro,$price,$quantity,$compoProd,$idCat){
+  public function create_product($namePro,$price,$quantity,$compoProd,$idCat,$srcImg){
     return $this->db->set('nameProd',$namePro)
 				->set('price',$price)
 				->set('quantity',$quantity)
 				->set('compoProd',$compoProd)
         ->set('idCat',$idCat)
+        ->set('srcImg',$srcImg)
 				->insert($this->table);
   }
 

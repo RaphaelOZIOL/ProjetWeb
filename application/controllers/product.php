@@ -5,6 +5,8 @@ include(APPPATH . 'modules/ADMINISTRATOR_Controller.php');
 
 class Product extends ADMINISTRATOR_Controller
 {
+
+
   public function __construct()
 	{
 		parent::__construct();
@@ -21,7 +23,6 @@ class Product extends ADMINISTRATOR_Controller
   public function welcome()
 	{
     $data['isAdmin']=parent::get_is_Admin();
-
     $this->load->view('welcomePage',$data);
 	}
 
