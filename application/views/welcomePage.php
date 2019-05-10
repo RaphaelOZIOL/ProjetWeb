@@ -1,6 +1,7 @@
 <body>
 
 <!-- WELCOME PAGE -->
+  <?php if($isAdmin==0){ ?>
   <div class="container full-height text-center my-auto" id="welcome">
       <h1 class="mb-1">L'Amie du Pain</h1>
       <h3 class="mb-5">
@@ -9,6 +10,10 @@
       <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Première visite</a>
       <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Se connecter</a>
     </div>
+  <?php } else {?>
+    <div class="container full-height text-center my-auto" id="welcome">
+    </div>
+  <?php }?>
 
 <!-- List Product -->
   <div class="container" id="list_product">
@@ -113,7 +118,7 @@
         </div>
       </div>
       <div class="d-flex">
-        <button class="btn btn-primary ml-auto p-2" type="submit" id="button_save">Envoyer</button>
+        <button class="btn btn-primary ml-auto p-2" onclick=form_validation type="submit" id="button_save">Envoyer</button>
       </div>
 
     </form>
@@ -130,38 +135,39 @@
 
             $.ajax({
                 type  : 'GET',
-                url   : '<?php echo site_url('product/list_product')?>',
+                url   : '<?php echo site_url('productAJAX/list_product')?>',
                 async : true,
                 dataType : 'json',
                 success : function(data){
-                    var html = '';
+                    var htmlProduct = '';
+                    var htmlConnection ='';
                     var i;
-                    for(i=0; i<data.length; i++){
+                    for(i=0; i<data[0].length; i++){
                         if(i%4==0){
-                          html += '<div class="row">';
+                          htmlProduct += '<div class="row">';
                         }
-                          html += '<div class="col-md-3">'+
+                          htmlProduct += '<div class="col-md-3">'+
                                     '<div class="card-deck">'+
                                       '<div class="card">'+
                                           '<img class="card-img-top" src="assets/images/painChocolat.jpg" alt="Card image cap">'+
                                         '<div class="card-block">'+
-                                            '<h5 class="card-title" onclick=loadProduct(this) id="' + data[i].IdProd +'">'+ data[i].nameProd +' - ' + data[i].price + ' € </h5>'+
-                                          '<p class="card-text">' + data[i].compoProd + '</p>'+
-                                          '<p class="card-text">' + data[i].quantity + ' pièces</p>'+
+                                            '<h5 class="card-title" onclick=loadProduct(this) id="' + data[0][i].IdProd +'">'+ data[0][i].nameProd +' - ' + data[0][i].price + ' € </h5>'+
+                                          '<p class="card-text">' + data[0][i].compoProd + '</p>'+
+                                          '<p class="card-text">' + data[0][i].quantity + ' pièces</p>'+
                                         '</div>'+
                                       '</div>'+
                                     '</div>';
 
                         if(i%4==3){
-                          html += '</div>';
+                          htmlProduct += '</div>';
                         }
 
-                        html+= '</div>';
+                        htmlProduct += '</div>';
                     }
                     if(i%4!=0){
-                      html+='</div>';
+                      htmlProduct +='</div>';
                     }
-                    html+= '<nav aria-label="Page navigation example">'+
+                    htmlProduct += '<nav aria-label="Page navigation example">'+
                             '<ul class="pagination justify-content-end">'+
                               '<li class="page-item disabled">'+
                                 '<a class="page-link" href="#" tabindex="-1">Previous</a>'+
@@ -175,7 +181,15 @@
                             '</ul>'+
                           '</nav>';
 
-                    $('#list_product').html(html);
+                    $('#list_product').html(htmlProduct);
+
+
+                    if(data[1][0]==1){
+                      htmlConnection += '<li><a class=nav-link onclick=makeRegistration()><span class="glyphicon glyphicon-user"></span>S\'inscrire</a></li>'+
+                      '<li><a class=nav-link href="<?php echo site_url("connexion")?>"><span class="glyphicon glyphicon-log-in"></span>Se connecter</a></li>';
+                    }
+                    $('#nav_bar_connection').html(htmlConnection);
+
                 }
 
             });
@@ -270,7 +284,7 @@
           }
 
 
-          /*//  for disabling form submissions if there are invalid fields
+          //  for disabling form submissions if there are invalid fields
           function form_validation(){
             'use strict';
             window.addEventListener('load', function() {
@@ -287,7 +301,7 @@
                 }, false);
               });
             }, false);
-          }*/
+          }
 
   </script>
 

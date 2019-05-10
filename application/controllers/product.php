@@ -1,8 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Product extends CI_Controller
+include(APPPATH . 'modules/ADMINISTRATOR_Controller.php');
+
+class Product extends ADMINISTRATOR_Controller
 {
+
+
   public function __construct()
 	{
 		parent::__construct();
@@ -11,19 +15,25 @@ class Product extends CI_Controller
 
   public function index()
 	{
-    $this->load->view('header');
+    $data['isAdmin']=parent::get_is_Admin();
+    $this->load->view('header',$data);
 		$this->welcome();
 	}
 
   public function welcome()
 	{
-    $this->load->view('welcomePage');
+    $data['isAdmin']=parent::get_is_Admin();
+
+    $this->load->view('welcomePage',$data);
 	}
 
+
 /* ---------- Functions AJAX -----------*/
+/*
   public function list_product(){
     $produits=array();
-		$produits= $this->product_model->get_list_product();
+		$produits[0]= $this->product_model->get_list_product();
+    $produits[1]=parent::get_is_Admin();
     echo json_encode($produits);
   }
 
@@ -35,7 +45,7 @@ class Product extends CI_Controller
   public function afficher_idProd(){
     echo json_encode($_GET['id_Prod']);
   }
-
+*/
 
 /*  public function descriptionProduit($idProduit){
     $this->load->model('product_model');
