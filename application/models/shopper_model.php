@@ -8,21 +8,20 @@ class Shopper_model extends CI_Model
   {
     parent::construct();
     $this->load->database();
-    $this->load->library('encrypt');
-
   }
 
-  public function user_register(){
+  public function user_register($pwd){
+
         $data = array(
-                'firstName'  => $this->input->post('firstName'),
-                'lastName'  => $this->input->post('lastName'),
-                'email' => $this->input->post('email'),
-                'yearBirth' => $this->input->post('yearBirth'),
-                'phoneNumber' => $this->input->post('phoneNumber'),
-                'postalCode' => $this->input->post('postalCode'),
-                'street'  => $this->input->post('street'),
-                'password' => $this->input->post('password'),
-                'city' => $this->input->post('city'),
+                'firstName'  => htmlspecialchars($this->input->post('firstName')),
+                'lastName'  => htmlspecialchars($this->input->post('lastName')),
+                'email' => htmlspecialchars($this->input->post('email')),
+                'yearBirth' => htmlspecialchars($this->input->post('yearBirth')),
+                'phoneNumber' => htmlspecialchars($this->input->post('phoneNumber')),
+                'postalCode' => htmlspecialchars($this->input->post('postalCode')),
+                'street'  => htmlspecialchars($this->input->post('street')),
+                'password' => $pwd,
+                'city' => htmlspecialchars($this->input->post('city')),
             );
         $result=$this->db->insert('shopper',$data);
         return $result;
@@ -46,6 +45,35 @@ class Shopper_model extends CI_Model
           if (isset($user))
               return $user;
           return false;
+      }
+
+      public function _getUser_id($mail) {
+          $user = $this->db->select('IdUser')->get_where($this->_table, array('email' => $mail))->row();
+          if (isset($user))
+              return $user;
+          return false;
+      }
+
+      public function update_shopper_user($id){
+        $pwdCrypt= $this->encrypt->encode(htmlspecialchars($_POST['newpass']));
+        $data = array(
+                'firstName'  => htmlspecialchars($_POST['firstName']),
+                'lastName'  => htmlspecialchars($_POST['lastName']),
+                'email' => htmlspecialchars($_POST['email']),
+                'yearBirth' => htmlspecialchars($_POST['yearBirth']),
+                'phoneNumber' => htmlspecialchars($_POST['phoneNumber']),
+                'postalCode' => htmlspecialchars($_POST['postalCode']),
+                'street'  => htmlspecialchars($_POST['street']),
+                'password' => $pwdCrypt,
+                'city' => htmlspecialchars($_POST['city']),
+            );
+
+            $this->db->where('idUser', $id);
+            $result=$this->db->update('shopper',$data);
+            if(isset($result)){
+              return $result;
+            }
+            return false;
       }
 
 }

@@ -16,9 +16,9 @@ class Connexion extends ADMINISTRATOR_Controller {
     }
 
 
-    public function encrypter(){
-        $mdp = $this->encrypt->encode("azer");
-        die($mdp);
+    public function encrypt($password){
+        $passwordCrypt = $this->encrypt->encode($password);
+        return($passwordCrypt);
     }
 
     public function deconnecter(){

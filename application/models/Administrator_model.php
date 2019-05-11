@@ -30,4 +30,26 @@ class Administrator_model extends CI_Model {
         return false;
     }
 
+    public function update_admin_user($id){
+      $pwdCrypt= $this->encrypt->encode($this->input->post('password'));
+      $data = array(
+              'firstName'  => $this->input->post('firstName'),
+              'lastName'  => $this->input->post('lastName'),
+              'email' => $this->input->post('email'),
+              'yearBirth' => $this->input->post('yearBirth'),
+              'phoneNumber' => $this->input->post('phoneNumber'),
+              'postalCode' => $this->input->post('postalCode'),
+              'street'  => $this->input->post('street'),
+              'password' => $this->pwdCrypt,
+              'city' => $this->input->post('city'),
+          );
+
+          $this->db->where('idUser', $id);
+          $result=$this->db->update('admin',$data);
+          if(isset($result)){
+            return $result;
+          }
+          return false;
+    }
+
 }

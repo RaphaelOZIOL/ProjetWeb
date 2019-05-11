@@ -8,73 +8,71 @@
 			        <div class="card-body">
 			            <div class="row">
 			                <div class="col-md-12">
-			                    <h4>Profil</h4>
+			                    <h4>Profil - Vos Informations personnelles</h4>
 			                    <hr>
 			                </div>
 			            </div>
 			            <div class="row">
 			                <div class="col-md-12">
-			                    <form>
+			                    <form action="<?php echo site_url("profile/update_info")?>" method="POST">
 	                              <div class="form-group row">
-	                                <label for="username" class="col-4 col-form-label">Prénom</label>
+	                                <label for="firstName" class="col-4 col-form-label">Prénom</label>
 	                                <div class="col-8">
-	                                  <input id="username" name="username" placeholder="Username" class="form-control here" required="required" type="text">
+	                                  <input id="firstName" name="firstName" value="<?php echo ($profile_info->firstName)?>" class="form-control here" required="required" type="text">
 	                                </div>
 	                              </div>
 	                              <div class="form-group row">
-	                                <label for="name" class="col-4 col-form-label">Nom</label>
+	                                <label for="lastName" class="col-4 col-form-label">Nom</label>
 	                                <div class="col-8">
-	                                  <input id="name" name="name" placeholder="First Name" class="form-control here" type="text">
+	                                  <input id="lastName" name="lastName" value="<?php echo ($profile_info->lastName)?>" class="form-control here" type="text">
 	                                </div>
 	                              </div>
 	                              <div class="form-group row">
-	                                <label for="lastname" class="col-4 col-form-label">Email</label>
+	                                <label for="email" class="col-4 col-form-label">Email</label>
 	                                <div class="col-8">
-	                                  <input id="lastname" name="lastname" placeholder="Last Name" class="form-control here" type="text">
+	                                  <input id="email" name="email" value="<?php echo ($profile_info->email)?>" class="form-control here" type="text">
 	                                </div>
 	                              </div>
 	                              <div class="form-group row">
-	                                <label for="text" class="col-4 col-form-label">Numéro de téléphone</label>
+	                                <label for="phoneNumber" class="col-4 col-form-label">Numéro de téléphone</label>
 	                                <div class="col-8">
-	                                  <input id="text" name="text" placeholder="Nick Name" class="form-control here" required="required" type="text">
+	                                  <input id="phoneNumber" name="phoneNumber" value="<?php echo ($profile_info->phoneNumber)?>" class="form-control here" required="required" type="text">
 	                                </div>
 	                              </div>
 	                              <div class="form-group row">
-	                                <label for="select" class="col-4 col-form-label">Date de naissance</label>
+	                                <label for="yearBirth" class="col-4 col-form-label">Date de naissance</label>
 	                                <div class="col-8">
-	                                  <select id="select" name="select" class="custom-select">
-	                                    <option value="admin">Admin</option>
-	                                  </select>
+																		<input id="yearBirth" name="yearBirth" type="date" value="<?php echo ($profile_info->yearBirth)?>" class="form-control here" required="required" >
 	                                </div>
 	                              </div>
 	                              <div class="form-group row">
-	                                <label for="email" class="col-4 col-form-label">Adresse</label>
+	                                <label for="street" class="col-4 col-form-label">Adresse</label>
 	                                <div class="col-8">
-	                                  <input id="email" name="email" placeholder="Email" class="form-control here" required="required" type="text">
+	                                  <input id="street" name="street" value="<?php echo ($profile_info->street)?>" class="form-control here" required="required" type="text">
 	                                </div>
 	                              </div>
 	                              <div class="form-group row">
-	                                <label for="website" class="col-4 col-form-label">Ville</label>
+	                                <label for="city" class="col-4 col-form-label">Ville</label>
 	                                <div class="col-8">
-	                                  <input id="website" name="website" placeholder="website" class="form-control here" type="text">
+	                                  <input id="city" name="city" value="<?php echo ($profile_info->city)?>" class="form-control here" type="text">
 	                                </div>
 	                              </div>
 	                              <div class="form-group row">
-	                                <label for="publicinfo" class="col-4 col-form-label">Code postal</label>
+	                                <label for="postalCode" class="col-4 col-form-label">Code postal</label>
 	                                <div class="col-8">
-	                                  <textarea id="publicinfo" name="publicinfo" cols="40" rows="4" class="form-control"></textarea>
+																		<input id="postalCode" name="postalCode" value="<?php echo ($profile_info->postalCode)?>" class="form-control here" type="text">
 	                                </div>
 	                              </div>
 	                              <div class="form-group row">
-	                                <label for="newpass" class="col-4 col-form-label">Nouveau mot de passe</label>
+	                                <label for="password" class="col-4 col-form-label">Nouveau mot de passe</label>
 	                                <div class="col-8">
-	                                  <input id="newpass" name="newpass" placeholder="New Password" class="form-control here" type="text">
+	                                  <input id="password" placeholder="Nouveau mot de passe" class="form-control here" type="password">
 	                                </div>
 	                              </div>
 																<div class="form-group row">
-	                                <label for="newpass" class="col-4 col-form-label">Confirmation mot de passe</label>
+	                                <label for="confirmPassword" class="col-4 col-form-label">Confirmation mot de passe</label>
 	                                <div class="col-8">
-	                                  <input id="newpass" name="newpass" placeholder="New Password" class="form-control here" type="text">
+	                                  <input id="confirmPassword" name="newpass" placeholder="Confirmer mot de passe" class="form-control here" type="password">
 	                                </div>
 	                              </div>
 	                              <div class="form-group row">

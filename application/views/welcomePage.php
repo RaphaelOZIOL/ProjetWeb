@@ -142,6 +142,7 @@ var url_product_id='http://localhost/LamiDuPain/productAJAX/afficher_idProd';
 var url_product_info='http://localhost/LamiDuPain/productAJAX/product_info/';
 var url_registration='http://localhost/LamiDuPain/register/registration';
 var url_category='http://localhost/LamiDuPain/category/list_category';
+var url_profile='http://localhost/LamiDuPain/profile';
 
 
 function display_button_connected(data){
@@ -151,7 +152,8 @@ function display_button_connected(data){
       '<li><a class=nav-link href="' + url_connection + '"><span class="glyphicon glyphicon-log-in"></span>Se connecter</a></li>';
     }
     else if(data[1]==1){
-      htmlConnection+='<li><a class=nav-link href=' + url_deconnnection + '><span class="glyphicon glyphicon-user"></span>Se Déconnecter</a></li>';
+      htmlConnection+='<li><a class=nav-link href=' + url_profile + '><span class="glyphicon glyphicon-user"></span>Profil</a></li>'+
+      '<li><a class=nav-link href=' + url_deconnnection + '><span class="glyphicon glyphicon-user"></span>Se Déconnecter</a></li>';
     }
     $('#nav_bar_connection').html(htmlConnection);
 }
