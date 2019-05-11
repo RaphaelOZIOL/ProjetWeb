@@ -2,10 +2,12 @@
 
 class Administrator_model extends CI_Model {
 
-    private $_table = "user";
+    private $_table = "admin";
 
     function __construct() {
         $this->load->library('encrypt');
+        $this->load->database();
+
     }
 
     public function validate($mail, $password) {
@@ -20,4 +22,12 @@ class Administrator_model extends CI_Model {
             return $this->encrypt->decode($user->password);
         return false;
     }
+
+    public function _getUser_info($mail) {
+        $user = $this->db->select('*')->get_where($this->_table, array('email' => $mail))->row();
+        if (isset($user))
+            return $user;
+        return false;
+    }
+
 }

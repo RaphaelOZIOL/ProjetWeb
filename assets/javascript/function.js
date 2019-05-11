@@ -1,138 +1,4 @@
-<body>
 
-<!-- WELCOME PAGE -->
-  <?php if($isAdmin==0){ ?>
-  <div class="container full-height text-center my-auto" id="welcome">
-      <h1 class="mb-1">L'Amie du Pain</h1>
-      <h3 class="mb-5">
-        <em>Bienvenue sur le site de l'Ami du Pain</em>
-      </h3>
-      <a class="btn btn-primary btn-xl js-scroll-trigger" onclick="loadListProduct()">Liste des produits</a>
-      <a class="btn btn-primary btn-xl js-scroll-trigger" href="<?php echo site_url("connexion")?>">Se connecter</a>
-    </div>
-  <?php } else {?>
-    <div class="container full-height text-center my-auto" id="welcome">
-    </div>
-  <?php }?>
-
-<!-- List Product -->
-  <div class="container" id="list_product">
-  </div>
-<!--  -->
-
-<!-- Selected Product -->
-  <div class="container" id="selected_product">
-  </div>
-<!--  -->
-
-<!-- Registration page -->
-  <div class="container" id="registration_user">
-    <div class="col-md-1 mb-5 mt-5">
-      <h1 class="display-3">Inscription</h1>
-    </div>
-    <form id="form_registration" class="needs-validation" novalidate method="post">
-      <div class="form-row">
-        <div class="col-md-4 mb-3">
-          <label for="firstName">Prénom</label>
-          <input type="text" class="form-control" id="firstName" placeholder="Prénom" required>
-          <div class="valid-feedback">
-            Correct !
-          </div>
-        </div>
-        <div class="col-md-4 mb-3">
-          <label for="lastName">Nom</label>
-          <input type="text" class="form-control" id="lastName" placeholder="Nom" required>
-          <div class="valid-feedback">
-            Correct !
-          </div>
-        </div>
-        <div class="col-md-4 mb-3">
-          <label for="email">Email</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroupPrepend">@</span>
-            </div>
-            <input type="text" class="form-control" id="email" placeholder="email" aria-describedby="inputGroupPrepend" required>
-            <div class="invalid-feedback">
-              Veuillez rentrer une bonne adresse email.
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="col-md-3 mb-3">
-          <label for="phoneNumber">Numéro de téléphone</label>
-          <input type="text" class="form-control" id="phoneNumber" placeholder="téléphone" required>
-          <div class="invalid-feedback">
-            Veuillez rentrer un bon numéro de téléphone.
-          </div>
-        </div>
-        <div class="col-md-3 mb-3">
-          <label for="yearBirth">Date de Naissance</label>
-          <input type="date" class="form-control" id="yearBirth" required>
-          <div class="invalid-feedback">
-            Veuillez rentrer une bonne date de naissance.
-          </div>
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="col-md-3 mb-3">
-          <label for="password">Mot de passe</label>
-          <input type="text" class="form-control" id="password" placeholder="Mot de passe" required>
-          <div class="invalid-feedback">
-            Veuillez rentrer un mot de passe correct.
-          </div>
-        </div>
-        <div class="col-md-3 mb-3">
-          <label for="passwordConfirm">Confirmation mot de passe</label>
-          <input type="text" class="form-control" id="passwordConfirm" required>
-          <div class="invalid-feedback">
-            Veuillez rentrer un mot de passe correct.
-          </div>
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="col-md-6 mb-3">
-          <label for="street">Adresse</label>
-          <input type="text" class="form-control" id="street" placeholder="numéro + rue" required>
-          <div class="invalid-feedback">
-            Veuillez rentrer une adresse valide.
-          </div>
-        </div>
-        <div class="col-md-3 mb-3">
-          <label for="city">Ville</label>
-          <input type="text" class="form-control" id="city" placeholder="Ville" required>
-          <div class="invalid-feedback">
-            Veuillez rentrer une ville valide
-          </div>
-        </div>
-        <div class="col-md-3 mb-3">
-          <label for="postalCode">Code Postal</label>
-          <input type="text" class="form-control" id="postalCode" placeholder="Code Postal" required>
-          <div class="invalid-feedback">
-            Veuillez rentrer un code postal valide.
-          </div>
-        </div>
-      </div>
-      <div class="d-flex">
-        <button class="btn btn-primary ml-auto p-2" onclick=form_validation type="submit" id="button_save">Envoyer</button>
-      </div>
-
-    </form>
-  </div>
-<!--  -->
-
-<!-- Category page -->
-  <div class="container" id="list_category">
-  </div>
-<!-- -->
-
-
-
-<script>
 
 // CHANGE WHEN DEPLOYING ON SERVER
 var url_connection='http://localhost/LamiDuPain/connexion';
@@ -162,8 +28,6 @@ function display_button_connected(data){
         document.getElementById('list_product').style.display="block";
         document.getElementById('selected_product').style.display="none";
         document.getElementById('registration_user').style.display="none";
-        document.getElementById('list_category').style.display="none";
-
 
           $.ajax({
               type  : 'GET',
@@ -233,7 +97,7 @@ function display_button_connected(data){
               document.getElementById('list_product').style.display="none";
               document.getElementById('selected_product').style.display="block";
               document.getElementById('registration_user').style.display="none";
-              document.getElementById('list_category').style.display="none";
+
 
               var idProd= e.getAttribute('id');
 
@@ -278,13 +142,7 @@ function display_button_connected(data){
               });
         }
 
-    function loadListCategory(){
-      document.getElementById('welcome').style.display="none";
-      document.getElementById('list_product').style.display="none";
-      document.getElementById('selected_product').style.display="none";
-      document.getElementById('registration_user').style.display="none";
-      document.getElementById('list_category').style.display="block";
-
+    function loadCategory(){
         $.ajax({
             type  : 'GET',
             url   : url_category,
@@ -295,23 +153,28 @@ function display_button_connected(data){
                 var i;
                 for(i=0; i<data[0].length; i++){
 
-                      if(i%3==0){
-                        htmlCat += '<div class="card-deck container-fluid justify-content-center">';
+                      if(i%4==0){
+                        htmlCat += '<div class="row">';
                       }
-                        htmlCat+=
-                                  '<div class="card bg-dark text-white col-md-4">'+
-                                  '<img class="card-img" src="' + data[0][i].imgSrc + '" alt="Card image">'+
-                                  '<div class="card-img-overlay text-center">'+
-                                    '<h1 class="card-title display-5 my-auto text-dark text-uppercase">' + data[0][i].nameCat + '</h5>'+
-                                  '</div>'+
-                                '</div>';
-                      if(i%3==2){
+                        htmlCat+='<div class="card-deck">'+
+                    							'<div class="card">'+
+                    								'<img class="card-img-top col-md-4" src="..." alt="Card image cap">'+
+                    								'<div class="card-body">'+
+                    									'<h5 class="card-title">' + data[0][i].nameCat + '</h5>'+
+                    									'<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>'+
+                    									'<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>'+
+                    								'</div>'+
+                    							'</div>';
+                      if(i%4==3){
                         htmlCat += '</div>';
                       }
                     }
-                $('#list_category').html(htmlCat);
+                $('#nav_category').html(htmlCat);
+
                 display_button_connected(data);
+
             }
+
         });
     }
 
@@ -323,8 +186,6 @@ function display_button_connected(data){
           document.getElementById('list_product').style.display="none";
           document.getElementById('selected_product').style.display="none";
           document.getElementById('registration_user').style.display="block";
-          document.getElementById('list_category').style.display="none";
-
 
 
           $('#form_registration').submit(function(){
@@ -374,8 +235,3 @@ function display_button_connected(data){
             });
           }, false);
         }
-</script>
-
-
-</body>
-</html>

@@ -26,6 +26,12 @@ class Product extends ADMINISTRATOR_Controller
     $this->load->view('welcomePage',$data);
 	}
 
+  public function test()
+  {
+    $this->load->view('test');
+
+  }
+
 
 /* ---------- Functions AJAX -----------*/
 /*

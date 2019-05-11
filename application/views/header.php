@@ -7,6 +7,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
     <link rel="stylesheet" type="text/css" href="<?php echo site_url();?>assets/css/welcome.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -23,14 +24,9 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent15">
 
         <ul class="nav navbar-nav" id="nav_bar_booking">
-          <li><a class="nav-link border-right mr-2" onclick="loadListProduct()">Liste des Produits<span class="sr-only">(current)</span></a></li>
-          <li class="dropdown"><a class="dropdown-toggle nav-link border-right mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownMenu2" href="#">Catégories</a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item" href="#">Viennoiserie</a>
-              <a class="dropdown-item" href="#">Salés</a>
-              <a class="dropdown-item" href="#">Pain</a>
-            </div>
-          </li>
+          <li><a class="nav-link border-right mr-2" onclick="loadListProduct()">Liste des Produits</a></li>
+          <li><a class="nav-link border-right mr-2" onclick="loadListCategory()">Catégories</a></li>
+
           <?php if($isAdmin==1){ ?>
             <li><a class="nav-link border-right mr-2" href="">Vos réservations</a></li>
           <?php } ?>
@@ -45,7 +41,7 @@
           <?php }
           if($isAdmin==1){
           ?>
-
+          <li><a class=nav-link href="<?php echo site_url("profile")?>"><span class="glyphicon glyphicon-user"></span>Profil</a></li>
           <li><a class=nav-link href="<?php echo site_url("connexion/deconnecter")?>"><span class="glyphicon glyphicon-user"></span>Se Déconnecter</a></li>
 
           <?php } ?>

@@ -1,10 +1,10 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Product_model extends CI_Model
+class Category_model extends CI_Model
 {
   protected $table = 'category';
 
-	public function get_list_categorie()
+	public function get_list_category()
 	{
     return $this->db->select('*')
 				->from($this->table)
@@ -32,7 +32,7 @@ class Product_model extends CI_Model
 		}
   }
 
-  public function countProduct($where = array())
+  public function countCategory($where = array())
 	{
 		return (int) $this->db->where($where)
 				      ->count_all_results($this->table);

@@ -6,7 +6,7 @@ class Register extends CI_Controller
   public function __construct()
 	{
 		parent::__construct();
-    $this->load->model('register_model');
+    $this->load->model('shopper_model');
 	}
 
   public function index()
@@ -22,7 +22,7 @@ class Register extends CI_Controller
 
 /* ---------- Functions AJAX -----------*/
   public function registration(){
-        $data= $this->register_model->user_register();
+        $data= $this->shopper_model->user_register();
         echo json_encode($data,JSON_UNESCAPED_SLASHES);
   }
 
