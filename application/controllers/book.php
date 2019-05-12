@@ -12,6 +12,18 @@ class Book extends ADMINISTRATOR_Controller
     $this->load->model('book_model');
 	}
 
+public function index(){
+  $data['isAdmin']=parent::get_is_Admin();
+  if($data['isAdmin']==1){
+    $this->list_book();
+  }
+  else if($data['isAdmin']==2){
+    $this->list_book_all_admin();
+  }
+  else{
+    redirect(site_url("connexion"));
+  }
+}
 
 public function book_product(){
       if(!isset($_POST['idProd'])){
@@ -51,18 +63,17 @@ public function book_product(){
   }
 
   public function list_book_all_admin(){
+    $data1['isAdmin']=parent::get_is_Admin();
     $mail = $this->encrypt->decode(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name()));
-    if($mail==null){
+    if($mail==null && $data1['isAdmin']!=2){
       redirect(site_url("connexion"));
     }
     else{
-      $data['list_book']= $this->book_model->get_book_user($idUser);
+      $data['list_book']= $this->book_model->get_book_all_user();
 
-      $data1['isAdmin']=parent::get_is_Admin();
-
+// A CHANGER HEADER
       $this->load->view("header",$data1);
-
-      $this->load->view("list_book",$data);
+      $this->load->view("list_book_admin",$data);
     }
   }
 

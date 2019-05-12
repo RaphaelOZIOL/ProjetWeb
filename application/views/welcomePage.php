@@ -152,7 +152,7 @@ function display_button_connected(data){
       htmlConnection += '<li><a class=nav-link onclick=makeRegistration()><span class="glyphicon glyphicon-user"></span>S\'inscrire</a></li>'+
       '<li><a class=nav-link href="' + url_connection + '"><span class="glyphicon glyphicon-log-in"></span>Se connecter</a></li>';
     }
-    else if(data[1]==1){
+    else if(data[1]==1 || data[1]==2){
       htmlConnection+='<li><a class=nav-link href=' + url_profile + '><span class="glyphicon glyphicon-user"></span>Profil</a></li>'+
       '<li><a class=nav-link href=' + url_deconnnection + '><span class="glyphicon glyphicon-user"></span>Se Déconnecter</a></li>';
     }
@@ -187,7 +187,7 @@ function display_button_connected(data){
                                       '<div class="card-block">'+
                                           '<h5 class="card-title" onclick=loadProduct(this) id="' + data[0][i].IdProd +'">'+ data[0][i].nameProd +' - ' + data[0][i].price + ' € </h5>'+
                                         '<p class="card-text">' + data[0][i].compoProd + '</p>'+
-                                        '<p class="card-text">' + data[0][i].quantity + ' pièces</p>'+
+                                        '<p class="card-text">' + data[0][i].quantityStock + ' pièces</p>'+
                                       '</div>'+
                                     '</div>'+
                                   '</div>';

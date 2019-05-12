@@ -36,7 +36,7 @@ class Book_model extends CI_Model
     return $query;
 	}
 
-  public function get_all_book_user()
+  public function get_book_all_user()
 	{
     $this->db->select('*');
     $this->db->from($this->_table);

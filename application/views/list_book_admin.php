@@ -5,9 +5,11 @@
     <tr>
       <th class="th-sm">Réserver pour le
       </th>
+      <th class="th-sm">Client
+      </th>
       <th class="th-sm">Produit
       </th>
-      <th class="th-sm">Précision sur la commande
+      <th class="th-sm">Précisions de la commande
       </th>
       <th class="th-sm">Quantité
       </th>
@@ -22,6 +24,8 @@
     ?>
     <tr>
       <td><?php echo $list_book[$i]->date; ?></td>
+      <td><?php echo ($list_book[$i]->firstName." ".$list_book[$i]->lastName); ?></td>
+
       <td><?php echo $list_book[$i]->nameProd; ?></td>
       <td><?php echo $list_book[$i]->comment; ?></td>
       <td><?php echo ($list_book[$i]->quantity." pièces"); ?></td>
