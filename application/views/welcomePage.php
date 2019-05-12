@@ -143,6 +143,7 @@ var url_product_info='http://localhost/LamiDuPain/productAJAX/product_info/';
 var url_registration='http://localhost/LamiDuPain/register/registration';
 var url_category='http://localhost/LamiDuPain/category/list_category';
 var url_profile='http://localhost/LamiDuPain/profile';
+var url_book_product='http://localhost/LamiDuPain/book/book_product';
 
 
 function display_button_connected(data){
@@ -257,20 +258,80 @@ function display_button_connected(data){
                       dataType : 'json',
                       success : function(data){
                           var html = '';
-                          html +='<div class="row no-gutters">'+
-                                    '<div class="col-6 col-md-4">'+
-                                      '<img src="assets/images/painChocolat.jpg" class="rounded float-left" alt="Pain au chocolat">'+
+                          html+= '<div class="container">'+
+                                    '<div class="col-md-4">'+
+                                      '<img src="' + data[0].srcImg + '" class="rounded float-left" alt="Pain au chocolat">'+
                                     '</div>'+
-                                    '<div class="col-12 col-sm-6 col-md-8">'+
-                                      '<p class="font-weight-bold">'+ data[0].nameProd +'</p>'+
-                                      '<p class="font-weight-normal">'+ data[0].IdProd +'</p>'+
-                                      '<p class="font-weight-normal">'+ data[0].price +'</p>'+
-                                      '<p class="font-weight-normal">'+ data[0].quantity +'</p>'+
+                          '</div>'+
+                          '<div class="container">'+
+                                    '<div class="col-md-8">'+
+                                      '<h3 class="font-weight-bold display-4" id="nameProd">'+ data[0].nameProd +'</p>'+
+                                    '</div>'+
+                                    '<div class="row">'+
+                                      '<div class="col-md-4">'+
+                                        '<p class="font-weight-normal">Prix : '+ data[0].price +' euros</p>'+
+                                      '</div>'+
+                                      '<div class="col-md-8">'+
+                                        '<p class="font-weight-normal">Quantité en stock : '+ data[0].quantityStock +' pièces</p>'+
+                                      '</div>'+
+                                    '</div>'+
+                                    '<div class="row">'+
+                                      '<div class="col-md-8 alert alert-warning" role="alert">'+
+                                        '<p class="font-weight-normal">Attention vous devrez régler votre commande en caisse en arrivant ! Le cas échéant votre commande ne vous sera pas remise.</p>'+
+                                      '</div>'+
+                                    '</div>'+
+                                    '<div class="row">'+
+                                      '<div class="col-md-8">'+
+                                        '<p class="font-weight-normal">Composition : '+ data[0].compoProd +'</p>'+
+                                      '</div>'+
+                                    '</div>'+
 
-                                      '<button onclick=loadListProduct()>Retour liste produit</button>'
+
+                                      '<form id="form_book_product" action="' + url_book_product +'" class="needs-validation" method="post">'+
+                                        '<div class="row">'+
+                                            '<div class="form-group row">'+
+                                              '<label for="quantityProduct" class="col-md-6 ">Quantité à réserver :</label>'+
+                                              '<div class="col-md-3">'+
+                                                '<input id="quantityProduct" name="quantityProduct" value="" class="form-control here" required="required" type="number">'+
+                                              '</div>'+
+                                            '</div>'+
+                                            '<div class="form-group row">'+
+                                              '<label for="date" class="col-md-3 col-form-label">Date :</label>'+
+                                              '<div class="col-md-8">'+
+                                                '<input id="date" name="date" value="" class="form-control here" type="datetime-local">'+
+                                              '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                        '<div class="row">'+
+                                          '<div class="md-form amber-textarea active-amber-textarea col-md-12">'+
+                                            '<i class="fas fa-pencil-alt prefix"></i>'+
+                                            '<label for="comment">Précisions pour la réservation :</label>'+
+                                            '<textarea id="comment" name="comment" placeholder="Cuisson du pain , viennoiseries, etc..." class="md-textarea form-control here" rows="3"></textarea>'+
+                                          '</div>'+
+                                        '</div>'+
+                                        '<div class="row" hidden>'+
+                                            '<label for="idProd" col-form-label"></label>'+
+                                            '<div class="col-md-8">'+
+                                              '<input id="idProd" name="idProd" value='+ data[0].IdProd + ' type="number">'+
+                                            '</div>'+
+                                        '</div>'+
+
+                                        '<div class="row">'+
+                                            '<div class="form-group row">'+
+                                              '<button class="btn btn-primary" onclick=form_validation type="submit" id="button_save">Réserver</button>'+
+                                            '</div>'+
+                                        '</div>'+
+                                      '</form>'+
+
+
+
+
+
+                                      '<button onclick=loadListProduct()>Retour liste produit</button>'+
+                                      '<p hidden value="' + data[0].IdProd + '" id="idProdBook"></p>'
                                       // INSERT QUANTITY TO BOOK AFTER
                                     '</div>'+
-                                    '</div>';
+                          '</div>';
 
                           $('#selected_product').html(html);
                       }
@@ -317,6 +378,33 @@ function display_button_connected(data){
         });
     }
 
+
+
+  /*  $('#form_book_product').submit(function(){
+                var quantity = $('#quantityProduct').val();
+                var date = $('#date').val();
+                var comment = $('#comment').val();
+                var IdProd= $('#idProdBook').val();
+
+                $.ajax({
+                    type : "POST",
+                    url  : url_book_product,
+                    dataType : "JSON",
+                    data : {quantity:quantity,
+                      date:date,
+                      comment:comment,
+                      IdProd:IdProd},
+                    success: function(msg){
+                      alert(msg)
+                        //loadListProduct();
+                    },
+                    error: function(s){
+                        alert("ca bug");
+                    }
+                });
+                return false;
+            });
+*/
 
 
         //function registration user

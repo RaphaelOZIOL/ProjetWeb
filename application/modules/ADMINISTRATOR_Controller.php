@@ -41,13 +41,43 @@ class ADMINISTRATOR_Controller extends CI_Controller {
             /* ADMIN MODE*/
             if ($this->administrator_model->validate($this->input->post('identifiant'), $this->input->post('password')))
             {
-                $this->set_cookie_admin();
+              $cookies_identifiant_admin = $this->_cookie_admin;
+              $cookies_identifiant_admin['name'] = $this->_cookie_id_admin_name;
+              $cookies_identifiant_admin['value'] = $this->encrypt->encode($this->input->post('identifiant'));
+              // $cookies_identifiant['domain'] = "";
+              $cookies_identifiant_admin['prefix'] = $this->config->item('cookie_prefix');
+              set_cookie($cookies_identifiant_admin);
+
+              $cookies_password_admin = $this->_cookie_admin;
+              $cookies_password_admin['name'] = $this->_cookie_id_admin_password;
+              $cookies_password_admin['value'] = $this->encrypt->encode($this->input->post('password'));
+              // $cookies_identifiant['domain'] = "";
+              $cookies_password_admin['prefix'] = $this->config->item('cookie_prefix');
+              set_cookie($cookies_password_admin);
+
+              $this->is_Admin=2;
+              redirect(site_url("product"));
             }
 
                                     /*SHOPPER MODE*/
             else if ($this->shopper_model->validate($this->input->post('identifiant'), $this->input->post('password')))
             {
-                $this->set_cookie_shopper();
+              $cookies_identifiant_shopper = $this->_cookie_shopper;
+              $cookies_identifiant_shopper['name'] = $this->_cookie_id_shopper_name;
+              $cookies_identifiant_shopper['value'] = $this->encrypt->encode($this->input->post('identifiant'));
+              // $cookies_identifiant['domain'] = "";
+              $cookies_identifiant_shopper['prefix'] = $this->config->item('cookie_prefix');
+              set_cookie($cookies_identifiant_shopper);
+
+              $cookies_password_shopper = $this->_cookie_shopper;
+              $cookies_password_shopper['name'] = $this->_cookie_id_shopper_password;
+              $cookies_password_shopper['value'] = $this->encrypt->encode($this->input->post('password'));
+              // $cookies_identifiant['domain'] = "";
+              $cookies_password_shopper['prefix'] = $this->config->item('cookie_prefix');
+              set_cookie($cookies_password_shopper);
+
+              $this->is_Admin=1;
+              redirect(site_url("product"));
             }
             /*Not connected*/
             else
@@ -98,43 +128,6 @@ class ADMINISTRATOR_Controller extends CI_Controller {
 
     }
 
-    public function set_cookie_admin(){
-          $cookies_identifiant_admin = $this->_cookie_admin;
-          $cookies_identifiant_admin['name'] = $this->_cookie_id_admin_name;
-          $cookies_identifiant_admin['value'] = $this->encrypt->encode($this->input->post('identifiant'));
-          // $cookies_identifiant['domain'] = "";
-          $cookies_identifiant_admin['prefix'] = $this->config->item('cookie_prefix');
-          set_cookie($cookies_identifiant_admin);
-
-          $cookies_password_admin = $this->_cookie_admin;
-          $cookies_password_admin['name'] = $this->_cookie_id_admin_password;
-          $cookies_password_admin['value'] = $this->encrypt->encode($this->input->post('password'));
-          // $cookies_identifiant['domain'] = "";
-          $cookies_password_admin['prefix'] = $this->config->item('cookie_prefix');
-          set_cookie($cookies_password_admin);
-
-          $this->is_Admin=2;
-          redirect(site_url("product"));
-    }
-
-    public function set_cookie_shopper(){
-          $cookies_identifiant_shopper = $this->_cookie_shopper;
-          $cookies_identifiant_shopper['name'] = $this->_cookie_id_shopper_name;
-          $cookies_identifiant_shopper['value'] = $this->encrypt->encode($this->input->post('identifiant'));
-          // $cookies_identifiant['domain'] = "";
-          $cookies_identifiant_shopper['prefix'] = $this->config->item('cookie_prefix');
-          set_cookie($cookies_identifiant_shopper);
-
-          $cookies_password_shopper = $this->_cookie_shopper;
-          $cookies_password_shopper['name'] = $this->_cookie_id_shopper_password;
-          $cookies_password_shopper['value'] = $this->encrypt->encode($this->input->post('password'));
-          // $cookies_identifiant['domain'] = "";
-          $cookies_password_shopper['prefix'] = $this->config->item('cookie_prefix');
-          set_cookie($cookies_password_shopper);
-
-          $this->is_Admin=1;
-          redirect(site_url("product"));
-    }
 
     public function delete_cookie_shopper(){
       delete_cookie("743RUT7TF0DLZ0EODKC8CJ294FEDJ34JXWZ");

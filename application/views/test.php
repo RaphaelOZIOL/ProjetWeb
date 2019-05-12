@@ -27,7 +27,7 @@
           </div>
 
 
-            <form action="" method="POST">
+            <form action="<?php echo site_url('book/book_product')?>" method="POST">
               <div class="row">
                   <div class="form-group row">
                     <label for="quantityProduct" class="col-md-6 ">Quantité à réserver :</label>
@@ -57,7 +57,7 @@
               </div>
             </form>
 
-              <
+
 
 
 

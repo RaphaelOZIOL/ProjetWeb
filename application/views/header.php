@@ -29,7 +29,10 @@
           <li><a class="nav-link border-right mr-2" onclick="loadListCategory()">Catégories</a></li>
 
           <?php if($isAdmin==1){ ?>
-            <li><a class="nav-link border-right mr-2" href="">Vos réservations</a></li>
+            <li><a class="nav-link border-right mr-2" href="<?php echo site_url("book/list_book")?>">Vos réservations</a></li>
+          <?php } ?>
+          <?php if($isAdmin==2){ ?>
+            <li><a class="nav-link border-right mr-2" href="<?php echo site_url("book/list_book_all_admin")?>">Réservations des clients</a></li>
           <?php } ?>
         </ul>
 
@@ -40,7 +43,7 @@
             <li><a class=nav-link onclick=makeRegistration()><span class="glyphicon glyphicon-user"></span>S'inscrire</a></li>
             <li><a class=nav-link href="<?php echo site_url("connexion")?>"><span class="glyphicon glyphicon-log-in"></span>Se connecter</a></li>
           <?php }
-          if($isAdmin==1){
+          if($isAdmin==1 || $isAdmin==2){
           ?>
           <li><a class=nav-link href="<?php echo site_url("profile")?>"><span class="glyphicon glyphicon-user"></span>Profil</a></li>
           <li><a class=nav-link href="<?php echo site_url("connexion/deconnecter")?>"><span class="glyphicon glyphicon-user"></span>Se Déconnecter</a></li>

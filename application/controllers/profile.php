@@ -76,7 +76,7 @@ class Profile extends ADMINISTRATOR_Controller
           $result = $this->admin_model->update_admin_user();
           if($result != FALSE){
                parent::delete_cookie_admin();
-               parent::set_cookie_admin();
+              // parent::set_cookie_admin();
           }
 
           $data['profile_info']= $this->admin_model->_getUser_info($result->email);

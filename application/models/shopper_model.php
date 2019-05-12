@@ -21,7 +21,7 @@ class Shopper_model extends CI_Model
                 'postalCode' => htmlspecialchars($this->input->post('postalCode')),
                 'street'  => htmlspecialchars($this->input->post('street')),
                 'password' => $pwd,
-                'city' => htmlspecialchars($this->input->post('city')),
+                'city' => htmlspecialchars($this->input->post('city'))
             );
         $result=$this->db->insert('shopper',$data);
         return $result;
