@@ -31,6 +31,11 @@ class Product extends ADMINISTRATOR_Controller
     $this->load->view('test');
 
   }
+  public function test1()
+  {
+    $this->load->view('test1');
+
+  }
 
 
 /* ---------- Functions AJAX -----------*/

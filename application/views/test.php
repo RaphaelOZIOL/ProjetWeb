@@ -5,19 +5,19 @@
 </div>
 <div class="container">
           <div class="col-md-8">
-            <p class="font-weight-bold">Produit</p>
+            <h3 class="font-weight-bold display-4">Produit</p>
           </div>
           <div class="row">
             <div class="col-md-4">
-              <p class="font-weight-normal">1,20 euros</p>
+              <p class="font-weight-normal">Prix : 1,20 euros</p>
             </div>
-            <div class="col-md-4">
-              <p class="font-weight-normal">130 pièces</p>
-            </div>
-          </div>
-          <div class="row">
             <div class="col-md-8">
-              <p class="font-weight-normal">Attention vous devrez régler votre commande en caisse en arrivant</p>
+              <p class="font-weight-normal">Quantité en stock : 130 pièces</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-8 alert alert-warning" role="alert">
+              <p class="font-weight-normal">Attention vous devrez régler votre commande en caisse en arrivant ! Le cas échéant votre commande ne vous sera pas remise.</p>
             </div>
           </div>
           <div class="row">
@@ -36,8 +36,8 @@
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label for="date" class="col-md-4 col-form-label">Date :</label>
-                    <div class="col-md-6">
+                    <label for="date" class="col-md-3 col-form-label">Date :</label>
+                    <div class="col-md-8">
                       <input id="date" name="date" value="" class="form-control here" type="date">
                     </div>
                   </div>
