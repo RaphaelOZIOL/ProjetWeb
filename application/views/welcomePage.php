@@ -287,7 +287,7 @@ function display_button_connected(data){
                                     '</div>'+
 
 
-                                      '<form id="form_book_product" action="' + url_book_product +'" class="needs-validation" method="post">'+
+                                      '<form id="form_book_product" class="needs-validation" method="post">'+
                                         '<div class="row">'+
                                             '<div class="form-group row">'+
                                               '<label for="quantityProduct" class="col-md-6 ">Quantité à réserver :</label>'+
@@ -328,12 +328,28 @@ function display_button_connected(data){
 
 
                                       '<button onclick=loadListProduct()>Retour liste produit</button>'+
-                                      '<p hidden value="' + data[0].IdProd + '" id="idProdBook"></p>'
+
                                       // INSERT QUANTITY TO BOOK AFTER
                                     '</div>'+
                           '</div>';
 
                           $('#selected_product').html(html);
+                          $('#form_book_product').submit(function(e){
+                                      //e.preventDefault();
+
+                                      var dataForm = $(this).serialize();
+                                      $.ajax({
+                                          type : "POST",
+                                          url  : url_book_product,
+                                          dataType : "JSON",
+                                          data : dataForm,
+                                          success: function(msg){
+
+                                              loadListProduct();
+                                          }
+                                      });
+                                      return false;
+                                  });
                       }
 
                   });
@@ -380,31 +396,8 @@ function display_button_connected(data){
 
 
 
-  /*  $('#form_book_product').submit(function(){
-                var quantity = $('#quantityProduct').val();
-                var date = $('#date').val();
-                var comment = $('#comment').val();
-                var IdProd= $('#idProdBook').val();
 
-                $.ajax({
-                    type : "POST",
-                    url  : url_book_product,
-                    dataType : "JSON",
-                    data : {quantity:quantity,
-                      date:date,
-                      comment:comment,
-                      IdProd:IdProd},
-                    success: function(msg){
-                      alert(msg)
-                        //loadListProduct();
-                    },
-                    error: function(s){
-                        alert("ca bug");
-                    }
-                });
-                return false;
-            });
-*/
+
 
 
         //function registration user

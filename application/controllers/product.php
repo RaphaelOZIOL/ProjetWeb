@@ -37,6 +37,10 @@ class Product extends ADMINISTRATOR_Controller
 
   }
 
+  public function test2(){
+    $this->load->view('add_product_admin');
+  }
+
 
 /* ---------- Functions AJAX -----------*/
 /*

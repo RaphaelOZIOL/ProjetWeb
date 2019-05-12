@@ -25,4 +25,11 @@ class Category extends ADMINISTRATOR_Controller
     echo json_encode($categorys,JSON_UNESCAPED_SLASHES);
 	}
 
+  public function test1(){
+    $data['isAdmin']=parent::get_is_Admin();
+    $this->load->view('header',$data);
+    $this->load->view('add_category_admin');
+
+  }
+
 }

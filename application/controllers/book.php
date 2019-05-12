@@ -26,12 +26,14 @@ public function index(){
 }
 
 public function book_product(){
+  //var_dump($_POST);
+  $data1['isAdmin']=parent::get_is_Admin();
       if(!isset($_POST['idProd'])){
         redirect(site_url("connexion"));
       }
       else{
         $mail = $this->encrypt->decode(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name()));
-        if(!isset($mail)){
+        if($mail==null){
           redirect(site_url("connexion"));
         }
         $idUser=$this->shopper_model->_getUser_id($mail);
@@ -40,8 +42,11 @@ public function book_product(){
         $idProd = htmlspecialchars($_POST['idProd']);
 
         $data= $this->book_model->book_product($idUser,$idProd);
-        $this->list_book();
+        //$this->list_book();
+
+
       }
+      echo json_encode($data1);
 }
 
   public function list_book(){

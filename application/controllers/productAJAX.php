@@ -30,6 +30,8 @@ class ProductAJAX extends ADMINISTRATOR_Controller
     echo json_encode($_GET['id_Prod'],JSON_UNESCAPED_SLASHES);
   }
 
+  
+
 
 
 }
