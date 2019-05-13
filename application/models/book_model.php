@@ -12,26 +12,26 @@ class Book_model extends CI_Model
   /*htmlspecialchars($this->input->post('quantity')),
   'date'  => htmlspecialchars($this->input->post('date')),
   'comment' => htmlspecialchars($this->input->post('comment')),*/
-  public function book_product($idUser,$idProd){
+  public function book_product($mail,$idProd){
 
         $data = array(
                 'quantity'  => htmlspecialchars($_POST['quantityProduct']),
                 'date'  => htmlspecialchars($_POST['date']),
                 'comment' => htmlspecialchars($_POST['comment']),
                 'IdProd' => $idProd,
-                'idUser' => $idUser
+                'email' => $mail
     );
         $result=$this->db->insert($this->_table,$data);
         return $result;
   }
 
-  public function get_book_user($idUser)
+  public function get_book_user($mail)
 	{
     $this->db->select('*');
     $this->db->from($this->_table);
     $this->db->join('product', 'book.IdProd = product.IdProd');
-    $this->db->join('shopper', 'book.idUser = shopper.idUser');
-    $this->db->where(array('book.idUser' => $idUser));
+    $this->db->join('shopper', 'book.email = shopper.email');
+    $this->db->where(array('book.email' => $mail));
     $query = $this->db->get()->result();
     return $query;
 	}
@@ -41,7 +41,7 @@ class Book_model extends CI_Model
     $this->db->select('*');
     $this->db->from($this->_table);
     $this->db->join('product', 'book.IdProd = product.IdProd');
-    $this->db->join('shopper', 'book.idUser = shopper.idUser');
+    $this->db->join('shopper', 'book.email = shopper.email');
     $query = $this->db->get()->result();
     return $query;
 	}

@@ -30,7 +30,7 @@
 	                              <div class="form-group row">
 	                                <label for="email" class="col-4 col-form-label">Email</label>
 	                                <div class="col-8">
-	                                  <input id="email" name="email" value="<?php echo ($profile_info->email)?>" class="form-control here" type="text">
+	                                  <input id="email" name="email" disabled value="<?php echo ($profile_info->email)?>" class="form-control here" type="text">
 	                                </div>
 	                              </div>
 	                              <div class="form-group row">

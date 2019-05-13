@@ -30,21 +30,21 @@ class Administrator_model extends CI_Model {
         return false;
     }
 
-    public function update_admin_user($id){
-      $pwdCrypt= $this->encrypt->encode($this->input->post('password'));
+
+    public function update_admin_user($mail){
+      $pwdCrypt= $this->encrypt->encode(htmlspecialchars($_POST['newpass']));
       $data = array(
-              'firstName'  => $this->input->post('firstName'),
-              'lastName'  => $this->input->post('lastName'),
-              'email' => $this->input->post('email'),
-              'yearBirth' => $this->input->post('yearBirth'),
-              'phoneNumber' => $this->input->post('phoneNumber'),
-              'postalCode' => $this->input->post('postalCode'),
-              'street'  => $this->input->post('street'),
-              'password' => $this->pwdCrypt,
-              'city' => $this->input->post('city'),
+              'firstName'  => htmlspecialchars($_POST['firstName']),
+              'lastName'  => htmlspecialchars($_POST['lastName']),
+              'yearBirth' => htmlspecialchars($_POST['yearBirth']),
+              'phoneNumber' => htmlspecialchars($_POST['phoneNumber']),
+              'postalCode' => htmlspecialchars($_POST['postalCode']),
+              'street'  => htmlspecialchars($_POST['street']),
+              'password' => $pwdCrypt,
+              'city' => htmlspecialchars($_POST['city']),
           );
 
-          $this->db->where('idUser', $id);
+          $this->db->where('email', $email);
           $result=$this->db->update('admin',$data);
           if(isset($result)){
             return $result;

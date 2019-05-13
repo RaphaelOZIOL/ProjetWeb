@@ -13,9 +13,13 @@ class Category_model extends CI_Model
 				->result();
 	}
 
-  public function create_category($nameCat){
-    return $this->db->set('nameCat',$nameCat)
-				->insert($this->table);
+  public function create_category(){
+    $data = array(
+            'nameCat'  => htmlspecialchars($_POST['nameCat']),
+            'imgSrc'  => htmlspecialchars($_POST['imgSrc']),
+        );
+    $result=$this->db->insert($this->table,$data);
+    return $result;
   }
 
   public function update_category_Name($idCat, $nameCat = null)

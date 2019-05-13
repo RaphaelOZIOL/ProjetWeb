@@ -36,12 +36,9 @@ public function book_product(){
         if($mail==null){
           redirect(site_url("connexion"));
         }
-        $idUser=$this->shopper_model->_getUser_id($mail);
-        $idUser=intval($idUser->IdUser);
 
         $idProd = htmlspecialchars($_POST['idProd']);
-
-        $data= $this->book_model->book_product($idUser,$idProd);
+        $data= $this->book_model->book_product($mail,$idProd);
         //$this->list_book();
 
 
@@ -55,9 +52,7 @@ public function book_product(){
       redirect(site_url("connexion"));
     }
     else{
-      $idUser=$this->shopper_model->_getUser_id($mail);
-      $idUser=intval($idUser->IdUser);
-      $data['list_book']= $this->book_model->get_book_user($idUser);
+      $data['list_book']= $this->book_model->get_book_user($mail);
 
       $data1['isAdmin']=parent::get_is_Admin();
 

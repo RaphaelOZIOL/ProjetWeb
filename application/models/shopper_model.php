@@ -47,19 +47,12 @@ class Shopper_model extends CI_Model
           return false;
       }
 
-      public function _getUser_id($mail) {
-          $user = $this->db->select('IdUser')->get_where($this->_table, array('email' => $mail))->row();
-          if (isset($user))
-              return $user;
-          return false;
-      }
 
-      public function update_shopper_user($id){
+      public function update_shopper_user($mail){
         $pwdCrypt= $this->encrypt->encode(htmlspecialchars($_POST['newpass']));
         $data = array(
                 'firstName'  => htmlspecialchars($_POST['firstName']),
                 'lastName'  => htmlspecialchars($_POST['lastName']),
-                'email' => htmlspecialchars($_POST['email']),
                 'yearBirth' => htmlspecialchars($_POST['yearBirth']),
                 'phoneNumber' => htmlspecialchars($_POST['phoneNumber']),
                 'postalCode' => htmlspecialchars($_POST['postalCode']),
@@ -68,7 +61,7 @@ class Shopper_model extends CI_Model
                 'city' => htmlspecialchars($_POST['city']),
             );
 
-            $this->db->where('idUser', $id);
+            $this->db->where('email', $mail);
             $result=$this->db->update('shopper',$data);
             if(isset($result)){
               return $result;

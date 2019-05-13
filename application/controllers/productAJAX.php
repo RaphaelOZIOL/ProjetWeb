@@ -30,8 +30,13 @@ class ProductAJAX extends ADMINISTRATOR_Controller
     echo json_encode($_GET['id_Prod'],JSON_UNESCAPED_SLASHES);
   }
 
-  
-
-
+  public function create_product(){
+    $mail = $this->encrypt->decode(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name()));
+    if($mail==null){
+      redirect(site_url("connexion"));
+    }
+    $result = $this->product_model->create_product();
+    echo json_encode($result,JSON_UNESCAPED_SLASHES);
+  }
 
 }

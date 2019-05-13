@@ -145,6 +145,8 @@ var url_registration='http://localhost/LamiDuPain/register/registration';
 var url_category='http://localhost/LamiDuPain/category/list_category';
 var url_profile='http://localhost/LamiDuPain/profile';
 var url_book_product='http://localhost/LamiDuPain/book/book_product';
+var url_product_create='http://localhost/LamiDuPain/productAJAX/create_product';
+var url_category_create='http://localhost/LamiDuPain/category/create_category';
 
 
 
@@ -436,45 +438,45 @@ function display_button_connected(data){
         			            '</div>'+
         			            '<div class="row">'+
         			                '<div class="col-md-12">'+
-        			                    '<form action="" method="POST">'+
+        			                    '<form method="POST" id="form_create_product">'+
         	                              '<div class="form-group row">'+
-        	                                '<label for="firstName" class="col-4 col-form-label">Nom du produit :</label>'+
+        	                                '<label for="nameProd" class="col-4 col-form-label">Nom du produit :</label>'+
         	                                '<div class="col-8">'+
-        	                                  '<input id="firstName" name="firstName" class="form-control here" required="required" type="text">'+
+        	                                  '<input id="nameProd" name="nameProd" class="form-control here" required="required" type="text">'+
         	                                '</div>'+
         	                              '</div>'+
         	                              '<div class="form-group row">'+
-        	                                '<label for="lastName" class="col-4 col-form-label">Prix :</label>'+
+        	                                '<label for="price" class="col-4 col-form-label">Prix :</label>'+
         	                                '<div class="col-8">'+
-        	                                  '<input id="lastName" name="lastName" class="form-control here" type="text">'+
+        	                                  '<input id="price" name="price" class="form-control here" type="number">'+
         	                                '</div>'+
         	                              '</div>'+
         	                              '<div class="form-group row">'+
-        	                                '<label for="email" class="col-4 col-form-label">Quantité en stock :</label>'+
+        	                                '<label for="quantityStock" class="col-4 col-form-label">Quantité en stock :</label>'+
         	                                '<div class="col-8">'+
-        	                                  '<input id="email" name="email" class="form-control here" type="text">'+
+        	                                  '<input id="quantityStock" name="quantityStock" class="form-control here" type="number">'+
         	                                '</div>'+
         	                              '</div>'+
         	                              '<div class="form-group row">'+
                                           '<div class="md-form amber-textarea active-amber-textarea col-md-12">'+
                                             '<i class="fas fa-pencil-alt prefix"></i>'+
-                                            '<label for="comment">Composition du produit :</label>'+
-                                            '<textarea id="comment" name="comment" placeholder="" class="md-textarea form-control here" rows="3"></textarea>'+
+                                            '<label for="compoProd">Composition du produit :</label>'+
+                                            '<textarea id="compoProd" name="compoProd" placeholder="" class="md-textarea form-control here" rows="3"></textarea>'+
                                           '</div>'+
         	                              '</div>'+
         	                              '<div class="form-group row">'+
-        	                                '<label for="yearBirth" class="col-4 col-form-label">Catégorie du produit</label>'+
+        	                                '<label for="IdCat" class="col-4 col-form-label">Catégorie du produit</label>'+
         	                                '<div class="col-8">'+
-        																		'<input id="yearBirth" name="yearBirth" type="date" class="form-control here" required="required" >'+
+        																		'<input id="IdCat" name="IdCat" type="number" class="form-control here" required="required" >'+
         	                                '</div>'+
         	                              '</div>'+
-
-        	                              '<div class="form-group row">'+
-        	                                '<label for="street" class="col-4 col-form-label">Sélectionner une image pour votre produit :</label>'+
-        	                                '<div class="col-8">'+
-                                            '<input type="file" required="required" name="fileToUpload" id="fileToUpload">'+
-        	                                '</div>'+
-        	                              '</div>'+
+                                        '<div class="form-group row">'+
+                                          '<div class="md-form amber-textarea active-amber-textarea col-md-12">'+
+                                            '<i class="fas fa-pencil-alt prefix"></i>'+
+                                            '<label for="srcImg">lien :</label>'+
+                                            '<textarea id="srcImg" name="srcImg" placeholder="" class="md-textarea form-control here" rows="3"></textarea>'+
+                                          '</div>'+
+                                        '</div>'+
 
         	                              '<div class="form-group row">'+
         	                                '<div class="offset-4 col-8">'+
@@ -492,6 +494,27 @@ function display_button_connected(data){
         	'</div>';
 
         $('#body').html(html);
+
+        $('#form_create_product').submit(function(e){
+
+                    var dataForm = $(this).serialize();
+                    $.ajax({
+                        type : "POST",
+                        url  : url_product_create,
+                        dataType : "JSON",
+                        data : dataForm,
+                        success: function(msg){
+                            //loadListProduct();
+                            if(msg==true){
+                              alert("Produit créé avec succès, vous pouvez maintenant le consulter dans la liste des produits !");
+                            }
+                            else{
+                              alert("Erreur dans la création du produit");
+                            }
+                        }
+                    });
+                    return false;
+                });
     }
 
     function load_create_category(){
@@ -509,17 +532,18 @@ function display_button_connected(data){
                         '</div>'+
                         '<div class="row">'+
                             '<div class="col-md-12">'+
-                                '<form action="" method="POST">'+
+                                '<form action="" method="POST" id="form_create_category">'+
                                     '<div class="form-group row">'+
-                                      '<label for="firstName" class="col-4 col-form-label">Nom de la catégorie :</label>'+
+                                      '<label for="nameCat" class="col-4 col-form-label">Nom de la catégorie :</label>'+
                                       '<div class="col-8">'+
-                                        '<input id="firstName" name="firstName" class="form-control here" required="required" type="text">'+
+                                        '<input id="nameCat" name="nameCat" class="form-control here" required="required" type="text">'+
                                       '</div>'+
                                     '</div>'+
                                     '<div class="form-group row">'+
-                                      '<label for="street" class="col-4 col-form-label">Sélectionner une image pour votre catégorie :</label>'+
-                                      '<div class="col-8">'+
-                                        '<input type="file" required="required" name="fileToUpload" id="fileToUpload">'+
+                                      '<div class="md-form amber-textarea active-amber-textarea col-md-12">'+
+                                        '<i class="fas fa-pencil-alt prefix"></i>'+
+                                        '<label for="imgSrc">lien :</label>'+
+                                        '<textarea id="imgSrc" name="imgSrc" placeholder="" class="md-textarea form-control here" rows="3"></textarea>'+
                                       '</div>'+
                                     '</div>'+
                                   '<div class="form-group row">'+
@@ -539,6 +563,25 @@ function display_button_connected(data){
 
     $('#body').html(html);
 
+    $('#form_create_category').submit(function(e){
+                var dataForm = $(this).serialize();
+                $.ajax({
+                    type : "POST",
+                    url  : url_category_create,
+                    dataType : "JSON",
+                    data : dataForm,
+                    success: function(msg){
+                        //loadListProduct();
+                        if(msg==true){
+                          alert("Catégorie créée avec succès, vous pouvez maintenant la consulter dans la liste des catégories !");
+                        }
+                        else{
+                          alert("Erreur dans la création de la catégorie");
+                        }
+                    }
+                });
+                return false;
+            });
     }
 
     function load_update_product(){
@@ -552,12 +595,104 @@ function display_button_connected(data){
 
         //function registration user
   function makeRegistration(){
-          /*document.getElementById('welcome').style.display="none";
-          document.getElementById('list_product').style.display="none";
-          document.getElementById('selected_product').style.display="none";
-          document.getElementById('registration_user').style.display="block";
-          document.getElementById('list_category').style.display="none";*/
+          var html =
+            '<div class="col-md-1 mb-5 mt-5">'+
+              '<h1 class="display-3">Inscription</h1>'+
+            '</div>'+
+          '<form id="form_registration" class="needs-validation" novalidate method="post">'+
+              '<div class="form-row">'+
+                '<div class="col-md-4 mb-3">'+
+                  '<label for="firstName">Prénom</label>'+
+                  '<input type="text" class="form-control" id="firstName" placeholder="Prénom" required>'+
+                  '<div class="valid-feedback">'+
+                    'Correct !'+
+                  '</div>'+
+                '</div>'+
+                '<div class="col-md-4 mb-3">'+
+                  '<label for="lastName">Nom</label>'+
+                  '<input type="text" class="form-control" id="lastName" placeholder="Nom" required>'+
+                  '<div class="valid-feedback">'+
+                    'Correct !'+
+                  '</div>'+
+                '</div>'+
+                '<div class="col-md-4 mb-3">'+
+                  '<label for="email">Email</label>'+
+                  '<div class="input-group">'+
+                    '<div class="input-group-prepend">'+
+                      '<span class="input-group-text" id="inputGroupPrepend">@</span>'+
+                    '</div>'+
+                    '<input type="text" class="form-control" id="email" placeholder="email" aria-describedby="inputGroupPrepend" required>'+
+                    '<div class="invalid-feedback">'+
+                      'Veuillez rentrer une bonne adresse email.'+
+                    '</div>'+
+                  '</div>'+
+                '</div>'+
+              '</div>'+
 
+              '<div class="form-row">'+
+                '<div class="col-md-3 mb-3">'+
+                  '<label for="phoneNumber">Numéro de téléphone</label>'+
+                  '<input type="text" class="form-control" id="phoneNumber" placeholder="téléphone" required>'+
+                  '<div class="invalid-feedback">'+
+                    'Veuillez rentrer un bon numéro de téléphone.'+
+                  '</div>'+
+                '</div>'+
+                '<div class="col-md-3 mb-3">'+
+                  '<label for="yearBirth">Date de Naissance</label>'+
+                  '<input type="date" class="form-control" id="yearBirth" required>'+
+                  '<div class="invalid-feedback">'+
+                    'Veuillez rentrer une bonne date de naissance.'+
+                  '</div>'+
+                '</div>'+
+              '</div>'+
+
+              '<div class="form-row">'+
+                '<div class="col-md-3 mb-3">'+
+                  '<label for="password">Mot de passe</label>'+
+                  '<input type="text" class="form-control" id="password" placeholder="Mot de passe" required>'+
+                  '<div class="invalid-feedback">'+
+                    'Veuillez rentrer un mot de passe correct.'+
+                  '</div>'+
+                '</div>'+
+                '<div class="col-md-3 mb-3">'+
+                  '<label for="passwordConfirm">Confirmation mot de passe</label>'+
+                  '<input type="text" class="form-control" id="passwordConfirm" required>'+
+                  '<div class="invalid-feedback">'+
+                    'Veuillez rentrer un mot de passe correct.'+
+                  '</div>'+
+                '</div>'+
+              '</div>'+
+
+              '<div class="form-row">'+
+                '<div class="col-md-6 mb-3">'+
+                  '<label for="street">Adresse</label>'+
+                  '<input type="text" class="form-control" id="street" placeholder="numéro + rue" required>'+
+                  '<div class="invalid-feedback">'+
+                    'Veuillez rentrer une adresse valide.'+
+                  '</div>'+
+                '</div>'+
+                '<div class="col-md-3 mb-3">'+
+                  '<label for="city">Ville</label>'+
+                  '<input type="text" class="form-control" id="city" placeholder="Ville" required>'+
+                  '<div class="invalid-feedback">'+
+                    'Veuillez rentrer une ville valide'+
+                  '</div>'+
+                '</div>'+
+                '<div class="col-md-3 mb-3">'+
+                  '<label for="postalCode">Code Postal</label>'+
+                  '<input type="text" class="form-control" id="postalCode" placeholder="Code Postal" required>'+
+                  '<div class="invalid-feedback">'+
+                    'Veuillez rentrer un code postal valide.'+
+                  '</div>'+
+                '</div>'+
+              '</div>'+
+              '<div class="d-flex">'+
+                '<button class="btn btn-primary ml-auto p-2" onclick=form_validation type="submit" id="button_save">Envoyer</button>'+
+              '</div>'+
+
+            '</form>';
+
+          $('#body').html(html);
 
 
           $('#form_registration').submit(function(){

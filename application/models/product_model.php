@@ -24,14 +24,17 @@ class Product_model extends CI_Model
 
 	}
 
-  public function create_product($namePro,$price,$quantity,$compoProd,$idCat,$srcImg){
-    return $this->db->set('nameProd',$namePro)
-				->set('price',$price)
-				->set('quantityStock',$quantity)
-				->set('compoProd',$compoProd)
-        ->set('idCat',$idCat)
-        ->set('srcImg',$srcImg)
-				->insert($this->table);
+  public function create_product(){  
+    $data = array(
+            'nameProd'  => htmlspecialchars($_POST['nameProd']),
+            'price'  => htmlspecialchars($_POST['price']),
+            'quantityStock' => htmlspecialchars($_POST['quantityStock']),
+            'compoProd' => htmlspecialchars($_POST['compoProd']),
+            'srcImg'  => htmlspecialchars($_POST['srcImg']),
+            'IdCat' => htmlspecialchars($_POST['IdCat']),
+        );
+    $result=$this->db->insert($this->table,$data);
+    return $result;
   }
 
   public function update_product_Name($idProd, $nameProd = null)
