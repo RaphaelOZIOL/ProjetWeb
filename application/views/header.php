@@ -33,7 +33,7 @@
           <?php } ?>
           <?php if($isAdmin==2){ ?>
             <li><a class="nav-link border-right mr-2" href="<?php echo site_url("book/list_book_all_admin")?>">Réservations des clients</a></li>
-            <li><a class="nav-link border-right mr-2" href="<?php echo site_url("book/list_book_all_admin")?>">Ajout/Modification</a></li>
+            <li><a class="nav-link border-right mr-2" onclick=load_create_update_page()>Ajout/Modification</a></li>
 
           <?php } ?>
         </ul>

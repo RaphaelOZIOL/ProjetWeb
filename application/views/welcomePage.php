@@ -1,4 +1,5 @@
 <body>
+  <div class=container id="body">
 
 <!-- WELCOME PAGE -->
   <?php if($isAdmin==0){ ?>
@@ -146,6 +147,9 @@ var url_profile='http://localhost/LamiDuPain/profile';
 var url_book_product='http://localhost/LamiDuPain/book/book_product';
 
 
+
+
+
 function display_button_connected(data){
     var htmlConnection='';
     if(data[1]==null){
@@ -161,12 +165,12 @@ function display_button_connected(data){
 
 //function show all product
       function loadListProduct(){
-        document.getElementById('welcome').style.display="none";
+      /*document.getElementById('welcome').style.display="none";
         document.getElementById('list_product').style.display="block";
         document.getElementById('selected_product').style.display="none";
         document.getElementById('registration_user').style.display="none";
         document.getElementById('list_category').style.display="none";
-
+*/
 
           $.ajax({
               type  : 'GET',
@@ -215,7 +219,7 @@ function display_button_connected(data){
                           '</ul>'+
                         '</nav>';
 
-                  $('#list_product').html(htmlProduct);
+                  $('#body').html(htmlProduct);
 
 
                  display_button_connected(data);
@@ -232,12 +236,12 @@ function display_button_connected(data){
 
       //function show selected product
       function loadProduct(e){
-              document.getElementById('welcome').style.display="none";
+            /*  document.getElementById('welcome').style.display="none";
               document.getElementById('list_product').style.display="none";
               document.getElementById('selected_product').style.display="block";
               document.getElementById('registration_user').style.display="none";
               document.getElementById('list_category').style.display="none";
-
+*/
               var idProd= e.getAttribute('id');
 
                 $.ajax({
@@ -333,7 +337,7 @@ function display_button_connected(data){
                                     '</div>'+
                           '</div>';
 
-                          $('#selected_product').html(html);
+                          $('#body').html(html);
                           $('#form_book_product').submit(function(e){
                                       //e.preventDefault();
 
@@ -357,12 +361,14 @@ function display_button_connected(data){
               });
         }
 
+
+
     function loadListCategory(){
-      document.getElementById('welcome').style.display="none";
+      /*document.getElementById('welcome').style.display="none";
       document.getElementById('list_product').style.display="none";
       document.getElementById('selected_product').style.display="none";
       document.getElementById('registration_user').style.display="none";
-      document.getElementById('list_category').style.display="block";
+      document.getElementById('list_category').style.display="block";*/
 
         $.ajax({
             type  : 'GET',
@@ -388,25 +394,169 @@ function display_button_connected(data){
                         htmlCat += '</div>';
                       }
                     }
-                $('#list_category').html(htmlCat);
+                $('#body').html(htmlCat);
                 display_button_connected(data);
             }
         });
     }
 
+    function load_create_update_page(){
+        var html="";
+        html+='<div class=container>'+
+                '<div class="row">'+
+                  '<button type="button" onclick=load_create_product() class="btn btn-outline-success btn-lg col-md-5 mr-5 mt-5 p-5">Ajouter un produit</button>'+
+                  '<button type="button" onclick=load_create_category() class="btn btn-outline-success btn-lg col-md-5 ml-5 mt-5 p-5">Ajouter une catégorie</button>'+
+                '</div>'+
+              '</div>'+
+              '<div class=container>'+
+                    '<div class="row">'+
+                      '<button type="button" onclick="loadListProduct()" class="btn btn-outline-warning btn-lg col-md-5 mr-5 mt-5 p-5">Modifier un produit</button>'+
+                      '<button type="button" onclick="loadListCategory()" class="btn btn-outline-warning btn-lg col-md-5 ml-5 mt-5 p-5">Modifier une catégorie</button>'+
+                    '</div>'+
+              '</div>';
+        //var element = document.getElementById("body");
+        $('#body').html(html);
 
+    }
 
+    function load_create_product(){
+        var html='';
+        html+=
+        '<div class="container">'+
+        		'<div class="row">'+
 
+        			'<div class="col-md-12">'+
+        			    '<div class="card">'+
+        			        '<div class="card-body">'+
+        			            '<div class="row">'+
+        			                '<div class="col-md-12">'+
+        			                    '<h4>Ajouter un produit</h4>'+
+        			                    '<hr>'+
+        			                '</div>'+
+        			            '</div>'+
+        			            '<div class="row">'+
+        			                '<div class="col-md-12">'+
+        			                    '<form action="" method="POST">'+
+        	                              '<div class="form-group row">'+
+        	                                '<label for="firstName" class="col-4 col-form-label">Nom du produit :</label>'+
+        	                                '<div class="col-8">'+
+        	                                  '<input id="firstName" name="firstName" class="form-control here" required="required" type="text">'+
+        	                                '</div>'+
+        	                              '</div>'+
+        	                              '<div class="form-group row">'+
+        	                                '<label for="lastName" class="col-4 col-form-label">Prix :</label>'+
+        	                                '<div class="col-8">'+
+        	                                  '<input id="lastName" name="lastName" class="form-control here" type="text">'+
+        	                                '</div>'+
+        	                              '</div>'+
+        	                              '<div class="form-group row">'+
+        	                                '<label for="email" class="col-4 col-form-label">Quantité en stock :</label>'+
+        	                                '<div class="col-8">'+
+        	                                  '<input id="email" name="email" class="form-control here" type="text">'+
+        	                                '</div>'+
+        	                              '</div>'+
+        	                              '<div class="form-group row">'+
+                                          '<div class="md-form amber-textarea active-amber-textarea col-md-12">'+
+                                            '<i class="fas fa-pencil-alt prefix"></i>'+
+                                            '<label for="comment">Composition du produit :</label>'+
+                                            '<textarea id="comment" name="comment" placeholder="" class="md-textarea form-control here" rows="3"></textarea>'+
+                                          '</div>'+
+        	                              '</div>'+
+        	                              '<div class="form-group row">'+
+        	                                '<label for="yearBirth" class="col-4 col-form-label">Catégorie du produit</label>'+
+        	                                '<div class="col-8">'+
+        																		'<input id="yearBirth" name="yearBirth" type="date" class="form-control here" required="required" >'+
+        	                                '</div>'+
+        	                              '</div>'+
 
+        	                              '<div class="form-group row">'+
+        	                                '<label for="street" class="col-4 col-form-label">Sélectionner une image pour votre produit :</label>'+
+        	                                '<div class="col-8">'+
+                                            '<input type="file" required="required" name="fileToUpload" id="fileToUpload">'+
+        	                                '</div>'+
+        	                              '</div>'+
+
+        	                              '<div class="form-group row">'+
+        	                                '<div class="offset-4 col-8">'+
+        	                                  '<button name="submit" type="submit" class="btn btn-primary">Créer le produit</button>'+
+        	                                '</div>'+
+        	                              '</div>'+
+        	                            '</form>'+
+        			                '</div>'+
+        			            '</div>'+
+
+        			       '</div>'+
+        			    '</div>'+
+        			'</div>'+
+        		'</div>'+
+        	'</div>';
+
+        $('#body').html(html);
+    }
+
+    function load_create_category(){
+      var html=
+      '<div class="container">'+
+          '<div class="row">'+
+            '<div class="col-md-12">'+
+                '<div class="card">'+
+                    '<div class="card-body">'+
+                        '<div class="row">'+
+                            '<div class="col-md-12">'+
+                                '<h4>Ajouter un produit</h4>'+
+                                '<hr>'+
+                            '</div>'+
+                        '</div>'+
+                        '<div class="row">'+
+                            '<div class="col-md-12">'+
+                                '<form action="" method="POST">'+
+                                    '<div class="form-group row">'+
+                                      '<label for="firstName" class="col-4 col-form-label">Nom de la catégorie :</label>'+
+                                      '<div class="col-8">'+
+                                        '<input id="firstName" name="firstName" class="form-control here" required="required" type="text">'+
+                                      '</div>'+
+                                    '</div>'+
+                                    '<div class="form-group row">'+
+                                      '<label for="street" class="col-4 col-form-label">Sélectionner une image pour votre catégorie :</label>'+
+                                      '<div class="col-8">'+
+                                        '<input type="file" required="required" name="fileToUpload" id="fileToUpload">'+
+                                      '</div>'+
+                                    '</div>'+
+                                  '<div class="form-group row">'+
+                                      '<div class="offset-4 col-8">'+
+                                        '<button name="submit" type="submit" class="btn btn-primary">Créer la catégorie</button>'+
+                                      '</div>'+
+                                    '</div>'+
+                                '</form>'+
+                        '</div>'+
+                    '</div>'+
+
+               '</div>'+
+            '</div>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+
+    $('#body').html(html);
+
+    }
+
+    function load_update_product(){
+
+    }
+
+    function load_update_category(){
+
+    }
 
 
         //function registration user
   function makeRegistration(){
-          document.getElementById('welcome').style.display="none";
+          /*document.getElementById('welcome').style.display="none";
           document.getElementById('list_product').style.display="none";
           document.getElementById('selected_product').style.display="none";
           document.getElementById('registration_user').style.display="block";
-          document.getElementById('list_category').style.display="none";
+          document.getElementById('list_category').style.display="none";*/
 
 
 
@@ -459,6 +609,6 @@ function display_button_connected(data){
         }
 </script>
 
-
+</div>
 </body>
 </html>

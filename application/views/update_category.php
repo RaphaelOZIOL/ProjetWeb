@@ -8,7 +8,7 @@
 			        <div class="card-body">
 			            <div class="row">
 			                <div class="col-md-12">
-			                    <h4>Ajouter une catégorie</h4>
+			                    <h4>Modifier une catégorie</h4>
 			                    <hr>
 			                </div>
 			            </div>
@@ -18,14 +18,14 @@
 	                              <div class="form-group row">
 	                                <label for="firstName" class="col-4 col-form-label">Nom de la catégorie :</label>
 	                                <div class="col-8">
-	                                  <input id="firstName" name="firstName" class="form-control here" required="required" type="text">
+	                                  <input id="firstName" name="firstName" value="" class="form-control here" required="required" type="text">
 	                                </div>
 	                              </div>
 
 	                              <div class="form-group row">
 	                                <label for="street" class="col-4 col-form-label">Sélectionner une image pour votre catégorie :</label>
 	                                <div class="col-8">
-                                    <input type="file" required="required" name="fileToUpload" id="fileToUpload">
+                                    <input type="file" required="required" value="" name="fileToUpload" id="fileToUpload">
 	                                </div>
 	                              </div>
 
