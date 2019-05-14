@@ -145,10 +145,13 @@ var url_registration='http://localhost/LamiDuPain/register/registration';
 var url_category='http://localhost/LamiDuPain/category/list_category';
 var url_profile='http://localhost/LamiDuPain/profile';
 var url_book_product='http://localhost/LamiDuPain/book/book_product';
-var url_product_create='http://localhost/LamiDuPain/productAJAX/create_product';
+var url_product_create='http://localhost/LamiDuPain/product/create_product';
 var url_category_create='http://localhost/LamiDuPain/category/create_category';
-
-
+var url_category_info="http://localhost/LamiDuPain/category/info_category";
+var url_category_update="http://localhost/LamiDuPain/category/update_category";
+var url_upload_img="http://localhost/LamiDuPain/category/do_upload_category";
+var url_product_info_admin='http://localhost/LamiDuPain/productAJAX/product_info_admin';
+var url_product_update='http://localhost/LamiDuPain/product/update_product';
 
 
 
@@ -194,6 +197,7 @@ function display_button_connected(data){
                                           '<h5 class="card-title" onclick=loadProduct(this) id="' + data[0][i].IdProd +'">'+ data[0][i].nameProd +' - ' + data[0][i].price + ' € </h5>'+
                                         '<p class="card-text">' + data[0][i].compoProd + '</p>'+
                                         '<p class="card-text">' + data[0][i].quantityStock + ' pièces</p>'+
+
                                       '</div>'+
                                     '</div>'+
                                   '</div>';
@@ -331,6 +335,7 @@ function display_button_connected(data){
 
 
 
+                                      '<button type="button" onclick=load_update_product(this) id=' + data[0].IdProd + ' class="btn btn-outline-success btn-lg col-md-5 mr-5 mt-5 ">Modifier Produit</button>'+
 
 
                                       '<button onclick=loadListProduct()>Retour liste produit</button>'+
@@ -364,7 +369,6 @@ function display_button_connected(data){
         }
 
 
-
     function loadListCategory(){
       /*document.getElementById('welcome').style.display="none";
       document.getElementById('list_product').style.display="none";
@@ -387,10 +391,14 @@ function display_button_connected(data){
                       }
                         htmlCat+=
                                   '<div class="card bg-dark text-white col-md-4">'+
-                                  '<img class="card-img" src="' + data[0][i].imgSrc + '" alt="Card image">'+
+                                  '<img class="card-img" src="' + data[0][i].imgSrc + '" alt="Image de ' + data[0][i].nameCat + '">'+
                                   '<div class="card-img-overlay text-center">'+
                                     '<h1 class="card-title display-5 my-auto text-dark text-uppercase">' + data[0][i].nameCat + '</h5>'+
                                   '</div>'+
+                                  '<div class="card-img-overlay text-center">'+
+                                    '<button type="button" onclick=load_update_category(this) id="' + data[0][i].IdCat + '" class="btn btn-outline-success btn-lg col-md-5 mr-5 mt-5 ">Modifier catégorie</button>'+
+                                  '</div>'+
+
                                 '</div>';
                       if(i%3==2){
                         htmlCat += '</div>';
@@ -438,7 +446,8 @@ function display_button_connected(data){
         			            '</div>'+
         			            '<div class="row">'+
         			                '<div class="col-md-12">'+
-        			                    '<form method="POST" id="form_create_product">'+
+        			                    '<form action=' + url_product_create + ' method="POST" enctype="multipart/form-data" id="form_create_product">'+
+
         	                              '<div class="form-group row">'+
         	                                '<label for="nameProd" class="col-4 col-form-label">Nom du produit :</label>'+
         	                                '<div class="col-8">'+
@@ -448,7 +457,7 @@ function display_button_connected(data){
         	                              '<div class="form-group row">'+
         	                                '<label for="price" class="col-4 col-form-label">Prix :</label>'+
         	                                '<div class="col-8">'+
-        	                                  '<input id="price" name="price" class="form-control here" type="number">'+
+        	                                  '<input id="price" name="price" class="form-control here" type="number" step="0.01">'+
         	                                '</div>'+
         	                              '</div>'+
         	                              '<div class="form-group row">'+
@@ -471,12 +480,11 @@ function display_button_connected(data){
         	                                '</div>'+
         	                              '</div>'+
                                         '<div class="form-group row">'+
-                                          '<div class="md-form amber-textarea active-amber-textarea col-md-12">'+
-                                            '<i class="fas fa-pencil-alt prefix"></i>'+
-                                            '<label for="srcImg">lien :</label>'+
-                                            '<textarea id="srcImg" name="srcImg" placeholder="" class="md-textarea form-control here" rows="3"></textarea>'+
+                                          '<label for="srcImg" class="col-4 col-form-label">Sélectionner une image pour votre catégorie :</label>'+
+                                          '<div class="col-8">'+
+                                            '<input type="file" id="srcImg" name="srcImg" />'+
                                           '</div>'+
-                                        '</div>'+
+                                       '</div>'+
 
         	                              '<div class="form-group row">'+
         	                                '<div class="offset-4 col-8">'+
@@ -495,26 +503,6 @@ function display_button_connected(data){
 
         $('#body').html(html);
 
-        $('#form_create_product').submit(function(e){
-
-                    var dataForm = $(this).serialize();
-                    $.ajax({
-                        type : "POST",
-                        url  : url_product_create,
-                        dataType : "JSON",
-                        data : dataForm,
-                        success: function(msg){
-                            //loadListProduct();
-                            if(msg==true){
-                              alert("Produit créé avec succès, vous pouvez maintenant le consulter dans la liste des produits !");
-                            }
-                            else{
-                              alert("Erreur dans la création du produit");
-                            }
-                        }
-                    });
-                    return false;
-                });
     }
 
     function load_create_category(){
@@ -540,12 +528,11 @@ function display_button_connected(data){
                                       '</div>'+
                                     '</div>'+
                                     '<div class="form-group row">'+
-                                      '<div class="md-form amber-textarea active-amber-textarea col-md-12">'+
-                                        '<i class="fas fa-pencil-alt prefix"></i>'+
-                                        '<label for="imgSrc">lien :</label>'+
-                                        '<textarea id="imgSrc" name="imgSrc" placeholder="" class="md-textarea form-control here" rows="3"></textarea>'+
+                                      '<label for="srcImg" class="col-4 col-form-label">Sélectionner une image pour votre catégorie :</label>'+
+                                      '<div class="col-8">'+
+                                        '<input type="file" id="srcImg" name="srcImg" />'+
                                       '</div>'+
-                                    '</div>'+
+                                   '</div>'+
                                   '<div class="form-group row">'+
                                       '<div class="offset-4 col-8">'+
                                         '<button name="submit" type="submit" class="btn btn-primary">Créer la catégorie</button>'+
@@ -563,7 +550,7 @@ function display_button_connected(data){
 
     $('#body').html(html);
 
-    $('#form_create_category').submit(function(e){
+    /*$('#form_create_category').submit(function(e){
                 var dataForm = $(this).serialize();
                 $.ajax({
                     type : "POST",
@@ -581,15 +568,202 @@ function display_button_connected(data){
                     }
                 });
                 return false;
-            });
+            });*/
     }
 
-    function load_update_product(){
+    function load_update_product(e){
+      var idProd= e.getAttribute('id');
 
-    }
 
-    function load_update_category(){
+      $.ajax({
+        type : 'GET',
+        async : true,
+        url: url_product_info_admin,
+        data: 'IdProd='+ idProd,
+        dataType : 'JSON',
+        success: function(dataProduct) {
 
+
+       var html= '<div class="container">'+
+         '<div class="row">'+
+
+           '<div class="col-md-12">'+
+               '<div class="card">'+
+                   '<div class="card-body">'+
+                       '<div class="row">'+
+                           '<div class="col-md-12">'+
+                              ' <h4>Modifier le produit ' + dataProduct[0].nameProd + '</h4>'+
+                               '<hr>'+
+                           '</div>'+
+                       '</div>'+
+                       '<div class="row">'+
+                           '<div class="col-md-12">'+
+                               '<form action=' + url_product_update + ' method="POST" enctype="multipart/form-data">'+
+                                     '<div class="form-group row" hidden>'+
+                                       '<label for="IdProd" class="col-4 col-form-label">Nouveau nom de catégorie</label>'+
+                                       '<div class="col-8">'+
+                                         '<input id="IdProd" name="IdProd" value="' + dataProduct[0].IdProd + '" class="form-control here" type="text">'+
+                                       '</div>'+
+                                     '</div>'+
+                                     '<div class="form-group row">'+
+                                       '<label for="nameProd" class="col-4 col-form-label">Nom du produit :</label>'+
+                                       '<div class="col-8">'+
+                                         '<input id="nameProd" name="nameProd" value="' + dataProduct[0].nameProd + '" class="form-control here" required="required" type="text">'+
+                                       '</div>'+
+                                     '</div>'+
+                                     '<div class="form-group row">'+
+                                       '<label for="price" class="col-4 col-form-label">Prix :</label>'+
+                                       '<div class="col-8">'+
+                                         '<input id="price" name="price" value="' + dataProduct[0].price + '" class="form-control here" type="number">'+
+                                       '</div>'+
+                                     '</div>'+
+                                     '<div class="form-group row">'+
+                                       '<label for="quantityStock" class="col-4 col-form-label">Quantité en stock :</label>'+
+                                       '<div class="col-8">'+
+                                         '<input id="quantityStock" name="quantityStock" value="' + dataProduct[0].quantityStock + '" class="form-control here" type="number">'+
+                                       '</div>'+
+                                     '</div>'+
+                                     '<div class="form-group row">'+
+                                       '<div class="md-form amber-textarea active-amber-textarea col-md-12">'+
+                                         '<i class="fas fa-pencil-alt prefix"></i>'+
+                                         '<label for="compoProd">Composition du produit :</label>'+
+                                         '<textarea id="compoProd" name="compoProd" class="md-textarea form-control here" rows="3">' + dataProduct[0].compoProd + '</textarea>'+
+                                       '</div>'+
+                                     '</div>'+
+                                     '<div class="form-group row">'+
+                                       '<label for="IdCat" class="col-4 col-form-label">Catégorie du produit</label>'+
+                                       '<div class="col-8">'+
+                                         '<input id="IdCat" name="IdCat" value="' + dataProduct[0].IdCat + '" type="text" class="form-control here" required="required" >'+
+                                       '</div>'+
+                                     '</div>'+
+
+                                     '<div class="form-group row">'+
+                                       '<label for="srcImg" class="col-4 col-form-label">Sélectionner une nouvelle image pour votre catégorie :</label>'+
+                                       '<div class="col-8">'+
+                                         '<input type="file" id="srcImg" name="srcImg" />'+
+                                       '</div>'+
+                                    '</div>'+
+
+                                     '<div class="form-group row">'+
+                                       '<div class="offset-4 col-8">'+
+                                         '<button name="submit" type="submit" class="btn btn-primary">Enregistrer vos modifications</button>'+
+                                       '</div>'+
+                                     '</div>'+
+                                   '</form>'+
+                           '</div>'+
+                       '</div>'+
+
+                   '</div>'+
+               '</div>'+
+           '</div>'+
+         '</div>'+
+       '</div>';
+
+       $('#body').html(html);
+     }
+   });
+
+  }
+
+    function load_update_category(e){
+         var idCat= e.getAttribute('id');
+
+         $.ajax({
+           type : 'GET',
+           async : true,
+           url: url_category_info,
+           data: 'IdCat='+ idCat,
+           dataType : 'JSON',
+           success: function(dataCategory) {
+
+
+          var html= '<div class="container">'+
+        		'<div class="row">'+
+
+        			'<div class="col-md-12">'+
+        			    '<div class="card">'+
+        			        '<div class="card-body">'+
+        			            '<div class="row">'+
+        			                '<div class="col-md-12">'+
+        			                    '<h4>Modification de catégorie pour ' + dataCategory[0].nameCat + '</h4>'+
+        			                    '<hr>'+
+        			                '</div>'+
+        			            '</div>'+
+        			           '<div class="row">'+
+        			                '<div class="col-md-12">'+
+        			                    '<form action=' + url_category_update +' enctype="multipart/form-data" method="POST">'+
+                                        '<div class="form-group row" hidden>'+
+                                          '<label for="IdCat" class="col-4 col-form-label">Nouveau nom de catégorie</label>'+
+                                          '<div class="col-8">'+
+                                            '<input id="IdCat" name="IdCat" value="' + dataCategory[0].IdCat + '" class="form-control here" type="text">'+
+                                          '</div>'+
+                                        '</div>'+
+        	                              '<div class="form-group row">'+
+        	                                '<label for="nameCat" class="col-4 col-form-label">Nouveau nom de catégorie</label>'+
+        	                                '<div class="col-8">'+
+        	                                  '<input id="nameCat" name="nameCat" value="' + dataCategory[0].nameCat + '" class="form-control here" type="text">'+
+        	                                '</div>'+
+        	                              '</div>'+
+                                        '<div class="form-group row">'+
+                                          '<label for="srcImg" class="col-4 col-form-label">Sélectionner une nouvelle image pour votre catégorie :</label>'+
+                                          '<div class="col-8">'+
+                                            '<input type="file" id="srcImg" name="srcImg" />'+
+                                          '</div>'+
+                                       '</div>'+
+
+        	                              '<div class="form-group row">'+
+        	                                '<div class="offset-4 col-8">'+
+        	                                  '<button name="submit" type="submit" class="btn btn-primary">Enregistrer vos modifications</button>'+
+        	                                '</div>'+
+        	                              '</div>'+
+        	                            '</form>'+
+        			                '</div>'+
+        			            '</div>'+
+
+        			        '</div>'+
+        			    '</div>'+
+        			'</div>'+
+        		'</div>'+
+        	'</div>';
+
+          $('#body').html(html);
+
+          /*  $("#form_update_category").on('submit','form',(function(e1) {
+                  e1.preventDefault();
+                  //var IdCat= $("#IdCat").val();
+                  //var nameCat = $("#nameCat").val();
+                  // First an ajax request to upload the image as it requires separate request
+                  $.ajax({
+                      type: "POST",
+                      url: url_upload_img,
+                      data: new FormData(this),
+                      contentType: false,
+                      cache: false,
+                      processData: false,
+                      success: function(resp) {
+                          alert(resp);
+                      },
+                      error: function (resp) {
+                          alert(resp);
+                      }
+                  });*/
+
+                /*  $.ajax({
+                    type: "POST",
+                    url: url_category_update,
+                    data: "mode=details&IdCat="+IdCat+"+&nameCat="+nameCat,
+                    success: function(resp) {
+                        // resp contains what is echoed on update.php
+                        alert(resp);
+                    }
+                    });
+                    return false;
+                  }));*/
+
+
+              //}));
+                }
+      });
     }
 
 

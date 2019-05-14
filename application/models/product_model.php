@@ -24,18 +24,78 @@ class Product_model extends CI_Model
 
 	}
 
-  public function create_product(){  
+  public function get_product_only_id()
+	{
+    $this->db->select('IdProd');
+    $this->db->from('product');
+    $this->db->where(array('nameProd' => $_POST['nameProd'],
+                            'compoProd' => $_POST['compoProd']));
+    $query = $this->db->get()->result();
+    return $query;
+
+	}
+
+  public function create_product(){
     $data = array(
             'nameProd'  => htmlspecialchars($_POST['nameProd']),
             'price'  => htmlspecialchars($_POST['price']),
             'quantityStock' => htmlspecialchars($_POST['quantityStock']),
             'compoProd' => htmlspecialchars($_POST['compoProd']),
-            'srcImg'  => htmlspecialchars($_POST['srcImg']),
+            //'srcImg'  => base_url()."assets/images/product/".$idProd.".png",
             'IdCat' => htmlspecialchars($_POST['IdCat']),
         );
     $result=$this->db->insert($this->table,$data);
     return $result;
   }
+
+  public function update_product_only_img($idProd)
+  {
+    $data = array(
+      'srcImg'  => base_url()."assets/images/product/".$idProd.".png",
+        );
+    $this->db->where('IdProd', $idProd);
+    $result=$this->db->update($this->table,$data);
+    if(isset($result)){
+        return $result;
+    }
+    return false;
+  }
+
+  public function update_product_without_img($idProd)
+  {
+    $data = array(
+      'nameProd'  => htmlspecialchars($_POST['nameProd']),
+      'price'  => htmlspecialchars($_POST['price']),
+      'quantityStock' => htmlspecialchars($_POST['quantityStock']),
+      'compoProd' => htmlspecialchars($_POST['compoProd']),
+      'IdCat' => htmlspecialchars($_POST['IdCat']),
+        );
+    $this->db->where('IdProd', $idProd);
+    $result=$this->db->update($this->table,$data);
+    if(isset($result)){
+        return $result;
+    }
+    return false;
+  }
+
+  public function update_product($idProd)
+	{
+    $data = array(
+            'nameProd'  => htmlspecialchars($_POST['nameProd']),
+            'price'  => htmlspecialchars($_POST['price']),
+            'quantityStock' => htmlspecialchars($_POST['quantityStock']),
+            'compoProd' => htmlspecialchars($_POST['compoProd']),
+            'IdCat' => htmlspecialchars($_POST['IdCat']),
+            'srcImg'  => base_url()."assets/images/product/".$idProd.".png",
+        );
+    $this->db->where('IdProd', $idProd);
+    $result=$this->db->update($this->table,$data);
+    if(isset($result)){
+        return $result;
+    }
+    return false;
+  }
+
 
   public function update_product_Name($idProd, $nameProd = null)
 	{

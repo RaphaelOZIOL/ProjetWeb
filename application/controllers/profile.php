@@ -49,7 +49,6 @@ class Profile extends ADMINISTRATOR_Controller
       if($data['isAdmin']==1){
         if (htmlspecialchars($_POST['newpass'])!=null || htmlspecialchars($_POST['email'])!=null){
           $mail = $this->encrypt->decode(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name()));
-
           $result = $this->shopper_model->update_shopper_user($mail);
           if($result != false){
                parent::delete_cookie_shopper();
@@ -64,9 +63,7 @@ class Profile extends ADMINISTRATOR_Controller
       else if($data['isAdmin']==2){
         if (htmlspecialchars($_POST['newpass'])!=null || htmlspecialchars($_POST['email'])!=null){
           $mail = $this->encrypt->decode(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name()));
-          $id=$this->administrator_model->_getUser_id($mail);
-          $id=intval($id->IdUser);
-          $result = $this->administrator_model->update_admin_user($id);
+          $result = $this->administrator_model->update_admin_user($mail);
           if($result != false){
                parent::delete_cookie_shopper();
                redirect(site_url("product"));
