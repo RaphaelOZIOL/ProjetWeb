@@ -29,19 +29,18 @@ public function book_product(){
   //var_dump($_POST);
   $data1['isAdmin']=parent::get_is_Admin();
       if(!isset($_POST['idProd'])){
-        redirect(site_url("connexion"));
+        //redirect(site_url("connexion"));
       }
       else{
         $mail = $this->encrypt->decode(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name()));
-        if($mail==null){
-          redirect(site_url("connexion"));
+        if($mail!=null && $data1['isAdmin']==1){
+          //redirect(site_url("connexion"));
+
+
+            $idProd = htmlspecialchars($_POST['idProd']);
+            $data= $this->book_model->book_product($mail,$idProd);
         }
-
-        $idProd = htmlspecialchars($_POST['idProd']);
-        $data= $this->book_model->book_product($mail,$idProd);
         //$this->list_book();
-
-
       }
       echo json_encode($data1);
 }

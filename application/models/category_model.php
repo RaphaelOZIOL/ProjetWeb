@@ -29,11 +29,34 @@ class Category_model extends CI_Model
   public function create_category(){
     $data = array(
             'nameCat'  => htmlspecialchars($_POST['nameCat']),
-            'imgSrc'  => base_url()."assets/images/category/".$idCat.".png",
         );
     $result=$this->db->insert($this->table,$data);
     return $result;
   }
+
+  public function get_category_only_id()
+  {
+    $this->db->select('IdCat');
+    $this->db->from('category');
+    $this->db->where(array('nameCat' => $_POST['nameCat'],
+                            ));
+    $query = $this->db->get()->result();
+    return $query;
+  }
+
+  public function update_category_only_img($idCat)
+  {
+    $data = array(
+      'imgSrc'  => base_url()."assets/images/product/".$idCat.".png",
+        );
+    $this->db->where('IdCat', $idCat);
+    $result=$this->db->update($this->table,$data);
+    if(isset($result)){
+        return $result;
+    }
+    return false;
+  }
+
 
   public function update_category_only_name($idCat)
   {

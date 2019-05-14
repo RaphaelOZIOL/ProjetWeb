@@ -16,7 +16,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
       <div class="navbar-header">
-        <a class="navbar-brand" onclick="loadListProduct()">L'Ami du Pain</a>
+        <a class="navbar-brand" href="<?php echo base_url();?>">L'Ami du Pain</a>
       </div>
 
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent15"

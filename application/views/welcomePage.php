@@ -142,12 +142,12 @@ var url_list_product='http://localhost/LamiDuPain/productAJAX/list_product';
 var url_product_id='http://localhost/LamiDuPain/productAJAX/afficher_idProd';
 var url_product_info='http://localhost/LamiDuPain/productAJAX/product_info/';
 var url_registration='http://localhost/LamiDuPain/register/registration';
-var url_category='http://localhost/LamiDuPain/category/list_category';
+var url_category='http://localhost/LamiDuPain/categoryAJAX/list_category';
 var url_profile='http://localhost/LamiDuPain/profile';
 var url_book_product='http://localhost/LamiDuPain/book/book_product';
 var url_product_create='http://localhost/LamiDuPain/product/create_product';
 var url_category_create='http://localhost/LamiDuPain/category/create_category';
-var url_category_info="http://localhost/LamiDuPain/category/info_category";
+var url_category_info="http://localhost/LamiDuPain/categoryAJAX/info_category";
 var url_category_update="http://localhost/LamiDuPain/category/update_category";
 var url_upload_img="http://localhost/LamiDuPain/category/do_upload_category";
 var url_product_info_admin='http://localhost/LamiDuPain/productAJAX/product_info_admin';
@@ -355,8 +355,13 @@ function display_button_connected(data){
                                           dataType : "JSON",
                                           data : dataForm,
                                           success: function(msg){
-
-                                              loadListProduct();
+                                              if(msg.isAdmin==null){
+                                                alert("Vous devez être connecté avec un compte client pour pouvoir réserver !");
+                                              }
+                                              else{
+                                              //alert("Réservation effectuée !");
+                                                loadListProduct();
+                                              }
                                           }
                                       });
                                       return false;
@@ -520,7 +525,7 @@ function display_button_connected(data){
                         '</div>'+
                         '<div class="row">'+
                             '<div class="col-md-12">'+
-                                '<form action="" method="POST" id="form_create_category">'+
+                                '<form action=' + url_category_create + ' method="POST" enctype="multipart/form-data" id="form_create_category">'+
                                     '<div class="form-group row">'+
                                       '<label for="nameCat" class="col-4 col-form-label">Nom de la catégorie :</label>'+
                                       '<div class="col-8">'+
