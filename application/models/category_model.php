@@ -87,9 +87,9 @@ class Category_model extends CI_Model
 
   public function get_product_by_category($idCat){
     $this->db->select('*');
-    $this->db->from($this->_table);
-    $this->db->join('product', 'category.IdProd = product.IdProd');
-    $this->db->where(array('IdCat' => $idCat));
+    $this->db->from($this->table);
+    $this->db->join('product', 'category.IdCat = product.IdCat');
+    $this->db->where(array('product.IdCat' => $idCat));
     $query = $this->db->get()->result();
     return $query;
   }

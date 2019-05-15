@@ -38,8 +38,9 @@ class CategoryAJAX extends ADMINISTRATOR_Controller
   }
 
   public function get_product_by_category($idCat){
-    $result= $this->category_model->get_product_by_category(intval($idCat));
-    echo json_encode($result,JSON_UNESCAPED_SLASHES);
+    $produits[0]= $this->category_model->get_product_by_category(intval($idCat));
+    $produits[1]=parent::get_is_Admin();
+    echo json_encode($produits,JSON_UNESCAPED_SLASHES);
   }
 
 

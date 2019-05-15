@@ -236,14 +236,15 @@ function display_button_connected(data){
       function loadListProductByCategory(e){
 
           var idCat= e.getAttribute('id');
-          var root = url_product_info;
-          var newS= s.substr(1,s.length-2);
-          var adr = root.concat(newS);
+          /*var root = url_list_product_by_category;
+          var newS= idCat.substr(1,idCat.length-2);
+          var adr = root.concat(newS);*/
+          var adr= url_list_product_by_category.concat(idCat);
           console.log(adr);
 
           $.ajax({
               type  : 'GET',
-              url   : url_list_product_by_category,
+              url   : adr,
               async : true,
               dataType : 'json',
               success : function(data){
@@ -496,13 +497,14 @@ function display_button_connected(data){
                         htmlCat += '<div class="card-deck container-fluid justify-content-center">';
                       }
                         htmlCat+=
-                                  '<div class="card bg-dark text-white col-md-4">'+
-                                  '<img class="card-img" src="' + data[0][i].imgSrc + '" alt="Image de ' + data[0][i].nameCat + '">'+
-                                  '<div class="card-img-overlay text-center">'+
-                                    '<h1 class="card-title display-5 my-auto text-dark text-uppercase">' + data[0][i].nameCat + '</h5>'+
+                                  '<div class="card col-md-4 bg-light border-primary mb-3" >'+
+                                  '<div class="card-header"><img class="card-img" src="' + data[0][i].imgSrc + '" alt="Image de ' + data[0][i].nameCat + '"></div>'+
+                                  '<div class="card-body text-center text-primary">'+
+                                      '<h5 class="col-md-12 mr-1 mt-1 card-title my-auto col-12 text-uppercase">' + data[0][i].nameCat + '</h5>'+
                                   '</div>'+
-                                  '<div class="card-img-overlay text-center">'+
+                                  '<div class=" text-center">'+
                                     '<button type="button" onclick=load_update_category(this) id="' + data[0][i].IdCat + '" class="btn btn-outline-success btn-lg col-md-12 mr-1 mt-1 ">Modifier catégorie</button>'+
+                                    '<button type=button class="btn btn-outline-success btn-lg col-md-12 mr-1 mt-1 card-title my-auto col-12 text-uppercase" id="' + data[0][i].IdCat + '" onclick=loadListProductByCategory(this) >Allez voir !</button>'+
 
                                   '</div>'+
 
