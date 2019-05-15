@@ -10,18 +10,22 @@ class Connexion extends ADMINISTRATOR_Controller {
     }
 
     function index(){
+        $this->disconnect();
         $data['isAdmin']=parent::get_is_Admin();
         $this->load->view('header',$data);
-        $this->load->view('connexion');
+        $this->connexion();
     }
 
+    public function connexion(){
+      $this->load->view('connexion');
+    }
 
     public function encrypt($password){
         $passwordCrypt = $this->encrypt->encode($password);
         return($passwordCrypt);
     }
 
-    public function deconnecter(){
+    public function disconnect(){
         $data['isAdmin']=parent::get_is_Admin();
         if($data['isAdmin']==1){
           parent::delete_cookie_shopper();
@@ -29,7 +33,10 @@ class Connexion extends ADMINISTRATOR_Controller {
         else if($data['isAdmin']==2){
           parent::delete_cookie_admin();
         }
+    }
 
+    public function disconnect_to_welcome_page(){
+        $this->disconnect();
       //  $this->load->view('header',$data);
         redirect(site_url('product'));
         //$this->load->view('welcomePage',$data);

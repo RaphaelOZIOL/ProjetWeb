@@ -15,6 +15,8 @@
       </th>
       <th class="th-sm">Prix total
       </th>
+      <th class="th-sm">Etat de la commande
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -35,6 +37,7 @@
                 $quantity=(float) $list_book[$i]->quantity;
                 echo ($price*$quantity." € Au total");
       ?></td>
+      <td><a href=<?php echo site_url("book/delete_book_admin/").$list_book[$i]->idBook?> class="btn btn-outline-success col-md-12">Le client a payé ?</button></td>
 
     </tr>
   <?php } ?>

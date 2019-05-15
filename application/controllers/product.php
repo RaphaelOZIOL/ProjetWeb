@@ -131,7 +131,7 @@ public function create_product(){
           $path='assets/images/product/'.$idProd.'.png';
           unlink($path);
         }
-        //redirect(site_url());
+        redirect(site_url());
     }
     else{
       redirect(site_url('connexion'));

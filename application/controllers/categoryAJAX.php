@@ -10,6 +10,8 @@ class CategoryAJAX extends ADMINISTRATOR_Controller
 	{
 		parent::__construct();
     $this->load->model('category_model');
+    $this->load->model('product_model');
+
 	}
 
   public function list_category()
@@ -33,6 +35,11 @@ class CategoryAJAX extends ADMINISTRATOR_Controller
 
     echo json_encode($result,JSON_UNESCAPED_SLASHES);
 
+  }
+
+  public function get_product_by_category($idCat){
+    $result= $this->category_model->get_product_by_category(intval($idCat));
+    echo json_encode($result,JSON_UNESCAPED_SLASHES);
   }
 
 

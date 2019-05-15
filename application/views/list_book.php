@@ -36,7 +36,7 @@
                 $quantity=(float) $list_book[$i]->quantity;
                 echo ($price*$quantity." € Au total");
       ?></td>
-      <td><button type="button" href=<?php echo site_url("book/delete_book")?> class="btn btn-outline-danger col-md-12">Annuler</button></td>
+      <td><a href=<?php echo site_url("book/delete_book/").$list_book[$i]->idBook?> class="btn btn-outline-danger col-md-12">Annuler</button></td>
 
     </tr>
   <?php } ?>

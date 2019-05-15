@@ -137,8 +137,9 @@
 
 // CHANGE WHEN DEPLOYING ON SERVER
 var url_connection='http://localhost/LamiDuPain/connexion';
-var url_deconnnection='http://localhost/LamiDuPain/connexion/deconnecter';
+var url_deconnnection='http://localhost/LamiDuPain/connexion/disconnect_to_welcome_page';
 var url_list_product='http://localhost/LamiDuPain/productAJAX/list_product';
+var url_list_product_by_category='http://localhost/LamiDuPain/categoryAJAX/get_product_by_category/';
 var url_product_id='http://localhost/LamiDuPain/productAJAX/afficher_idProd';
 var url_product_info='http://localhost/LamiDuPain/productAJAX/product_info/';
 var url_registration='http://localhost/LamiDuPain/register/registration';
@@ -171,16 +172,78 @@ function display_button_connected(data){
 
 //function show all product
       function loadListProduct(){
-      /*document.getElementById('welcome').style.display="none";
-        document.getElementById('list_product').style.display="block";
-        document.getElementById('selected_product').style.display="none";
-        document.getElementById('registration_user').style.display="none";
-        document.getElementById('list_category').style.display="none";
-*/
 
           $.ajax({
               type  : 'GET',
               url   : url_list_product,
+              async : true,
+              dataType : 'json',
+              success : function(data){
+                  var htmlProduct = '';
+                  var i;
+                  for(i=0; i<data[0].length; i++){
+                      if(i%4==0){
+                        htmlProduct += '<div class="row">';
+                      }
+                        htmlProduct += '<div class="col-md-3">'+
+                                  '<div class="card-deck">'+
+                                    '<div class="card">'+
+                                        '<img class="card-img-top" src="' + data[0][i].srcImg + '" alt="Image de ' + data[0][i].nameProd + '">' +
+                                      '<div class="card-block">'+
+                                          '<h5 class="card-title" onclick=loadProduct(this) id="' + data[0][i].IdProd +'">'+ data[0][i].nameProd +' - ' + data[0][i].price + ' € </h5>'+
+                                        '<p class="card-text">' + data[0][i].compoProd + '</p>'+
+                                        '<p class="card-text">' + data[0][i].quantityStock + ' pièces</p>'+
+
+                                      '</div>'+
+                                    '</div>'+
+                                  '</div>';
+
+                      if(i%4==3){
+                        htmlProduct += '</div>';
+                      }
+
+                      htmlProduct += '</div>';
+                  }
+                  if(i%4!=0){
+                    htmlProduct +='</div>';
+                  }
+                  htmlProduct += '<nav aria-label="Page navigation example">'+
+                          '<ul class="pagination justify-content-end">'+
+                            '<li class="page-item disabled">'+
+                              '<a class="page-link" href="#" tabindex="-1">Previous</a>'+
+                            '</li>'+
+                            '<li class="page-item"><a class="page-link" href="#">1</a></li>'+
+                            '<li class="page-item"><a class="page-link" href="#">2</a></li>'+
+                            '<li class="page-item"><a class="page-link" href="#">3</a></li>'+
+                            '<li class="page-item">'+
+                              '<a class="page-link" href="#">Next</a>'+
+                            '</li>'+
+                          '</ul>'+
+                        '</nav>';
+
+                  $('#body').html(htmlProduct);
+
+
+                 display_button_connected(data);
+
+              }
+
+          });
+      }
+
+
+
+      function loadListProductByCategory(e){
+
+          var idCat= e.getAttribute('id');
+          var root = url_product_info;
+          var newS= s.substr(1,s.length-2);
+          var adr = root.concat(newS);
+          console.log(adr);
+
+          $.ajax({
+              type  : 'GET',
+              url   : url_list_product_by_category,
               async : true,
               dataType : 'json',
               success : function(data){

@@ -48,7 +48,7 @@
           if($isAdmin==1 || $isAdmin==2){
           ?>
           <li><a class=nav-link href="<?php echo site_url("profile")?>"><span class="glyphicon glyphicon-user"></span>Profil</a></li>
-          <li><a class=nav-link href="<?php echo site_url("connexion/deconnecter")?>"><span class="glyphicon glyphicon-user"></span>Se Déconnecter</a></li>
+          <li><a class=nav-link href="<?php echo site_url("connexion/disconnect_to_welcome_page")?>"><span class="glyphicon glyphicon-user"></span>Se Déconnecter</a></li>
 
           <?php } ?>
 

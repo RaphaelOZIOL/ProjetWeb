@@ -47,6 +47,15 @@ class Book_model extends CI_Model
     return $query;
 	}
 
+  public function delete_book($idBook){
+    $this->db->where('idBook', $idBook);
+    $result =$this->db->delete('book');
+    if(isset($result)){
+        return $result;
+    }
+    return false;
+  }
+
 /*
   public function update_shopper_user($id){
         $pwdCrypt= $this->encrypt->encode(htmlspecialchars($_POST['newpass']));

@@ -85,6 +85,15 @@ class Category_model extends CI_Model
     return false;
   }
 
+  public function get_product_by_category($idCat){
+    $this->db->select('*');
+    $this->db->from($this->_table);
+    $this->db->join('product', 'category.IdProd = product.IdProd');
+    $this->db->where(array('IdCat' => $idCat));
+    $query = $this->db->get()->result();
+    return $query;
+  }
+
   public function countCategory($where = array())
 	{
 		return (int) $this->db->where($where)
