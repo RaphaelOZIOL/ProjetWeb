@@ -10,6 +10,8 @@ class Book extends ADMINISTRATOR_Controller
 	{
 		parent::__construct();
     $this->load->model('book_model');
+    $this->load->helper(array('form', 'url'));
+    $this->load->library('form_validation');
 	}
 
 public function index(){
@@ -30,19 +32,54 @@ public function book_product(){
   $data1['isAdmin']=parent::get_is_Admin();
       if(!isset($_POST['idProd'])){
         //redirect(site_url("connexion"));
+        echo json_encode($data1);
+
       }
       else{
-        $mail = $this->encrypt->decode(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name()));
-        if($mail!=null && $data1['isAdmin']==1){
-          //redirect(site_url("connexion"));
+
+        $rules = array(
+            array(
+                'field' => 'quantityProduct',
+                'label' => 'Quantité à réserver :',
+                'rules' => 'min=1'
+            )
+
+        );
+
+        $this->form_validation->set_rules($rules);
 
 
-            $idProd = htmlspecialchars($_POST['idProd']);
-            $data= $this->book_model->book_product($mail,$idProd);
+        if ($this->form_validation->run() == FALSE)
+        {
+          $data1['form_not_valid']=true;
+          echo json_encode($data1);
         }
+        else{
+          $mail = $this->encrypt->decode(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name()));
+          if($mail!=null && $data1['isAdmin']==1){
+            //redirect(site_url("connexion"));
+              $date = new DateTime();
+              $seven_day  = mktime(0, 0, 0, date("m")  , date("d")+7, date("Y"));
+              $date_end_post = $_POST['dateDay'];
+              if($seven_day < strtotime($date_end_post)){
+                $data1['TooLate']=true;
+                echo json_encode($data1);
+              }
+              else{
+                $data1['TooLate']=false;
+                $idProd = htmlspecialchars($_POST['idProd']);
+                $data= $this->book_model->book_product($mail,$idProd);
+                echo json_encode($data1);
+
+              }
+            }
+            //Not shopper
+            echo json_encode($data1);
+
+        }
+
         //$this->list_book();
       }
-      echo json_encode($data1);
 }
 
   public function list_book(){
@@ -76,25 +113,10 @@ public function book_product(){
     }
   }
 
-
-/*  public function list_product(){
-    $produits=array();
-		$produits[0]= $this->product_model->get_list_product();
-    $produits[1]=parent::get_is_Admin();
-
-    echo json_encode($produits,JSON_UNESCAPED_SLASHES);
-  }
-*/
-/*
-  public function product_info($idProd){
-    $produit= $this->product_model->get_product_Id($idProd);
-    echo json_encode($produit,JSON_UNESCAPED_SLASHES);
+  public function delete_book($data_book){
+    var_dump($data_book);
   }
 
-  public function afficher_idProd(){
-    echo json_encode($_GET['id_Prod'],JSON_UNESCAPED_SLASHES);
-  }
-*/
 
 
 }

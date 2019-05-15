@@ -16,7 +16,8 @@ class Book_model extends CI_Model
 
         $data = array(
                 'quantity'  => htmlspecialchars($_POST['quantityProduct']),
-                'date'  => htmlspecialchars($_POST['date']),
+                'date'  => $_POST['dateDay'],
+                'dateHour'  => $_POST['dateHour'],
                 'comment' => htmlspecialchars($_POST['comment']),
                 'IdProd' => $idProd,
                 'email' => $mail

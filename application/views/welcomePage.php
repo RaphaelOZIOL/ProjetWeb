@@ -250,6 +250,7 @@ function display_button_connected(data){
 */
               var idProd= e.getAttribute('id');
 
+
                 $.ajax({
                   type : 'GET',
                   async : true,
@@ -267,6 +268,23 @@ function display_button_connected(data){
                       async : true,
                       dataType : 'json',
                       success : function(data){
+                        var today = new Date();
+                        var seven_day = new Date();
+                        var dd = today.getDate();
+                        var dd7 = dd+7;
+                        var mm = today.getMonth()+1;
+                        var yyyy = today.getFullYear();
+                         if(dd<10){
+                                dd='0'+dd
+                            }
+                            if(mm<10){
+                                mm='0'+mm
+                            }
+
+                        today = yyyy+'-'+mm+'-'+dd;
+                        seven_day = yyyy+'-'+mm+'-'+dd7;
+                        console.log(today);
+
                           var html = '';
                           html+= '<div class="container">'+
                                     '<div class="col-md-4">'+
@@ -299,19 +317,28 @@ function display_button_connected(data){
 
                                       '<form id="form_book_product" class="needs-validation" method="post">'+
                                         '<div class="row">'+
-                                            '<div class="form-group row">'+
-                                              '<label for="quantityProduct" class="col-md-6 ">Quantité à réserver :</label>'+
-                                              '<div class="col-md-3">'+
-                                                '<input id="quantityProduct" name="quantityProduct" value="" class="form-control here" required="required" type="number">'+
+                                            '<div class="form-group row col-md-6">'+
+                                              '<label  for="quantityProduct" class="col-md-3 field_title">Quantité à réserver :</label>'+
+                                              '<div class="col-md-5">'+
+                                                '<input id="quantityProduct" min="1" max="' + data[0].quantityStock + '" name="quantityProduct" value="" class="form-control here" required="required" type="number">'+
                                               '</div>'+
                                             '</div>'+
-                                            '<div class="form-group row">'+
-                                              '<label for="date" class="col-md-3 col-form-label">Date :</label>'+
-                                              '<div class="col-md-8">'+
-                                                '<input id="date" name="date" value="" class="form-control here" type="datetime-local">'+
+                                          '</div>'+
+                                          '<div class="row">'+
+                                            '<div class="form-group row col-md-6">'+
+                                              '<label for="dateDay" class="col-md-3 col-form-label">Date (Jour) :</label>'+
+                                              '<div class="col-md-5">'+
+                                                '<input id="dateDay" name="dateDay" required min="' + today + '" max="' + seven_day + '" value="" class="form-control here" type="date">'+
                                               '</div>'+
                                             '</div>'+
-                                        '</div>'+
+                                            '<div class="form-group row col-md-6">'+
+                                              '<label for="dateHour" class="col-md-3 col-form-label">Date (Heure) :</label>'+
+                                              '<div class="col-md-5">'+
+                                                '<input id="dateHour" name="dateHour" min="06:00" max="20:00" required value="" class="form-control here" type="time">'+
+                                              '</div>'+
+                                            '</div>'+
+                                          '</div>'+
+
                                         '<div class="row">'+
                                           '<div class="md-form amber-textarea active-amber-textarea col-md-12">'+
                                             '<i class="fas fa-pencil-alt prefix"></i>'+
@@ -341,8 +368,9 @@ function display_button_connected(data){
                                       '<button onclick=loadListProduct()>Retour liste produit</button>'+
 
                                       // INSERT QUANTITY TO BOOK AFTER
-                                    '</div>'+
+
                           '</div>';
+
 
                           $('#body').html(html);
                           $('#form_book_product').submit(function(e){
@@ -355,8 +383,17 @@ function display_button_connected(data){
                                           dataType : "JSON",
                                           data : dataForm,
                                           success: function(msg){
+                                            console.log(msg);
                                               if(msg.isAdmin==null){
                                                 alert("Vous devez être connecté avec un compte client pour pouvoir réserver !");
+                                              }
+                                              else if(msg.form_not_valid==true){
+                                                alert("Vous n'avez pas rentrer de bonnes valeurs dans les champs du formulaire !");
+
+                                              }
+                                              else if(msg.TooLate==true){
+                                                alert("Attention vous ne pouvez pas réserver au plus de 7 jours !");
+
                                               }
                                               else{
                                               //alert("Réservation effectuée !");
