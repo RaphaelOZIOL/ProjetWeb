@@ -21,11 +21,11 @@ class ADMINISTRATOR_Controller extends CI_Controller {
           );
 
     private $is_Admin; //0 for not connected --- 1 for standart user ---- 2 for admin user
-    private $_cookie_id_shopper_name = "R84JDFL304KRO821HDKR9F5U8FIP09SLD8D";
-    private $_cookie_id_shopper_password = "IR830K34K2JDOR095KRNF627H4H2I1JDO3J4";
+    private $_cookie_id_shopper_name = "743RUT7TF0DLZ0EODKC8CJ294FEDJ34JXWZ";
+    private $_cookie_id_shopper_password = "ORP02ESDD6453HCN4BF3KDK3FIZA2DM049C";
 
-    private $_cookie_id_admin_name = "K3K4JD1OZ03O4KF8RJ4J2P9AL3NC4JS93C94";
-    private $_cookie_id_admin_password = "N85KTGPZ0DKR2JRN4X72ORKTGO3VJ756NJ76HH";
+    private $_cookie_id_admin_name = "KSF394FJ48CJA03L58UC75NKSIA8C7263NF";
+    private $_cookie_id_admin_password = "AM05L9FJ5CKK75639FKTPC039VT95JDL24FG";
 
     function __construct()
     {
@@ -127,22 +127,18 @@ class ADMINISTRATOR_Controller extends CI_Controller {
         }
 
     }
-    "R84JDFL304KRO821HDKR9F5U8FIP09SLD8D";
-    private $_cookie_id_shopper_password = "IR830K34K2JDOR095KRNF627H4H2I1JDO3J4";
 
-    private $_cookie_id_admin_name = "K3K4JD1OZ03O4KF8RJ4J2P9AL3NC4JS93C94";
-    private $_cookie_id_admin_password = "N85KTGPZ0DKR2JRN4X72ORKTGO3VJ756NJ76HH";
 
     public function delete_cookie_shopper(){
-      delete_cookie("R84JDFL304KRO821HDKR9F5U8FIP09SLD8D");
-      delete_cookie("IR830K34K2JDOR095KRNF627H4H2I1JDO3J4");
+      delete_cookie("743RUT7TF0DLZ0EODKC8CJ294FEDJ34JXWZ");
+      delete_cookie("ORP02ESDD6453HCN4BF3KDK3FIZA2DM049C");
       $this->is_Admin=0;
     }
 
     public function delete_cookie_admin(){
 
-      delete_cookie("K3K4JD1OZ03O4KF8RJ4J2P9AL3NC4JS93C94");
-      delete_cookie("N85KTGPZ0DKR2JRN4X72ORKTGO3VJ756NJ76HH");
+      delete_cookie("KSF394FJ48CJA03L58UC75NKSIA8C7263NF");
+      delete_cookie("AM05L9FJ5CKK75639FKTPC039VT95JDL24FG");
       $this->is_Admin=0;
     }
 

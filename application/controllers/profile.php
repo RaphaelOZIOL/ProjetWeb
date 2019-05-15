@@ -102,7 +102,6 @@ class Profile extends ADMINISTRATOR_Controller
 
   public function update_info_pwd(){
       $data['isAdmin']=parent::get_is_Admin();
-      var_dump($_POST);
 
 
       if($data['isAdmin']==1){
@@ -121,17 +120,18 @@ class Profile extends ADMINISTRATOR_Controller
             }
 
             else{
-                $this->profile_info();
-
+              $data['err_database']=true;
+                $this->profile_info($data);
             }
           }
           else{
-              $this->update_info_pwd_view();
-
+              $data['pwd_not_same']=true;
+              $this->load->view("update_password",$data);
           }
         }
         else{
-            $this->load->view("connexion");
+            $data['not_connected']=true;
+            $this->load->view("connexion",$data);
         }
       }
 
@@ -150,21 +150,24 @@ class Profile extends ADMINISTRATOR_Controller
               }
 
             else{
-              $this->profile_info();
+              $data['err_database']=true;
+                $this->profile_info($data);
 
             }
         }
         else{
-          $this->update_info_pwd_view();
+          $data['pwd_not_same']=true;
+          $this->load->view("update_password",$data);
         }
       }
       else{
-        $this->load->view("connexion");
-
+        $data['not_connected']=true;
+        $this->load->view("connexion",$data);
       }
   }
   else{
-    $this->load->view("connexion");
+    $data['not_connected']=true;
+    $this->load->view("connexion",$data);
 
   }
 }

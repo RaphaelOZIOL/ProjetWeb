@@ -32,6 +32,7 @@ public function book_product(){
   $data1['isAdmin']=parent::get_is_Admin();
       if(!isset($_POST['idProd'])){
         //redirect(site_url("connexion"));
+
         echo json_encode($data1);
 
       }

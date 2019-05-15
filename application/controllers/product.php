@@ -39,12 +39,12 @@ class Product extends ADMINISTRATOR_Controller
     if($data['isAdmin']==2){
       $file = $_FILES['srcImg'];
       if ($file['type']==null){
-        $result[0]= $this->product_model->update_product_without_img($_POST['IdProd']);
+        $data['product_created']= $this->product_model->update_product_without_img($_POST['IdProd']);
         $this->load->view('welcomePage', $data);
       }
 
         else if(htmlspecialchars($_POST['nameProd'])!=null ){
-          $result[0]= $this->product_model->update_product($_POST['IdProd']);
+          $data['product_created']= $this->product_model->update_product($_POST['IdProd']);
 
           $config['upload_path']          = './assets/images/product/';
           $config['allowed_types']        = 'gif|jpg|png';
@@ -63,6 +63,7 @@ class Product extends ADMINISTRATOR_Controller
           if ( ! $this->upload->do_upload('srcImg'))
           {
                   $error = array('error' => $this->upload->display_errors());
+                  $data['product_created_but_img_err']=true;
                   $this->load->view('welcomePage', $data);
           }
           else
@@ -83,7 +84,7 @@ public function create_product(){
       if (htmlspecialchars($_POST['nameProd'])!=null){
         $result[0]= $this->product_model->create_product();
         $idProd = $this->product_model->get_product_only_id();
-        $this->product_model->update_product_only_img(intval($idProd[0]->IdProd));
+        $data['product_created'] = $this->product_model->update_product_only_img(intval($idProd[0]->IdProd));
         $id=$idProd[0]->IdProd;
 
         $this->do_upload($id);
@@ -130,11 +131,14 @@ public function create_product(){
         if($result==true){
           $path='assets/images/product/'.$idProd.'.png';
           unlink($path);
+          $data['product_deleted']=true;
         }
-        redirect(site_url());
+        $this->load->view('welcomePage', $data);
+
     }
     else{
-      redirect(site_url('connexion'));
+      $data['not_connected']=true;
+      $this->load->view('connexion', $data);
     }
   }
 

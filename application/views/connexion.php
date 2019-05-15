@@ -4,6 +4,13 @@
  <meta charset="utf-8">
   </head>
   <body>
+
+    <?php if (isset($not_connected) && $not_connected==true)
+    {
+    echo "<script>alert(\"Vous devez vous connecter pour accéder à ce contenue.\")</script>";
+    }
+    ?>
+
     <h1>Login</h1>
     <div id="body">
         <form action="<?=site_url("connexion")?>" method="post" >

@@ -1,5 +1,14 @@
 <body>
-
+	<?php
+		if (isset($profile_update) && $profile_update==true)
+		{
+		echo "<script>alert(\"Les informations de vote profil ont été modifiés avec succès !\")</script>";
+		}
+		else if (isset($profile_update_pwd) && $profile_update_pwd==true)
+		{
+		echo "<script>alert(\"Votre mot de passe a bien été changé !\")</script>";
+		}
+	?>
 	<div class="container">
 		<div class="row">
 
