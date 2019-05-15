@@ -1,4 +1,10 @@
 <body>
+  <?php
+    if (isset($productCreated) && $productCreated==true)
+    {
+    echo "<script>alert(\"Le produit a été créé avec succès\")</script>";
+    }
+?>
   <div class=container id="body">
 
 <!-- WELCOME PAGE -->

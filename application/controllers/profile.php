@@ -43,37 +43,131 @@ class Profile extends ADMINISTRATOR_Controller
      }
 	}
 
-  public function update_info(){
+  public function update_info($email){
       $data['isAdmin']=parent::get_is_Admin();
 
       if($data['isAdmin']==1){
-        if (htmlspecialchars($_POST['newpass'])!=null || htmlspecialchars($_POST['email'])!=null){
+        if ($email!=null){
           $mail = $this->encrypt->decode(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name()));
-          $result = $this->shopper_model->update_shopper_user($mail);
-          if($result != false){
-               parent::delete_cookie_shopper();
-               redirect(site_url("product"));
+          if($email==$mail){
+            $result = $this->shopper_model->update_shopper_user_no_pwd($mail);
+
+            if($result != false){
+              $this->profile_info();
+
+            }
+            else{
+              $this->profile_info();
+            }
+          }
+          else{
+            $this->load->view("connexion");
+
           }
         }
         else{
-          $this->profile_info();
+           $this->load->view("connexion");
         }
       }
 
       else if($data['isAdmin']==2){
-        if (htmlspecialchars($_POST['newpass'])!=null || htmlspecialchars($_POST['email'])!=null){
+        if ($email!=null){
           $mail = $this->encrypt->decode(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name()));
-          $result = $this->administrator_model->update_admin_user($mail);
-          if($result != false){
-               parent::delete_cookie_shopper();
-               redirect(site_url("product"));
+          if($email==$mail){
+            $result = $this->administrator_model->update_admin_user($mail);
+            if($result != false){
+              $this->profile_info();
+
+            }
+            else{
+              $this->profile_info();
+            }
+          }
+          else{
+            $this->load->view("connexion");
           }
         }
         else{
           $this->profile_info();
         }
       }
+      else{
+        redirect("connexion");
+      }
   }
+
+  public function update_info_pwd_view(){
+    $this->load->view("update_password");
+  }
+
+  public function update_info_pwd(){
+      $data['isAdmin']=parent::get_is_Admin();
+      var_dump($_POST);
+
+
+      if($data['isAdmin']==1){
+        if ((get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name(), TRUE) &&
+                get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_password(), TRUE))
+                || htmlspecialchars($_POST['newPass'])!=null || htmlspecialchars($_POST['confirmPassword'])!=null){
+          if(htmlspecialchars($_POST['newPass'])==htmlspecialchars($_POST['confirmPassword'])){
+            $mail = $this->encrypt->decode(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name()));
+            $result = $this->shopper_model->update_shopper_user_only_pwd($mail);
+            if($result != false){
+                   parent::delete_cookie_shopper();
+                   $data['isAdmin']=parent::get_is_Admin();
+                   $this->load->view("header",$data);
+                   $this->load->view("success");
+
+            }
+
+            else{
+                $this->profile_info();
+
+            }
+          }
+          else{
+              $this->update_info_pwd_view();
+
+          }
+        }
+        else{
+            $this->load->view("connexion");
+        }
+      }
+
+      else if($data['isAdmin']==2){
+        if ((get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name(), TRUE) &&
+                get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_password(), TRUE))
+                 || htmlspecialchars($_POST['newPass'])!=null || htmlspecialchars($_POST['confirmPassword'])!=null){
+          if(htmlspecialchars($_POST['newPass'])==htmlspecialchars($_POST['confirmPassword'])){
+            $mail = $this->encrypt->decode(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name()));
+              $result = $this->administrator_model->update_admin_user_only_pwd($mail);
+              if($result != false){
+                   parent::delete_cookie_admin();
+                   $data['isAdmin']=parent::get_is_Admin();
+                   $this->load->view("header",$data);
+                   $this->load->view("success");
+              }
+
+            else{
+              $this->profile_info();
+
+            }
+        }
+        else{
+          $this->update_info_pwd_view();
+        }
+      }
+      else{
+        $this->load->view("connexion");
+
+      }
+  }
+  else{
+    $this->load->view("connexion");
+
+  }
+}
 
 
   public function test()

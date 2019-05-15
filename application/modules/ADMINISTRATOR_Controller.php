@@ -98,7 +98,7 @@ class ADMINISTRATOR_Controller extends CI_Controller {
 
            if ($this->administrator_model->validate($mail, $password) == FALSE){
                 $this->is_Admin=0;
-                redirect(site_url("connexion"));
+                //redirect(site_url("connexion"));
               }
 
         }
@@ -113,7 +113,7 @@ class ADMINISTRATOR_Controller extends CI_Controller {
 
             if ($this->shopper_model->validate($mail, $password) == FALSE){
                 $this->is_Admin=0;
-              redirect(site_url("connexion"));
+              //redirect(site_url("connexion"));
               }
 
         }

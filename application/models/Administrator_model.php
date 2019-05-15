@@ -32,7 +32,7 @@ class Administrator_model extends CI_Model {
 
 
     public function update_admin_user($mail){
-      $pwdCrypt= $this->encrypt->encode(htmlspecialchars($_POST['newpass']));
+      //$pwdCrypt= $this->encrypt->encode(htmlspecialchars($_POST['newpass']));
       $data = array(
               'firstName'  => htmlspecialchars($_POST['firstName']),
               'lastName'  => htmlspecialchars($_POST['lastName']),
@@ -40,11 +40,24 @@ class Administrator_model extends CI_Model {
               'phoneNumber' => htmlspecialchars($_POST['phoneNumber']),
               'postalCode' => htmlspecialchars($_POST['postalCode']),
               'street'  => htmlspecialchars($_POST['street']),
-              'password' => $pwdCrypt,
+              //'password' => $pwdCrypt,
               'city' => htmlspecialchars($_POST['city']),
           );
 
-          $this->db->where('email', $email);
+          $this->db->where('email', $mail);
+          $result=$this->db->update('admin',$data);
+          if(isset($result)){
+            return $result;
+          }
+          return false;
+    }
+
+    public function update_admin_user_only_pwd($mail){
+      $pwdCrypt= $this->encrypt->encode(htmlspecialchars($_POST['newPass']));
+      $data = array(
+              'password' => $pwdCrypt,
+          );
+          $this->db->where('email', $mail);
           $result=$this->db->update('admin',$data);
           if(isset($result)){
             return $result;

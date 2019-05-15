@@ -14,11 +14,17 @@
 			            </div>
 			            <div class="row">
 			                <div class="col-md-12">
-			                    <form action="<?php echo site_url("profile/update_info")?>" method="POST">
+			                    <form action="<?php echo (site_url("profile/update_info/").$profile_info->email)?>" method="POST">
+																<div class="form-group row" hidden>
+																	<label for="email" class="col-4 col-form-label">Email</label>
+																	<div class="col-8">
+																		<input id="email" name="email" disabled value="<?php echo ($profile_info->email)?>" type="text">
+																	</div>
+																</div>
 	                              <div class="form-group row">
 	                                <label for="firstName" class="col-4 col-form-label">Prénom</label>
 	                                <div class="col-8">
-	                                  <input id="firstName" name="firstName" value="<?php echo ($profile_info->firstName)?>" class="form-control here" required="required" type="text">
+	                                  <input id="firstName" name="firstName" value="<?php echo ($profile_info->firstName)?>" class="form-control here" type="text">
 	                                </div>
 	                              </div>
 	                              <div class="form-group row">
@@ -63,30 +69,28 @@
 																		<input id="postalCode" name="postalCode" value="<?php echo ($profile_info->postalCode)?>" class="form-control here" type="text">
 	                                </div>
 	                              </div>
-	                              <div class="form-group row">
-	                                <label for="password" class="col-4 col-form-label">Nouveau mot de passe</label>
-	                                <div class="col-8">
-	                                  <input id="password" placeholder="Nouveau mot de passe" class="form-control here" type="password">
-	                                </div>
-	                              </div>
-																<div class="form-group row">
-	                                <label for="confirmPassword" class="col-4 col-form-label">Confirmation mot de passe</label>
-	                                <div class="col-8">
-	                                  <input id="confirmPassword" name="newpass" placeholder="Confirmer mot de passe" class="form-control here" type="password">
-	                                </div>
-	                              </div>
+
 	                              <div class="form-group row">
 	                                <div class="offset-4 col-8">
-	                                  <button name="submit" type="submit" class="btn btn-primary">Enregistrer vos modifications</button>
+	                                  <button name="submit"  type="submit" class="btn btn-primary">Enregistrer vos modifications</button>
 	                                </div>
 	                              </div>
+
 	                            </form>
+
+
 			                </div>
 			            </div>
 
 			        </div>
 			    </div>
 			</div>
+		</div>
+
+	</div>
+	<div class="row">
+		<div class=" col-md-3">
+			<a name="updatePassword" href="<?php echo site_url("profile/update_info_pwd_view")?>" >Modifier votre mot de passe</button>
 		</div>
 	</div>
 </body>

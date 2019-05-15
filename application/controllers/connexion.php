@@ -22,6 +22,7 @@ class Connexion extends ADMINISTRATOR_Controller {
 
     public function encrypt($password){
         $passwordCrypt = $this->encrypt->encode($password);
+        echo $passwordCrypt;
         return($passwordCrypt);
     }
 
