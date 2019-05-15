@@ -96,6 +96,15 @@ class Product_model extends CI_Model
     return false;
   }
 
+  public function delete_product($idProd){
+    $this->db->where('IdProd', $idProd);
+    $result =$this->db->delete('product');
+    if(isset($result)){
+        return $result;
+    }
+    return false;
+  }
+
 
   public function update_product_Name($idProd, $nameProd = null)
 	{

@@ -13,6 +13,7 @@ class Product extends ADMINISTRATOR_Controller
     $this->load->model('product_model');
     $data['isAdmin']=parent::get_is_Admin();
     $this->load->view('header',$data);
+    $this->load->helper("file");
 	}
 
   public function index()
@@ -121,5 +122,21 @@ public function create_product(){
             $this->load->view('welcomePage', $data);
     }
   }
+
+  public function delete_product($idProd){
+    $data['isAdmin']=parent::get_is_Admin();
+    if($data['isAdmin']==2){
+        $result= $this->product_model->delete_product(intval($idProd));
+        if($result==true){
+          $path='assets/images/product/'.$idProd.'.png';
+          unlink($path);
+        }
+        //redirect(site_url());
+    }
+    else{
+      redirect(site_url('connexion'));
+    }
+  }
+
 
 }

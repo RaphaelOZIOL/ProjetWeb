@@ -152,6 +152,7 @@ var url_category_update="http://localhost/LamiDuPain/category/update_category";
 var url_upload_img="http://localhost/LamiDuPain/category/do_upload_category";
 var url_product_info_admin='http://localhost/LamiDuPain/productAJAX/product_info_admin';
 var url_product_update='http://localhost/LamiDuPain/product/update_product';
+var url_delete_product='http://localhost/LamiDuPain/product/delete_product/';
 
 
 
@@ -360,10 +361,10 @@ function display_button_connected(data){
                                         '</div>'+
                                       '</form>'+
 
-
-
-                                      '<button type="button" onclick=load_update_product(this) id=' + data[0].IdProd + ' class="btn btn-outline-success btn-lg col-md-5 mr-5 mt-5 ">Modifier Produit</button>'+
-
+                                      '<div class="row">'+
+                                        '<button type="button" onclick=load_update_product(this) id=' + data[0].IdProd + ' class="btn btn-outline-success btn-lg col-md-4 mr-2 mt-2 ">Modifier Produit</button>'+
+                                        '<a href=' + url_delete_product + data[0].IdProd + ' id=' + data[0].IdProd + ' class="btn btn-outline-danger btn-lg col-md-4 mr-2 mt-2 ">Supprimer Produit</button>'+
+                                      '</div>'
 
                                       '<button onclick=loadListProduct()>Retour liste produit</button>'+
 
@@ -438,7 +439,8 @@ function display_button_connected(data){
                                     '<h1 class="card-title display-5 my-auto text-dark text-uppercase">' + data[0][i].nameCat + '</h5>'+
                                   '</div>'+
                                   '<div class="card-img-overlay text-center">'+
-                                    '<button type="button" onclick=load_update_category(this) id="' + data[0][i].IdCat + '" class="btn btn-outline-success btn-lg col-md-5 mr-5 mt-5 ">Modifier catégorie</button>'+
+                                    '<button type="button" onclick=load_update_category(this) id="' + data[0][i].IdCat + '" class="btn btn-outline-success btn-lg col-md-12 mr-1 mt-1 ">Modifier catégorie</button>'+
+
                                   '</div>'+
 
                                 '</div>';
@@ -465,6 +467,11 @@ function display_button_connected(data){
                       '<button type="button" onclick="loadListProduct()" class="btn btn-outline-warning btn-lg col-md-5 mr-5 mt-5 p-5">Modifier un produit</button>'+
                       '<button type="button" onclick="loadListCategory()" class="btn btn-outline-warning btn-lg col-md-5 ml-5 mt-5 p-5">Modifier une catégorie</button>'+
                     '</div>'+
+              '</div>'+
+              '<div class=container>'+
+                      '<div class="row">'+
+                        '<button type="button" onclick="loadListProduct()" class="btn btn-outline-danger btn-lg col-md-5 mr-5 mt-5 p-5">Supprimer un produit</button>'+
+                      '</div>'+
               '</div>';
         //var element = document.getElementById("body");
         $('#body').html(html);

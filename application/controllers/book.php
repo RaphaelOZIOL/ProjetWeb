@@ -37,7 +37,7 @@ public function book_product(){
       }
       else{
 
-        $rules = array(
+        /*$rules = array(
             array(
                 'field' => 'quantityProduct',
                 'label' => 'Quantité à réserver :',
@@ -53,8 +53,8 @@ public function book_product(){
         {
           $data1['form_not_valid']=true;
           echo json_encode($data1);
-        }
-        else{
+        }*/
+        //else{
           $mail = $this->encrypt->decode(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name()));
           if($mail!=null && $data1['isAdmin']==1){
             //redirect(site_url("connexion"));
@@ -76,7 +76,7 @@ public function book_product(){
             //Not shopper
             echo json_encode($data1);
 
-        }
+      //  }
 
         //$this->list_book();
       }
