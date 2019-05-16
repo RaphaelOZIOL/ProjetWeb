@@ -49,6 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+/*
 $route['connection'] = 'connexion';
 $route['produits'] = '';
 $route['categories'] = '';
@@ -57,6 +58,7 @@ $route['reservations'] = 'book/list_book';
 $route['reservations/client'] = 'book/list_book_all_admin';
 $route['profil'] = 'profile';
 $route['profil/modification'] = 'profile/update_info_pwd_view';
+*/
 //$route['produit'] = 'product/create_product';
 
 
