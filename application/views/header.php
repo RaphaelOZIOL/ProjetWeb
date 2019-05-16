@@ -702,7 +702,7 @@
                                '<div class="col-md-12">'+
                                    '<form action=' + url_product_update + ' method="POST" enctype="multipart/form-data">'+
                                          '<div class="form-group row" hidden>'+
-                                           '<label for="IdProd" class="col-4 col-form-label">Nouveau nom de catégorie</label>'+
+                                           '<label for="IdProd" class="col-4 col-form-label"></label>'+
                                            '<div class="col-8">'+
                                              '<input id="IdProd" name="IdProd" value="' + dataProduct[0].IdProd + '" class="form-control here" type="text">'+
                                            '</div>'+
@@ -716,7 +716,7 @@
                                          '<div class="form-group row">'+
                                            '<label for="price" class="col-4 col-form-label">Prix :</label>'+
                                            '<div class="col-8">'+
-                                             '<input id="price" name="price" value="' + dataProduct[0].price + '" class="form-control here" type="number">'+
+                                             '<input id="price" name="price" value="' + dataProduct[0].price + '" class="form-control here" step="0.01" type="number">'+
                                            '</div>'+
                                          '</div>'+
                                          '<div class="form-group row">'+

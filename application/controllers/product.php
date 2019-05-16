@@ -39,12 +39,12 @@ class Product extends ADMINISTRATOR_Controller
     if($data['isAdmin']==2){
       $file = $_FILES['srcImg'];
       if ($file['type']==null){
-        $data['product_created']= $this->product_model->update_product_without_img($_POST['IdProd']);
+        $data['product_updated']= $this->product_model->update_product_without_img($_POST['IdProd']);
         $this->load->view('welcomePage', $data);
       }
 
         else if(htmlspecialchars($_POST['nameProd'])!=null ){
-          $data['product_created']= $this->product_model->update_product($_POST['IdProd']);
+          $data['product_updated']= $this->product_model->update_product($_POST['IdProd']);
 
           $config['upload_path']          = './assets/images/product/';
           $config['allowed_types']        = 'gif|jpg|png';
@@ -63,7 +63,7 @@ class Product extends ADMINISTRATOR_Controller
           if ( ! $this->upload->do_upload('srcImg'))
           {
                   $error = array('error' => $this->upload->display_errors());
-                  $data['product_created_but_img_err']=true;
+                  $data['product_updated_but_img_err']=true;
                   $this->load->view('welcomePage', $data);
           }
           else

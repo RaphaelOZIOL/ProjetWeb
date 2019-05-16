@@ -4,7 +4,7 @@
   <div class=container id="body">
 
 
-  <table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="10em" width="100%">
+  <table id="dtBook" class="table table-striped table-bordered" cellspacing="10em" width="100%">
     <thead>
       <tr>
         <th class="th-sm">Réserver pour le
@@ -51,9 +51,17 @@
 
   <script>
   $(document).ready(function () {
-  $('#dtBasicExample').DataTable();
-  $('.dataTables_length').addClass('bs-select');
+    $('#dtBook').DataTable({
+    "searching": true, // false to disable search (or any other option)
+    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
+    "language": {"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"}
   });
+
+
+    $('.dataTables_length').addClass('bs-select');
+
+  });
+
   </script>
 
   </div>
