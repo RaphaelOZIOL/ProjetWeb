@@ -1,4 +1,10 @@
 <body>
+
+	<div class="container" id="div_search">
+  </div>
+  <div class=container id="body">
+
+
 	<?php
 		if (isset($profile_update) && $profile_update==true)
 		{
@@ -102,5 +108,7 @@
 			<a name="updatePassword" href="<?php echo site_url("profile/update_info_pwd_view")?>" >Modifier votre mot de passe</button>
 		</div>
 	</div>
+
+</div>
 </body>
 </html>

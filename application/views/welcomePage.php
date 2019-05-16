@@ -1,3 +1,5 @@
+
+
 <body>
   <?php
     if (isset($product_created) && $product_created==true){
@@ -22,22 +24,40 @@
       echo "<script>alert(\"Le produit a été supprimé avec succès\")</script>";
     }
 ?>
+
+  <div class="container" id="div_search">
+  </div>
   <div class=container id="body">
 
 <!-- WELCOME PAGE -->
   <?php if($isAdmin==0){ ?>
   <div class="container full-height text-center my-auto" id="welcome">
-      <h1 class="mb-1">L'Amie du Pain</h1>
+      <h1 class="mb-md-1 display-3">L'Amie du Pain</h1>
       <h3 class="mb-5">
         <em>Bienvenue sur le site de l'Ami du Pain</em>
       </h3>
-      <button class="btn btn-primary btn-xl js-scroll-trigger" onclick="loadListProduct()">Liste des produits</button>
+      <button class="btn btn-primary btn-xl js-scroll-trigger" onclick="loadListProduct()">Voir les produits</button>
+      <button class="btn btn-primary btn-xl js-scroll-trigger" onclick="loadListCategory()">Voir les catégories</button>
+
       <a class="btn btn-primary btn-xl js-scroll-trigger" href="<?php echo site_url("connexion")?>">Se connecter</a>
     </div>
-  <?php } else {?>
-    <div class="container full-height text-center my-auto" id="welcome">
+  <?php } else if($isAdmin==1){?>
+    <div class="container full-height text-center my-auto" id="welcome_user">
+        <h1 class="mb-md-1 display-3">L'Amie du Pain</h1>
+
+        <button class="btn btn-primary btn-xl js-scroll-trigger" onclick="loadListProduct()">Voir les produits</button>
+        <button class="btn btn-primary btn-xl js-scroll-trigger" onclick="loadListCategory()">Voir les catégories</button>
+        <a class="btn btn-primary btn-xl js-scroll-trigger" href="<?php echo site_url("book")?>">Vos réservations</a>
+      </div>
+<?php } else if($isAdmin==2){?>
+  <div class="container full-height text-center my-auto" id="welcome_user">
+      <h1 class="mb-md-1 display-3">L'Amie du Pain</h1>
+
+      <button class="btn btn-primary btn-xl js-scroll-trigger" onclick="loadListProduct()">Voir les produits</button>
+      <button class="btn btn-primary btn-xl js-scroll-trigger" onclick="loadListCategory()">Voir les catégories</button>
+      <a class="btn btn-primary btn-xl js-scroll-trigger" href="<?php echo site_url("book")?>">Les réservations des clients</a>
     </div>
-  <?php }?>
+<?php }?>
 
 <!-- List Product -->
   <div class="container" id="list_product">

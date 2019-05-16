@@ -1,9 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
- <head>
- <meta charset="utf-8">
-  </head>
+
   <body>
+
+    <div class="container" id="div_search">
+    </div>
+    <div class=container id="body">
+
 
     <?php if (isset($not_connected) && $not_connected==true)
     {
@@ -22,5 +23,7 @@
             <input type="submit" name="login" value="Connexion">
         </form>
     </div>
+
+  </div>
   </body>
 </html>

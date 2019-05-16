@@ -1,3 +1,7 @@
+<body>
+  <div class="container" id="div_search">
+  </div>
+  <div class=container id="body">
 
 
 <table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="10em" width="100%">
@@ -45,6 +49,8 @@
   </tbody>
 
 </table>
+
+</div>
 
 <script>
 $(document).ready(function () {

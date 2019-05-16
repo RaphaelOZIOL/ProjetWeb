@@ -1,5 +1,10 @@
 <body>
 
+  <div class="container" id="div_search">
+  </div>
+  <div class=container id="body">
+  </div>
+
   <?php
     if (isset($pwd_not_same) && $pwd_not_same==true)
     {
