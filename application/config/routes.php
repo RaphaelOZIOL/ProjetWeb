@@ -66,6 +66,6 @@ $route['profil/modification'] = 'profile/update_info_pwd_view';
 //$route['default_controller'] = 'product';
 
 
-$route['default_controller'] = 'welcome';
+$route['default_controller'] = 'product';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
