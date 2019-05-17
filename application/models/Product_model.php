@@ -9,7 +9,7 @@ class Product_model extends CI_Model
 
     return $this->db->select('*')
 				->from($this->table)
-				->order_by('idProd', 'desc')
+				->order_by('IdProd', 'desc')
 				->get()
 				->result();
 	}
