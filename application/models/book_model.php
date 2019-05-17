@@ -58,7 +58,7 @@ class Book_model extends CI_Model
 
 /*
   public function update_shopper_user($id){
-        $pwdCrypt= $this->encrypt->encode(htmlspecialchars($_POST['newpass']));
+        $pwdCrypt= $this->uncryption->encrypt(htmlspecialchars($_POST['newpass']));
         $data = array(
                 'firstName'  => htmlspecialchars($_POST['firstName']),
                 'lastName'  => htmlspecialchars($_POST['lastName']),

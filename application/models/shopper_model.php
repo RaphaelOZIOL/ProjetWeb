@@ -36,7 +36,7 @@ class Shopper_model extends CI_Model
       private function _getUser($mail) {
           $user = $this->db->select(array('email', 'password'))->get_where($this->_table, array('email' => $mail))->row();
           if (isset($user->password))
-              return $this->encrypt->decode($user->password);
+              return $this->uncryption->decrypt($user->password);
           return false;
       }
 
@@ -49,7 +49,7 @@ class Shopper_model extends CI_Model
 
 
       public function update_shopper_user_no_pwd($mail){
-        //$pwdCrypt= $this->encrypt->encode(htmlspecialchars($_POST['newpass']));
+        //$pwdCrypt= $this->uncryption->encrypt(htmlspecialchars($_POST['newpass']));
         $data = array(
                 'firstName'  => htmlspecialchars($_POST['firstName']),
                 'lastName'  => htmlspecialchars($_POST['lastName']),
@@ -70,7 +70,7 @@ class Shopper_model extends CI_Model
       }
 
       public function update_shopper_user_only_pwd($mail){
-        $pwdCrypt= $this->encrypt->encode(htmlspecialchars($_POST['newPass']));
+        $pwdCrypt= $this->uncryption->encrypt(htmlspecialchars($_POST['newPass']));
         $data = array(
                 'password' => $pwdCrypt,
             );

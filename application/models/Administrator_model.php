@@ -5,7 +5,7 @@ class Administrator_model extends CI_Model {
     private $_table = "admin";
 
     function __construct() {
-        $this->load->library('encrypt');
+        $this->load->library('encryption');
         $this->load->database();
 
     }
@@ -19,7 +19,7 @@ class Administrator_model extends CI_Model {
     private function _getUser($mail) {
         $user = $this->db->select(array('email', 'password'))->get_where($this->_table, array('email' => $mail))->row();
         if (isset($user->password))
-            return $this->encrypt->decode($user->password);
+            return $this->encryption->decrypt($user->password);
         return false;
     }
 
@@ -32,7 +32,7 @@ class Administrator_model extends CI_Model {
 
 
     public function update_admin_user($mail){
-      //$pwdCrypt= $this->encrypt->encode(htmlspecialchars($_POST['newpass']));
+      //$pwdCrypt= $this->encryption->encrypt(htmlspecialchars($_POST['newpass']));
       $data = array(
               'firstName'  => htmlspecialchars($_POST['firstName']),
               'lastName'  => htmlspecialchars($_POST['lastName']),
@@ -53,7 +53,7 @@ class Administrator_model extends CI_Model {
     }
 
     public function update_admin_user_only_pwd($mail){
-      $pwdCrypt= $this->encrypt->encode(htmlspecialchars($_POST['newPass']));
+      $pwdCrypt= $this->encryption->encrypt(htmlspecialchars($_POST['newPass']));
       $data = array(
               'password' => $pwdCrypt,
           );
