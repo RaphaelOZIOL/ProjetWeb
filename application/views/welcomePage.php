@@ -17,11 +17,15 @@
     else if (isset($product_updated) && $product_updated==false){
       echo "<script>alert(\"Le produit n'a pas été modifié, veuillez réessayer\")</script>";
     }
-    if (isset($product_updated_but_img_err) && $product_updated_but_img_err==true){
+    else if (isset($product_updated_but_img_err) && $product_updated_but_img_err==true){
       echo "<script>alert(\"Le produit a été modifié mais l'image n'a pas pu être téléchargée\")</script>";
     }
     if (isset($product_deleted) && $product_deleted==true){
       echo "<script>alert(\"Le produit a été supprimé avec succès\")</script>";
+    }
+    else if (isset($book_already_prod) && $book_already_prod==true){
+      echo "<script>alert(\"Le produit est déjà réservé, vous ne pouvez pas le supprimer pour l'instant.
+      Si vous voulez tout de même le supprimer veuillez préalablement le notifier au(x) client(s) et supprimer chaque réservation pour ce produit.\")</script>";
     }
 ?>
 

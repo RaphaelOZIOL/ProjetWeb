@@ -11,6 +11,8 @@ class Product extends Administrator_controller
 	{
 		parent::__construct();
     $this->load->model('product_model');
+    $this->load->model('book_model');
+
     $data['isAdmin']=parent::get_is_Admin();
     $this->load->view('header',$data);
     $this->load->helper("file");
@@ -80,7 +82,7 @@ class Product extends Administrator_controller
 public function create_product(){
 
     $data['isAdmin']=parent::get_is_Admin();
-    
+
     if($data['isAdmin']==2){
       if (htmlspecialchars($_POST['nameProd'])!=null){
         $result[0]= $this->product_model->create_product();
@@ -128,13 +130,26 @@ public function create_product(){
   public function delete_product($idProd){
     $data['isAdmin']=parent::get_is_Admin();
     if($data['isAdmin']==2){
-        $result= $this->product_model->delete_product(intval($idProd));
-        if($result==true){
-          $path='assets/images/product/'.$idProd.'.png';
-          unlink($path);
-          $data['product_deleted']=true;
+        $nbrBook=$this->book_model->count_book_by_prod(intval($idProd));
+        //var_dump(intval($nbrBook));
+        //die;
+        if($nbrBook==null){
+          //var_dump(intval($nbrBook));
+          //die;
+              $result= $this->product_model->delete_product(intval($idProd));
+              if($result==true){
+                $path='assets/images/product/'.$idProd.'.png';
+                unlink($path);
+                $data['product_deleted']=true;
+              }
+              $this->load->view('welcomePage', $data);
         }
-        $this->load->view('welcomePage', $data);
+        else{
+        
+          $data['book_already_prod']=true;
+
+          $this->load->view('welcomePage', $data);
+        }
 
     }
     else{

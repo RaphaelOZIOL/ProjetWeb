@@ -29,11 +29,11 @@
 			            </div>
 			            <div class="row">
 			                <div class="col-md-12">
-			                    <form action="<?php echo (site_url("profile/update_info/").$profile_info->email)?>" method="POST">
+			                    <form action="<?php echo (site_url("profile/update_info"))?>" method="POST">
 																<div class="form-group row" hidden>
 																	<label for="email" class="col-4 col-form-label">Email</label>
 																	<div class="col-8">
-																		<input id="email" name="email" disabled value="<?php echo ($profile_info->email)?>" type="text">
+																		<input id="email" name="email" value="<?php echo ($profile_info->email)?>" type="text">
 																	</div>
 																</div>
 	                              <div class="form-group row">
@@ -49,9 +49,9 @@
 	                                </div>
 	                              </div>
 	                              <div class="form-group row">
-	                                <label for="email" class="col-4 col-form-label">Email</label>
+	                                <label for="emailStock" class="col-4 col-form-label">Email</label>
 	                                <div class="col-8">
-	                                  <input id="email" name="email" disabled value="<?php echo ($profile_info->email)?>" class="form-control here" type="text">
+	                                  <input id="emailStock" name="emailStock" disabled value="<?php echo ($profile_info->email)?>" class="form-control here" type="text">
 	                                </div>
 	                              </div>
 	                              <div class="form-group row">

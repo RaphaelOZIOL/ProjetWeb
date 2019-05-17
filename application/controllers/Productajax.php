@@ -22,14 +22,16 @@ class Productajax extends Administrator_controller
   }
 
   public function product_info($idProd){
-    $produit= $this->product_model->get_product_Id($idProd);
+    $produit['isAdmin']=$data['isAdmin']=parent::get_is_Admin();
+    $produit['product_info']= $this->product_model->get_product_Id($idProd);
     echo json_encode($produit,JSON_UNESCAPED_SLASHES);
   }
 
   public function product_info_admin()
 	{
+    $produit['isAdmin']=$data['isAdmin']=parent::get_is_Admin();
     $mail = $this->encryption->decrypt(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name()));
-    if($mail==null){
+    if($mail==null && $produit['isAdmin']!=2){
       redirect(site_url("connexion"));
     }
     //$result;

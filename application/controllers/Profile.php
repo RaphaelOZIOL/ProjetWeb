@@ -43,13 +43,14 @@ class Profile extends Administrator_controller
      }
 	}
 
-  public function update_info($email){
+  public function update_info(){
       $data['isAdmin']=parent::get_is_Admin();
+      
 
       if($data['isAdmin']==1){
-        if ($email!=null){
+        if (htmlspecialchars($_POST['email'])!=null){
           $mail = $this->encryption->decrypt(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name()));
-          if($email==$mail){
+          if(htmlspecialchars($_POST['email'])==$mail){
             $result = $this->shopper_model->update_shopper_user_no_pwd($mail);
 
             if($result != false){
@@ -71,9 +72,9 @@ class Profile extends Administrator_controller
       }
 
       else if($data['isAdmin']==2){
-        if ($email!=null){
+        if (htmlspecialchars($_POST['email'])!=null){
           $mail = $this->encryption->decrypt(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name()));
-          if($email==$mail){
+          if(htmlspecialchars($_POST['email'])==$mail){
             $result = $this->administrator_model->update_admin_user($mail);
             if($result != false){
               $this->profile_info();

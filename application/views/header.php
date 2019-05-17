@@ -140,19 +140,7 @@
                       if(i%4!=0){
                         htmlProduct +='</div>';
                       }
-                      htmlProduct += '<nav aria-label="Page navigation example">'+
-                              '<ul class="pagination justify-content-end">'+
-                                '<li class="page-item disabled">'+
-                                  '<a class="page-link" href="#" tabindex="-1">Previous</a>'+
-                                '</li>'+
-                                '<li class="page-item"><a class="page-link" href="#">1</a></li>'+
-                                '<li class="page-item"><a class="page-link" href="#">2</a></li>'+
-                                '<li class="page-item"><a class="page-link" href="#">3</a></li>'+
-                                '<li class="page-item">'+
-                                  '<a class="page-link" href="#">Next</a>'+
-                                '</li>'+
-                              '</ul>'+
-                            '</nav>';
+
 
                             $('#div_search').html(htmlSearch);
                             $('#body').html(htmlProduct);
@@ -215,6 +203,8 @@
 
 
           function loadListProductByCategory(e){
+
+              document.getElementById('div_search').style.display="block";
 
               var idCat= e.getAttribute('id');
               /*var root = url_list_product_by_category;
@@ -294,7 +284,7 @@
                   document.getElementById('registration_user').style.display="none";
                   document.getElementById('list_category').style.display="none";
     */
-                document.getElementById('div_search').style.display="block";
+                document.getElementById('div_search').style.display="none";
                   var idProd= e.getAttribute('id');
 
 
@@ -330,34 +320,42 @@
 
                             today = yyyy+'-'+mm+'-'+dd;
                             seven_day = yyyy+'-'+mm+'-'+dd7;
-                            console.log(today);
+                            console.log(data['isAdmin']);
 
                               var html = '';
                               html+= '<div class="container">'+
                                         '<div class="col-md-4">'+
-                                          '<img src="' + data[0].srcImg + '" class="rounded float-left" alt="Pain au chocolat">'+
+                                          '<img src="' + data['product_info'][0].srcImg + '" class="rounded float-left" alt="Pain au chocolat">'+
                                         '</div>'+
                               '</div>'+
-                              '<div class="container">'+
+                              '<div class="container justify-content-md-center">'+
                                         '<div class="col-md-8">'+
-                                          '<h3 class="font-weight-bold display-4" id="nameProd">'+ data[0].nameProd +'</p>'+
+                                          '<h3 class="font-weight-bold display-4" id="nameProd">'+ data['product_info'][0].nameProd +'</p>'+
                                         '</div>'+
                                         '<div class="row">'+
                                           '<div class="col-md-4">'+
-                                            '<p class="font-weight-normal">Prix : '+ data[0].price +' euros</p>'+
+                                            '<p class="font-weight-normal">Prix : '+ data['product_info'][0].price +' euros</p>'+
                                           '</div>'+
                                           '<div class="col-md-8">'+
-                                            '<p class="font-weight-normal">Quantité en stock : '+ data[0].quantityStock +' pièces</p>'+
+                                            '<p class="font-weight-normal">Quantité en stock : '+ data['product_info'][0].quantityStock +' pièces</p>'+
                                           '</div>'+
-                                        '</div>'+
-                                        '<div class="row">'+
+                                        '</div>';
+                                        //If connected on admin show button admin
+                                        if(data['isAdmin']==2){
+                                            html+='<div class="row">'+
+                                              '<button type="button" onclick=load_update_product(this) id=' + data['product_info'][0].IdProd + ' class="btn btn-outline-warning btn-lg col-md-4 mr-md-2 mt-md-2 mb-md-2 ">Modifier Produit</button>'+
+                                              '<a href=' + url_delete_product + data['product_info'][0].IdProd + ' id=' + data['product_info'][0].IdProd + ' class="btn btn-outline-danger btn-lg col-md-4 mr-md-2 mt-md-2 mb-md-2 ">Supprimer Produit</a>'+
+                                            '</div>';
+                                          }
+
+                                        html+='<div class="row">'+
                                           '<div class="col-md-8 alert alert-warning" role="alert">'+
                                             '<p class="font-weight-normal">Attention vous devrez régler votre commande en caisse en arrivant ! Le cas échéant votre commande ne vous sera pas remise.</p>'+
                                           '</div>'+
                                         '</div>'+
                                         '<div class="row">'+
                                           '<div class="col-md-8">'+
-                                            '<p class="font-weight-normal">Composition : '+ data[0].compoProd +'</p>'+
+                                            '<p class="font-weight-normal">Composition : '+ data['product_info'][0].compoProd +'</p>'+
                                           '</div>'+
                                         '</div>'+
 
@@ -367,7 +365,7 @@
                                                 '<div class="form-group row col-md-6">'+
                                                   '<label  for="quantityProduct" class="col-md-3 field_title">Quantité à réserver :</label>'+
                                                   '<div class="col-md-5">'+
-                                                    '<input id="quantityProduct" min="1" max="' + data[0].quantityStock + '" name="quantityProduct" value="" class="form-control here" required="required" type="number">'+
+                                                    '<input id="quantityProduct" min="1" max="' + data['product_info'][0].quantityStock + '" name="quantityProduct" value="" class="form-control here" required="required" type="number">'+
                                                   '</div>'+
                                                 '</div>'+
                                               '</div>'+
@@ -396,7 +394,7 @@
                                             '<div class="row" hidden>'+
                                                 '<label for="idProd" col-form-label"></label>'+
                                                 '<div class="col-md-8">'+
-                                                  '<input id="idProd" name="idProd" value='+ data[0].IdProd + ' type="number">'+
+                                                  '<input id="idProd" name="idProd" value='+ data['product_info'][0].IdProd + ' type="number">'+
                                                 '</div>'+
                                             '</div>'+
 
@@ -407,10 +405,7 @@
                                             '</div>'+
                                           '</form>'+
 
-                                          '<div class="row">'+
-                                            '<button type="button" onclick=load_update_product(this) id=' + data[0].IdProd + ' class="btn btn-outline-success btn-lg col-md-4 mr-md-2 mt-2 ">Modifier Produit</button>'+
-                                            '<a href=' + url_delete_product + data[0].IdProd + ' id=' + data[0].IdProd + ' class="btn btn-outline-danger btn-lg col-md-4 mr-md-2 mt-2 ">Supprimer Produit</button>'+
-                                          '</div>'
+
 
                                           '<button onclick=loadListProduct()>Retour liste produit</button>'+
 
@@ -489,11 +484,11 @@
                                       '<div class=" text-center">';
 
                                   if(data[1]==2){
-                                      htmlCat+='<button type="button" onclick=load_update_category(this) id="' + data[0][i].IdCat + '" class="btn btn-outline-success btn-lg col-md-12 mr-md-1 mt-1 ">Modifier catégorie</button>';
+                                      htmlCat+='<button type="button" onclick=load_update_category(this) id="' + data[0][i].IdCat + '" class="btn btn-outline-warning btn-lg col-md-12 mr-md-2 mb-mt-2 mt-md-2 ">Modifier catégorie</button>';
                                   }
 
                                   htmlCat+=
-                                        '<button type=button class="btn btn-outline-success btn-lg col-md-12 mr-md-1 mt-1 card-title my-auto col-12 text-uppercase" id="' + data[0][i].IdCat + '" onclick=loadListProductByCategory(this) >Allez voir !</button>'+
+                                        '<button type=button class="btn btn-outline-success btn-lg col-md-12 mr-md-2 mt-md-2 card-title my-auto col-12 text-uppercase" id="' + data[0][i].IdCat + '" onclick=loadListProductByCategory(this) >Allez voir !</button>'+
 
                                       '</div>'+
 
@@ -906,6 +901,8 @@
 
             //function registration user
       function makeRegistration(){
+              document.getElementById('div_search').style.display="none";
+
               var html =
                 '<div class="col-md-1 mb-5 mt-5">'+
                   '<h1 class="display-3">Inscription</h1>'+

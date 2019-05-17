@@ -56,6 +56,18 @@ class Book_model extends CI_Model
     return false;
   }
 
+
+  public function count_book_by_prod($idProd)
+  {
+    $this->db->select('idBook');
+    $this->db->from($this->_table);
+    $this->db->where(array('book.IdProd' => $idProd));
+    $query = $this->db->get()->result();
+    return $query;
+  }
+
+
+
 /*
   public function update_shopper_user($id){
         $pwdCrypt= $this->uncryption->encrypt(htmlspecialchars($_POST['newpass']));
