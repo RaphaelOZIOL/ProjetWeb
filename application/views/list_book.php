@@ -1,5 +1,5 @@
 <body>
-  <<div class="container" id="div_search">
+  <div class="container" id="div_search">
   </div>
   <div class=container id="body">
 

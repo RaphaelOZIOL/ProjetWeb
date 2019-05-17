@@ -36,7 +36,7 @@
 <!-- WELCOME PAGE -->
   <?php if($isAdmin==0){ ?>
   <div class="container full-height text-center my-auto" id="welcome">
-      <h1 class="mb-md-1 display-3">L'Amie du Pain</h1>
+      <h1 class="mb-md-1 display-3">L'Ami du Pain</h1>
       <h3 class="mb-5">
         <em>Bienvenue sur le site de l'Ami du Pain</em>
       </h3>
