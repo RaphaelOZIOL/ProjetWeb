@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+$db = parse_url(getenv("DATABASE_URL"));
 
 
 /*
@@ -71,17 +71,21 @@ $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 |
 | The $query_builder variables lets you determine whether or not to load
 | the query builder class.
+'hostname' => $url["host"],
+'username' => $url["user"],
+'password' => $url["pass"],
+'database' => substr($url["path"], 1),
 */
 $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-  'hostname' => $url["host"],
-  'username' => $url["user"],
-  'password' => $url["pass"],
-  'database' => substr($url["path"], 1),
-	'dbdriver' => 'mysqli',
+	'hostname' => $url["host"],
+	'username' => $url["user"],
+	'password' => $url["pass"],
+	'database' => substr($url["path"], 1),
+	'dbdriver' => 'postgre',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
