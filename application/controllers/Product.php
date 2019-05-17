@@ -80,6 +80,7 @@ class Product extends Administrator_controller
 public function create_product(){
 
     $data['isAdmin']=parent::get_is_Admin();
+    
     if($data['isAdmin']==2){
       if (htmlspecialchars($_POST['nameProd'])!=null){
         $result[0]= $this->product_model->create_product();

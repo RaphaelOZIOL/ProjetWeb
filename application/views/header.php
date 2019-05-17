@@ -11,7 +11,7 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
     <link rel="stylesheet" type="text/css" href="<?php echo site_url();?>assets/css/welcome.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="icon" type="image/png" href="<?php echo site_url('assets/image/pain_icone.png')?> "/>
+    <link rel="icon" type="image/png" href="<?php echo site_url('assets/images/pain_icone.png')?> "/>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
@@ -61,7 +61,8 @@
     <script>
 
     // CHANGE WHEN DEPLOYING ON SERVER
-    var url_site="https://lamidupain.herokuapp.com/";
+    var url_site="http://localhost/LamiDuPain/";
+  //  var url_site="https://lamidupain.herokuapp.com/";
     var url_connection= url_site + 'connexion';
     var url_deconnnection= url_site + 'connexion/disconnect_to_welcome_page';
     var url_list_product= url_site + 'productajax/list_product';
@@ -532,78 +533,97 @@
         }
 
         function load_create_product(){
-            var html='';
-            html+=
-            '<div class="container">'+
-            		'<div class="row">'+
 
-            			'<div class="col-md-12">'+
-            			    '<div class="card">'+
-            			        '<div class="card-body">'+
-            			            '<div class="row">'+
-            			                '<div class="col-md-12">'+
-            			                    '<h4>Ajouter un produit</h4>'+
-            			                    '<hr>'+
-            			                '</div>'+
-            			            '</div>'+
-            			            '<div class="row">'+
-            			                '<div class="col-md-12">'+
-            			                    '<form action=' + url_product_create + ' method="POST" enctype="multipart/form-data" id="form_create_product">'+
+          $.ajax({
+              type  : 'GET',
+              url   : url_category,
+              async : true,
+              dataType : 'json',
+              success : function(data){
+                console.log(data);
+                var i=0;
+                var html='';
+                html+=
+                '<div class="container">'+
+                    '<div class="row">'+
 
-            	                              '<div class="form-group row">'+
-            	                                '<label for="nameProd" class="col-4 col-form-label">Nom du produit :</label>'+
-            	                                '<div class="col-8">'+
-            	                                  '<input id="nameProd" name="nameProd" class="form-control here" required="required" type="text">'+
-            	                                '</div>'+
-            	                              '</div>'+
-            	                              '<div class="form-group row">'+
-            	                                '<label for="price" class="col-4 col-form-label">Prix :</label>'+
-            	                                '<div class="col-8">'+
-            	                                  '<input id="price" name="price" class="form-control here" type="number" step="0.01">'+
-            	                                '</div>'+
-            	                              '</div>'+
-            	                              '<div class="form-group row">'+
-            	                                '<label for="quantityStock" class="col-4 col-form-label">Quantité en stock :</label>'+
-            	                                '<div class="col-8">'+
-            	                                  '<input id="quantityStock" name="quantityStock" class="form-control here" type="number">'+
-            	                                '</div>'+
-            	                              '</div>'+
-            	                              '<div class="form-group row">'+
-                                              '<div class="md-form amber-textarea active-amber-textarea col-md-12">'+
-                                                '<i class="fas fa-pencil-alt prefix"></i>'+
-                                                '<label for="compoProd">Composition du produit :</label>'+
-                                                '<textarea id="compoProd" name="compoProd" placeholder="" class="md-textarea form-control here" rows="3"></textarea>'+
-                                              '</div>'+
-            	                              '</div>'+
-            	                              '<div class="form-group row">'+
-            	                                '<label for="IdCat" class="col-4 col-form-label">Catégorie du produit</label>'+
-            	                                '<div class="col-8">'+
-            																		'<input id="IdCat" name="IdCat" type="number" class="form-control here" required="required" >'+
-            	                                '</div>'+
-            	                              '</div>'+
-                                            '<div class="form-group row">'+
-                                              '<label for="srcImg" class="col-4 col-form-label">Sélectionner une image pour votre catégorie :</label>'+
-                                              '<div class="col-8">'+
-                                                '<input type="file" id="srcImg" name="srcImg" />'+
-                                              '</div>'+
-                                           '</div>'+
+                      '<div class="col-md-12">'+
+                          '<div class="card">'+
+                              '<div class="card-body">'+
+                                  '<div class="row">'+
+                                      '<div class="col-md-12">'+
+                                          '<h4>Ajouter un produit</h4>'+
+                                          '<hr>'+
+                                      '</div>'+
+                                  '</div>'+
+                                  '<div class="row">'+
+                                      '<div class="col-md-12">'+
+                                          '<form action=' + url_product_create + ' method="POST" enctype="multipart/form-data" id="form_create_product">'+
 
-            	                              '<div class="form-group row">'+
-            	                                '<div class="offset-4 col-8">'+
-            	                                  '<button name="submit" type="submit" class="btn btn-primary">Créer le produit</button>'+
-            	                                '</div>'+
-            	                              '</div>'+
-            	                            '</form>'+
-            			                '</div>'+
-            			            '</div>'+
+                                                '<div class="form-group row">'+
+                                                  '<label for="nameProd" class="col-4 col-form-label">Nom du produit :</label>'+
+                                                  '<div class="col-8">'+
+                                                    '<input id="nameProd" name="nameProd" class="form-control here" required="required" type="text">'+
+                                                  '</div>'+
+                                                '</div>'+
+                                                '<div class="form-group row">'+
+                                                  '<label for="price" class="col-4 col-form-label">Prix :</label>'+
+                                                  '<div class="col-8">'+
+                                                    '<input id="price" name="price" class="form-control here" type="number" step="0.01">'+
+                                                  '</div>'+
+                                                '</div>'+
+                                                '<div class="form-group row">'+
+                                                  '<label for="quantityStock" class="col-4 col-form-label">Quantité en stock :</label>'+
+                                                  '<div class="col-8">'+
+                                                    '<input id="quantityStock" name="quantityStock" class="form-control here" type="number">'+
+                                                  '</div>'+
+                                                '</div>'+
+                                                '<div class="form-group row">'+
+                                                  '<div class="md-form amber-textarea active-amber-textarea col-md-12">'+
+                                                    '<i class="fas fa-pencil-alt prefix"></i>'+
+                                                    '<label for="compoProd">Composition du produit :</label>'+
+                                                    '<textarea id="compoProd" name="compoProd" placeholder="" class="md-textarea form-control here" rows="3"></textarea>'+
+                                                  '</div>'+
+                                                '</div>'+
+                                                '<div class="form-group row">'+
+                                                  '<label for="IdCat" class="col-4 col-form-label">Catégorie du produit</label>'+
+                                                  '<div class="col-8">'+
+                                                    '<select name="IdCat" id="IdCat">';
+                                                        for(i=0; i<data[0].length; i++){
+                                                          html+='<option value="' + data[0][i]['IdCat'] + '">' + data[0][i]['nameCat'] + '</option>';
+                                                        }
+                                                    html+='</select>'+
+                                                  '</div>'+
+                                                '</div>'+
+                                                '<div class="form-group row">'+
+                                                  '<label for="srcImg" class="col-4 col-form-label">Sélectionner une image pour votre catégorie :</label>'+
+                                                  '<div class="col-8">'+
+                                                    '<input type="file" id="srcImg" name="srcImg" />'+
+                                                  '</div>'+
+                                               '</div>'+
 
-            			       '</div>'+
-            			    '</div>'+
-            			'</div>'+
-            		'</div>'+
-            	'</div>';
+                                                '<div class="form-group row">'+
+                                                  '<div class="offset-4 col-8">'+
+                                                    '<button name="submit" type="submit" class="btn btn-primary">Créer le produit</button>'+
+                                                  '</div>'+
+                                                '</div>'+
+                                              '</form>'+
+                                      '</div>'+
+                                  '</div>'+
 
-            $('#body').html(html);
+                             '</div>'+
+                          '</div>'+
+                      '</div>'+
+                    '</div>'+
+                  '</div>';
+
+                  $('#body').html(html);
+
+                  display_button_connected(data);
+              }
+          });
+
+
 
         }
 
@@ -676,92 +696,107 @@
         function load_update_product(e){
           var idProd= e.getAttribute('id');
 
-
           $.ajax({
-            type : 'GET',
-            async : true,
-            url: url_product_info_admin,
-            data: 'IdProd='+ idProd,
-            dataType : 'JSON',
-            success: function(dataProduct) {
+              type  : 'GET',
+              url   : url_category,
+              async : true,
+              dataType : 'json',
+              success : function(dataCategory){
+
+              $.ajax({
+                type : 'GET',
+                async : true,
+                url: url_product_info_admin,
+                data: 'IdProd='+ idProd,
+                dataType : 'JSON',
+                success: function(dataProduct) {
 
 
-           var html= '<div class="container">'+
-             '<div class="row">'+
+               var html= '<div class="container">'+
+                 '<div class="row">'+
 
-               '<div class="col-md-12">'+
-                   '<div class="card">'+
-                       '<div class="card-body">'+
-                           '<div class="row">'+
-                               '<div class="col-md-12">'+
-                                  ' <h4>Modifier le produit ' + dataProduct[0].nameProd + '</h4>'+
-                                   '<hr>'+
+                   '<div class="col-md-12">'+
+                       '<div class="card">'+
+                           '<div class="card-body">'+
+                               '<div class="row">'+
+                                   '<div class="col-md-12">'+
+                                      ' <h4>Modifier le produit ' + dataProduct[0].nameProd + '</h4>'+
+                                       '<hr>'+
+                                   '</div>'+
                                '</div>'+
-                           '</div>'+
-                           '<div class="row">'+
-                               '<div class="col-md-12">'+
-                                   '<form action=' + url_product_update + ' method="POST" enctype="multipart/form-data">'+
-                                         '<div class="form-group row" hidden>'+
-                                           '<label for="IdProd" class="col-4 col-form-label"></label>'+
-                                           '<div class="col-8">'+
-                                             '<input id="IdProd" name="IdProd" value="' + dataProduct[0].IdProd + '" class="form-control here" type="text">'+
-                                           '</div>'+
-                                         '</div>'+
-                                         '<div class="form-group row">'+
-                                           '<label for="nameProd" class="col-4 col-form-label">Nom du produit :</label>'+
-                                           '<div class="col-8">'+
-                                             '<input id="nameProd" name="nameProd" value="' + dataProduct[0].nameProd + '" class="form-control here" required="required" type="text">'+
-                                           '</div>'+
-                                         '</div>'+
-                                         '<div class="form-group row">'+
-                                           '<label for="price" class="col-4 col-form-label">Prix :</label>'+
-                                           '<div class="col-8">'+
-                                             '<input id="price" name="price" value="' + dataProduct[0].price + '" class="form-control here" step="0.01" type="number">'+
-                                           '</div>'+
-                                         '</div>'+
-                                         '<div class="form-group row">'+
-                                           '<label for="quantityStock" class="col-4 col-form-label">Quantité en stock :</label>'+
-                                           '<div class="col-8">'+
-                                             '<input id="quantityStock" name="quantityStock" value="' + dataProduct[0].quantityStock + '" class="form-control here" type="number">'+
-                                           '</div>'+
-                                         '</div>'+
-                                         '<div class="form-group row">'+
-                                           '<div class="md-form amber-textarea active-amber-textarea col-md-12">'+
-                                             '<i class="fas fa-pencil-alt prefix"></i>'+
-                                             '<label for="compoProd">Composition du produit :</label>'+
-                                             '<textarea id="compoProd" name="compoProd" class="md-textarea form-control here" rows="3">' + dataProduct[0].compoProd + '</textarea>'+
-                                           '</div>'+
-                                         '</div>'+
-                                         '<div class="form-group row">'+
-                                           '<label for="IdCat" class="col-4 col-form-label">Catégorie du produit</label>'+
-                                           '<div class="col-8">'+
-                                             '<input id="IdCat" name="IdCat" value="' + dataProduct[0].IdCat + '" type="text" class="form-control here" required="required" >'+
-                                           '</div>'+
-                                         '</div>'+
+                               '<div class="row">'+
+                                   '<div class="col-md-12">'+
+                                       '<form action=' + url_product_update + ' method="POST" enctype="multipart/form-data">'+
+                                             '<div class="form-group row" hidden>'+
+                                               '<label for="IdProd" class="col-4 col-form-label"></label>'+
+                                               '<div class="col-8">'+
+                                                 '<input id="IdProd" name="IdProd" value="' + dataProduct[0].IdProd + '" class="form-control here" type="text">'+
+                                               '</div>'+
+                                             '</div>'+
+                                             '<div class="form-group row">'+
+                                               '<label for="nameProd" class="col-4 col-form-label">Nom du produit :</label>'+
+                                               '<div class="col-8">'+
+                                                 '<input id="nameProd" name="nameProd" value="' + dataProduct[0].nameProd + '" class="form-control here" required="required" type="text">'+
+                                               '</div>'+
+                                             '</div>'+
+                                             '<div class="form-group row">'+
+                                               '<label for="price" class="col-4 col-form-label">Prix :</label>'+
+                                               '<div class="col-8">'+
+                                                 '<input id="price" name="price" value="' + dataProduct[0].price + '" class="form-control here" step="0.01" type="number">'+
+                                               '</div>'+
+                                             '</div>'+
+                                             '<div class="form-group row">'+
+                                               '<label for="quantityStock" class="col-4 col-form-label">Quantité en stock :</label>'+
+                                               '<div class="col-8">'+
+                                                 '<input id="quantityStock" name="quantityStock" value="' + dataProduct[0].quantityStock + '" class="form-control here" type="number">'+
+                                               '</div>'+
+                                             '</div>'+
+                                             '<div class="form-group row">'+
+                                               '<div class="md-form amber-textarea active-amber-textarea col-md-12">'+
+                                                 '<i class="fas fa-pencil-alt prefix"></i>'+
+                                                 '<label for="compoProd">Composition du produit :</label>'+
+                                                 '<textarea id="compoProd" name="compoProd" class="md-textarea form-control here" rows="3">' + dataProduct[0].compoProd + '</textarea>'+
+                                               '</div>'+
+                                             '</div>'+
+                                             '<div class="form-group row">'+
+                                               '<label for="IdCat" class="col-4 col-form-label">Catégorie du produit</label>'+
+                                               '<div class="col-8">'+
+                                               '<select name="IdCat" id="IdCat">'+
+                                                  '<option value="' + dataProduct[0].IdCat + '">' + dataProduct[0].nameCat + '</option>';
+                                                  for(i=0; i<dataCategory[0].length; i++){
+                                                    if(dataCategory[0][i]['IdCat'] != dataProduct[0].IdCat){
+                                                      html+='<option value="' + dataCategory[0][i]['IdCat'] + '">' + dataCategory[0][i]['nameCat'] + '</option>';
+                                                    }
+                                                  }
+                                               html+='</select>'+
+                                               '</div>'+
+                                             '</div>'+
 
-                                         '<div class="form-group row">'+
-                                           '<label for="srcImg" class="col-4 col-form-label">Sélectionner une nouvelle image pour votre catégorie :</label>'+
-                                           '<div class="col-8">'+
-                                             '<input type="file" id="srcImg" name="srcImg" />'+
-                                           '</div>'+
-                                        '</div>'+
+                                             '<div class="form-group row">'+
+                                               '<label for="srcImg" class="col-4 col-form-label">Sélectionner une nouvelle image pour votre catégorie :</label>'+
+                                               '<div class="col-8">'+
+                                                 '<input type="file" id="srcImg" name="srcImg" />'+
+                                               '</div>'+
+                                            '</div>'+
 
-                                         '<div class="form-group row">'+
-                                           '<div class="offset-4 col-8">'+
-                                             '<button name="submit" type="submit" class="btn btn-primary">Enregistrer vos modifications</button>'+
-                                           '</div>'+
-                                         '</div>'+
-                                       '</form>'+
+                                             '<div class="form-group row">'+
+                                               '<div class="offset-4 col-8">'+
+                                                 '<button name="submit" type="submit" class="btn btn-primary">Enregistrer vos modifications</button>'+
+                                               '</div>'+
+                                             '</div>'+
+                                           '</form>'+
+                                   '</div>'+
                                '</div>'+
-                           '</div>'+
 
+                           '</div>'+
                        '</div>'+
                    '</div>'+
-               '</div>'+
-             '</div>'+
-           '</div>';
+                 '</div>'+
+               '</div>';
 
-           $('#body').html(html);
+               $('#body').html(html);
+             }
+           });
          }
        });
 

@@ -21,7 +21,16 @@ class Product_model extends CI_Model
     $this->db->where(array('IdProd' => $idProd));
     $query = $this->db->get()->result();
     return $query;
+	}
 
+  public function get_product_cat($idProd)
+	{
+    $this->db->select('*');
+    $this->db->from('product');
+    $this->db->join('category', 'category.IdCat = product.IdCat');
+    $this->db->where(array('product.IdProd' => $idProd));
+    $query = $this->db->get()->result();
+    return $query;
 	}
 
   public function get_product_only_id()

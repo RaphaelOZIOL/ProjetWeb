@@ -34,7 +34,7 @@ class Productajax extends Administrator_controller
     }
     //$result;
     //if(isset($_GET['IdCat'])){intval($_GET['IdCat'])
-  		$result= $this->product_model->get_product_Id(intval($_GET['IdProd']));
+  		$result= $this->product_model->get_product_cat(intval($_GET['IdProd']));
     //}
 
     echo json_encode($result,JSON_UNESCAPED_SLASHES);
