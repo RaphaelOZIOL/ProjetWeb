@@ -26,7 +26,7 @@ class Profile extends Administrator_controller
     if(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name(), TRUE) &&
             get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_password(), TRUE)){
 
-          $mail = $this->encrypt->decode(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name()));
+          $mail = $this->encryption->decrypt(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name()));
           $data['profile_info']= $this->shopper_model->_getUser_info($mail);
           $this->load->view('profile',$data);
     }
@@ -34,7 +34,7 @@ class Profile extends Administrator_controller
     else if(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name(), TRUE) &&
             get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_password(), TRUE)){
 
-              $mail = $this->encrypt->decode(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name()));
+              $mail = $this->encryption->decrypt(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name()));
               $data['profile_info']= $this->administrator_model->_getUser_info($mail);
               $this->load->view('profile',$data);
      }
@@ -48,7 +48,7 @@ class Profile extends Administrator_controller
 
       if($data['isAdmin']==1){
         if ($email!=null){
-          $mail = $this->encrypt->decode(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name()));
+          $mail = $this->encryption->decrypt(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name()));
           if($email==$mail){
             $result = $this->shopper_model->update_shopper_user_no_pwd($mail);
 
@@ -72,7 +72,7 @@ class Profile extends Administrator_controller
 
       else if($data['isAdmin']==2){
         if ($email!=null){
-          $mail = $this->encrypt->decode(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name()));
+          $mail = $this->encryption->decrypt(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name()));
           if($email==$mail){
             $result = $this->administrator_model->update_admin_user($mail);
             if($result != false){
@@ -109,7 +109,7 @@ class Profile extends Administrator_controller
                 get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_password(), TRUE))
                 || htmlspecialchars($_POST['newPass'])!=null || htmlspecialchars($_POST['confirmPassword'])!=null){
           if(htmlspecialchars($_POST['newPass'])==htmlspecialchars($_POST['confirmPassword'])){
-            $mail = $this->encrypt->decode(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name()));
+            $mail = $this->encryption->decrypt(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name()));
             $result = $this->shopper_model->update_shopper_user_only_pwd($mail);
             if($result != false){
                    parent::delete_cookie_shopper();
@@ -140,7 +140,7 @@ class Profile extends Administrator_controller
                 get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_password(), TRUE))
                  || htmlspecialchars($_POST['newPass'])!=null || htmlspecialchars($_POST['confirmPassword'])!=null){
           if(htmlspecialchars($_POST['newPass'])==htmlspecialchars($_POST['confirmPassword'])){
-            $mail = $this->encrypt->decode(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name()));
+            $mail = $this->encryption->decrypt(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name()));
               $result = $this->administrator_model->update_admin_user_only_pwd($mail);
               if($result != false){
                    parent::delete_cookie_admin();

@@ -28,7 +28,7 @@ class Productajax extends Administrator_controller
 
   public function product_info_admin()
 	{
-    $mail = $this->encrypt->decode(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name()));
+    $mail = $this->encryption->decrypt(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name()));
     if($mail==null){
       redirect(site_url("connexion"));
     }

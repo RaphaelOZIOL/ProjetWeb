@@ -20,8 +20,8 @@ class Connexion extends Administrator_controller {
       $this->load->view('connexion');
     }
 
-    public function encrypt($password){
-        $passwordCrypt = $this->encrypt->encode($password);
+    public function encryption($password){
+        $passwordCrypt = $this->encryption->encrypt($password);
         echo $passwordCrypt;
         return($passwordCrypt);
     }

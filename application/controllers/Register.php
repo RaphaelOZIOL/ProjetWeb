@@ -7,7 +7,7 @@ class Register extends CI_Controller
 	{
 		parent::__construct();
     $this->load->model('shopper_model');
-    $this->load->library('encrypt');
+    $this->load->library('encryption');
 
 	}
 
@@ -22,13 +22,13 @@ class Register extends CI_Controller
     $this->load->view('register');
 	}
 
-  /*public function encrypt($pwd){
-      return $this->encrypt->encode($pwd);
+  /*public function encryption($pwd){
+      return $this->encryption->encode($pwd);
   }*/
 
 /* ---------- Functions AJAX -----------*/
   public function registration(){
-        $pwdCrypt=$this->encrypt->encode(htmlspecialchars($this->input->post('password')));
+        $pwdCrypt=$this->encryption->encrypt(htmlspecialchars($this->input->post('password')));
         $data= $this->shopper_model->user_register($pwdCrypt);
         echo json_encode($data,JSON_UNESCAPED_SLASHES);
   }

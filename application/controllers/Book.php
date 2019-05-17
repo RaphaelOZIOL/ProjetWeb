@@ -56,7 +56,7 @@ public function book_product(){
           echo json_encode($data1);
         }*/
         //else{
-          $mail = $this->encrypt->decode(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name()));
+          $mail = $this->encryption->decrypt(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name()));
           if($mail!=null && $data1['isAdmin']==1){
             //redirect(site_url("connexion"));
               $date = new DateTime();
@@ -84,7 +84,7 @@ public function book_product(){
 }
 
   public function list_book(){
-    $mail = $this->encrypt->decode(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name()));
+    $mail = $this->encryption->decrypt(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name()));
     if($mail==null){
       redirect(site_url("connexion"));
     }
@@ -101,7 +101,7 @@ public function book_product(){
 
   public function list_book_all_admin(){
     $data1['isAdmin']=parent::get_is_Admin();
-    $mail = $this->encrypt->decode(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name()));
+    $mail = $this->encryption->decrypt(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name()));
     if($mail==null && $data1['isAdmin']!=2){
       redirect(site_url("connexion"));
     }
@@ -117,7 +117,7 @@ public function book_product(){
   public function delete_book($idBook){
     var_dump($idBook);
     $data['isAdmin']=parent::get_is_Admin();
-    $mail = $this->encrypt->decode(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name()));
+    $mail = $this->encryption->decrypt(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name()));
     if($mail!=null && $data['isAdmin']==1){
         $result= $this->book_model->delete_book(intval($idBook));
         if($result==true){
@@ -133,7 +133,7 @@ public function book_product(){
   public function delete_book_admin($idBook){
     var_dump($idBook);
     $data['isAdmin']=parent::get_is_Admin();
-    $mail = $this->encrypt->decode(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name()));
+    $mail = $this->encryption->decrypt(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name()));
     if($mail!=null && $data['isAdmin']==2){
         $result= $this->book_model->delete_book(intval($idBook));
         if($result==true){
