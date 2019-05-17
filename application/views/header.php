@@ -11,7 +11,7 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
     <link rel="stylesheet" type="text/css" href="<?php echo site_url();?>assets/css/welcome.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <link rel="icon" type="image/png" href="<?php echo site_url('assets/image/pain_icone.png')?> "/>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
@@ -61,26 +61,26 @@
     <script>
 
     // CHANGE WHEN DEPLOYING ON SERVER
-    var url_connection='http://localhost/LamiDuPain/connexion';
-    var url_deconnnection='http://localhost/LamiDuPain/connexion/disconnect_to_welcome_page';
-    var url_list_product='http://localhost/LamiDuPain/productAJAX/list_product';
-    var url_list_product_by_category='http://localhost/LamiDuPain/categoryAJAX/get_product_by_category/';
-    var url_product_id='http://localhost/LamiDuPain/productAJAX/afficher_idProd';
-    var url_product_info='http://localhost/LamiDuPain/productAJAX/product_info/';
-    var url_registration='http://localhost/LamiDuPain/register/registration';
-    var url_category='http://localhost/LamiDuPain/categoryAJAX/list_category';
-    var url_profile='http://localhost/LamiDuPain/profile';
-    var url_book_product='http://localhost/LamiDuPain/book/book_product';
-    var url_product_create='http://localhost/LamiDuPain/product/create_product';
-    var url_category_create='http://localhost/LamiDuPain/category/create_category';
-    var url_category_info="http://localhost/LamiDuPain/categoryAJAX/info_category";
-    var url_category_update="http://localhost/LamiDuPain/category/update_category";
-    var url_upload_img="http://localhost/LamiDuPain/category/do_upload_category";
-    var url_product_info_admin='http://localhost/LamiDuPain/productAJAX/product_info_admin';
-    var url_product_update='http://localhost/LamiDuPain/product/update_product';
-    var url_delete_product='http://localhost/LamiDuPain/product/delete_product/';
-    var url_search_product='http://localhost/LamiDuPain/searchProduct/search/';
-
+    var url_site="https://lamidupain.herokuapp.com/";
+    var url_connection= url_site + 'connexion';
+    var url_deconnnection= url_site + 'connexion/disconnect_to_welcome_page';
+    var url_list_product= url_site + 'productajax/list_product';
+    var url_list_product_by_category= url_site + 'categoryajax/get_product_by_category/';
+    var url_product_id= url_site + 'productajax/afficher_idProd';
+    var url_product_info= url_site + 'productajax/product_info/';
+    var url_registration= url_site + 'register/registration';
+    var url_category= url_site + 'categoryajax/list_category';
+    var url_profile= url_site + 'profile';
+    var url_book_product= url_site + 'book/book_product';
+    var url_product_create= url_site + 'product/create_product';
+    var url_category_create= url_site + 'category/create_category';
+    var url_category_info= url_site + "categoryajax/info_category";
+    var url_category_update= url_site + "category/update_category";
+    var url_upload_img= url_site + "category/do_upload_category";
+    var url_product_info_admin= url_site + 'productajax/product_info_admin';
+    var url_product_update= url_site + 'product/update_product';
+    var url_delete_product= url_site + 'product/delete_product/';
+    var url_search_product= url_site + 'searchproduct/search/';
 
 
     function display_button_connected(data){
