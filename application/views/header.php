@@ -25,7 +25,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent15">
 
         <ul class="nav navbar-nav" id="nav_bar_booking">
-          <li><a class="nav-link border-right mr-md-2" onclick="loadListProduct()">Liste des Produits</a></li>
+          <li><a class="nav-link border-right mr-md-2 " onclick="loadListProduct()">Liste des Produits</a></li>
           <li><a class="nav-link border-right mr-md-2" onclick="loadListCategory()">Catégories</a></li>
 
           <?php if($isAdmin==1){ ?>
@@ -61,8 +61,8 @@
     <script>
 
     // CHANGE WHEN DEPLOYING ON SERVER
-  //  var url_site="http://localhost/LamiDuPain/";
-    var url_site="https://lamidupain.herokuapp.com/";
+   var url_site="http://localhost/LamiDuPain/";
+  //  var url_site="https://lamidupain.herokuapp.com/";
     var url_connection= url_site + 'connexion';
     var url_deconnnection= url_site + 'connexion/disconnect_to_welcome_page';
     var url_list_product= url_site + 'productajax/list_product';
@@ -115,31 +115,47 @@
                               '<input type="search" id="productSearch" name="productSearch" aria-label="chercher">';
                       var i;
                       for(i=0; i<data[0].length; i++){
-                          if(i%4==0){
-                            htmlProduct += '<div class="row">';
+                          if(i%3==0){
+                            htmlProduct += '<div class="card-deck container-fluid justify-content-center">';
                           }
-                            htmlProduct += '<div class="col-md-3">'+
+                            htmlProduct += '<div class="card col-12 col-sm-6 col-md-4 bg-light border-primary mb-3">'+
                                       '<div class="card-deck">'+
-                                        '<div class="card">'+
+                                        '<div class="card-header">'+
                                             '<img class="card-img-top" src="' + data[0][i].srcImg + '" alt="Image de ' + data[0][i].nameProd + '">' +
-                                          '<div class="card-block">'+
-                                              '<h5 class="card-title" onclick=loadProduct(this) id="' + data[0][i].IdProd +'">'+ data[0][i].nameProd +' - ' + data[0][i].price + ' € </h5>'+
-                                            '<p class="card-text">' + data[0][i].compoProd + '</p>'+
-                                            '<p class="card-text">' + data[0][i].quantityStock + ' pièces</p>'+
+                                        '</div>'+
+                                          '<div class="card-body text-center">'+
+                                              '<h5 class="card-title col-md-12"  id="' + data[0][i].IdProd +'">'+ data[0][i].nameProd +'</h5>'+
+                                              '<h5 class="card-title col-md-12">Prix : ' + data[0][i].price + ' € </h5>'+
 
+                                              '<p class="card-text">' + data[0][i].compoProd + '</p>'+
+                                              '<p class="card-text">' + data[0][i].quantityStock + ' pièces</p>'+
                                           '</div>'+
+
+                                          '<div class="text-center col-md-12">'+
+                                              '<button type="button" onclick=loadProduct(this) id=' + data[0][i].IdProd + ' class="btn btn-outline-success btn-lg col-md-12 mr-md-2 mt-md-2 mb-md-2 ">Réserver</button>';
+
+                                             if(data[1]==2){
+                                                  htmlProduct +=
+                                                '<button type="button" onclick=load_update_product(this) id=' + data[0][i].IdProd + ' class="btn btn-outline-warning btn-lg col-md-12 mr-md-2 mt-md-2 mb-md-2 ">Modifier</button>';
+                                              }
+
+
+
+                            htmlProduct+='</div>'+
                                         '</div>'+
                                       '</div>';
 
-                          if(i%4==3){
+                          if(i%3==2){
                             htmlProduct += '</div>';
                           }
 
-                          htmlProduct += '</div>';
+
                       }
-                      if(i%4!=0){
-                        htmlProduct +='</div>';
-                      }
+
+
+
+
+
 
 
                             $('#div_search').html(htmlSearch);
@@ -222,44 +238,44 @@
                       var htmlProduct = '';
                       var i;
                       for(i=0; i<data[0].length; i++){
-                          if(i%4==0){
-                            htmlProduct += '<div class="row">';
-                          }
-                            htmlProduct += '<div class="col-md-3">'+
-                                      '<div class="card-deck">'+
-                                        '<div class="card">'+
-                                            '<img class="card-img-top" src="' + data[0][i].srcImg + '" alt="Image de ' + data[0][i].nameProd + '">' +
-                                          '<div class="card-block">'+
-                                              '<h5 class="card-title" onclick=loadProduct(this) id="' + data[0][i].IdProd +'">'+ data[0][i].nameProd +' - ' + data[0][i].price + ' € </h5>'+
+
+
+                        if(i%3==0){
+                          htmlProduct += '<div class="card-deck container-fluid justify-content-center">';
+                        }
+                          htmlProduct += '<div class="card col-12 col-sm-6 col-md-4 bg-light border-primary mb-3">'+
+                                    '<div class="card-deck">'+
+                                      '<div class="card-header">'+
+                                          '<img class="card-img-top" src="' + data[0][i].srcImg + '" alt="Image de ' + data[0][i].nameProd + '">' +
+                                      '</div>'+
+                                        '<div class="card-body text-center">'+
+                                            '<h5 class="card-title col-md-12"  id="' + data[0][i].IdProd +'">'+ data[0][i].nameProd +'</h5>'+
+                                            '<h5 class="card-title col-md-12">Prix : ' + data[0][i].price + ' € </h5>'+
+
                                             '<p class="card-text">' + data[0][i].compoProd + '</p>'+
                                             '<p class="card-text">' + data[0][i].quantityStock + ' pièces</p>'+
-
-                                          '</div>'+
                                         '</div>'+
-                                      '</div>';
 
-                          if(i%4==3){
-                            htmlProduct += '</div>';
-                          }
+                                        '<div class="text-center col-md-12">'+
+                                            '<button type="button" onclick=loadProduct(this) id=' + data[0][i].IdProd + ' class="btn btn-outline-success btn-lg col-md-12 mr-md-2 mt-md-2 mb-md-2 ">Réserver</button>';
 
+                                           if(data[1]==2){
+                                                htmlProduct +=
+                                              '<button type="button" onclick=load_update_product(this) id=' + data[0][i].IdProd + ' class="btn btn-outline-warning btn-lg col-md-12 mr-md-2 mt-md-2 mb-md-2 ">Modifier</button>';
+                                            }
+
+
+
+                          htmlProduct+='</div>'+
+                                      '</div>'+
+                                    '</div>';
+
+                        if(i%3==2){
                           htmlProduct += '</div>';
+                        }
                       }
-                      if(i%4!=0){
-                        htmlProduct +='</div>';
-                      }
-                      htmlProduct += '<nav aria-label="Page navigation example">'+
-                              '<ul class="pagination justify-content-end">'+
-                                '<li class="page-item disabled">'+
-                                  '<a class="page-link" href="#" tabindex="-1">Previous</a>'+
-                                '</li>'+
-                                '<li class="page-item"><a class="page-link" href="#">1</a></li>'+
-                                '<li class="page-item"><a class="page-link" href="#">2</a></li>'+
-                                '<li class="page-item"><a class="page-link" href="#">3</a></li>'+
-                                '<li class="page-item">'+
-                                  '<a class="page-link" href="#">Next</a>'+
-                                '</li>'+
-                              '</ul>'+
-                            '</nav>';
+
+
 
                       $('#body').html(htmlProduct);
 
@@ -479,7 +495,7 @@
                                       '<div class="card col-md-4 bg-light border-primary mb-3" >'+
                                       '<div class="card-header"><img class="card-img" src="' + data[0][i].imgSrc + '" alt="Image de ' + data[0][i].nameCat + '"></div>'+
                                       '<div class="card-body text-center text-primary">'+
-                                          '<h5 class="col-md-12 mr-md-1 mt-1 card-title my-auto col-12 text-uppercase">' + data[0][i].nameCat + '</h5>'+
+                                          '<h5 class="col-md-12 mt-1 text-uppercase">' + data[0][i].nameCat + '</h5>'+
                                       '</div>'+
                                       '<div class=" text-center">';
 
@@ -488,7 +504,7 @@
                                   }
 
                                   htmlCat+=
-                                        '<button type=button class="btn btn-outline-success btn-lg col-md-12 mr-md-2 mt-md-2 card-title my-auto col-12 text-uppercase" id="' + data[0][i].IdCat + '" onclick=loadListProductByCategory(this) >Allez voir !</button>'+
+                                        '<button type=button class="btn btn-outline-success btn-lg col-md-12 mr-md-2 mt-md-2 card-title my-auto col-12 " id="' + data[0][i].IdCat + '" onclick=loadListProductByCategory(this) >Allez voir !</button>'+
 
                                       '</div>'+
 
@@ -631,7 +647,7 @@
                         '<div class="card-body">'+
                             '<div class="row">'+
                                 '<div class="col-md-12">'+
-                                    '<h4>Ajouter un produit</h4>'+
+                                    '<h4>Ajouter une catégorie</h4>'+
                                     '<hr>'+
                                 '</div>'+
                             '</div>'+
@@ -690,6 +706,8 @@
 
         function load_update_product(e){
           var idProd= e.getAttribute('id');
+          document.getElementById('div_search').style.display="none";
+
 
           $.ajax({
               type  : 'GET',
@@ -714,9 +732,12 @@
                        '<div class="card">'+
                            '<div class="card-body">'+
                                '<div class="row">'+
-                                   '<div class="col-md-12">'+
+                                   '<div class="col-md-7">'+
                                       ' <h4>Modifier le produit ' + dataProduct[0].nameProd + '</h4>'+
                                        '<hr>'+
+                                   '</div>'+
+                                   '<div class="col-md-5 align-item-end">'+
+                                     '<button name="listProduct" type="submit" onclick=loadListProduct() class="btn btn-primary pull-right">Retour aux produits</button>'+
                                    '</div>'+
                                '</div>'+
                                '<div class="row">'+
@@ -774,10 +795,16 @@
                                                '</div>'+
                                             '</div>'+
 
+
+
                                              '<div class="form-group row">'+
-                                               '<div class="offset-4 col-8">'+
-                                                 '<button name="submit" type="submit" class="btn btn-primary">Enregistrer vos modifications</button>'+
+
+                                               '<div class=" col-md-12">'+
+                                                 '<button name="submit" type="submit" class="btn btn-primary col-md-3 offset-4">Enregistrer vos modifications</button>'+
+                                                 '<a href=' + url_delete_product + dataProduct[0].IdProd + ' id=' + dataProduct[0].IdProd + ' class="btn btn-outline-danger offset-4  col-md-3 mr-md-2 mt-md-2 mb-md-2 ">Supprimer le produit</a>'+
+
                                                '</div>'+
+
                                              '</div>'+
                                            '</form>'+
                                    '</div>'+
@@ -815,12 +842,15 @@
             			'<div class="col-md-12">'+
             			    '<div class="card">'+
             			        '<div class="card-body">'+
-            			            '<div class="row">'+
-            			                '<div class="col-md-12">'+
-            			                    '<h4>Modification de catégorie pour ' + dataCategory[0].nameCat + '</h4>'+
-            			                    '<hr>'+
-            			                '</div>'+
-            			            '</div>'+
+                            '<div class="row">'+
+                                '<div class="col-md-7">'+
+                                   ' <h4>Modifier la catégorie ' + dataCategory[0].nameCat + '</h4>'+
+                                    '<hr>'+
+                                '</div>'+
+                                '<div class="col-md-5 align-item-end">'+
+                                  '<button name="listCategory" type="submit" onclick=loadListCategory() class="btn btn-primary pull-right">Retour aux catégories</button>'+
+                                '</div>'+
+                            '</div>'+
             			           '<div class="row">'+
             			                '<div class="col-md-12">'+
             			                    '<form action=' + url_category_update +' enctype="multipart/form-data" method="POST">'+

@@ -79,7 +79,34 @@ public function create_category(){
         $this->category_model->update_category_only_img(intval($idCat[0]->IdCat));
         $id=$idCat[0]->IdCat;
 
-        $this->do_upload($id);
+
+        $config['upload_path']          = './assets/images/category/';
+        $config['allowed_types']        = 'gif|jpg|png';
+        $config['max_size']             = 100000;
+        $config['max_width']            = 20000;
+        $config['max_height']           = 20000;
+        $config['remove_spaces']        = TRUE;
+        $config['detect_mime']          = TRUE;
+        $config['mod_mime_fix']         = TRUE;
+        $config['file_name']         = $id;
+        $config['overwrite']         = TRUE;
+
+        $this->load->library('upload', $config);
+
+        if ( ! $this->upload->do_upload('srcImg'))
+        {
+                $error = array('error' => $this->upload->display_errors());
+                $data['isAdmin']=parent::get_is_Admin();
+                $this->load->view('welcomePage', $data);
+        }
+        else
+        {
+                $data1 = array('upload_data' => $this->upload->data());
+                $data['isAdmin']=parent::get_is_Admin();
+                $this->load->view('welcomePage', $data);
+        }
+
+        //$this->do_upload($id);
 
       }
     }
