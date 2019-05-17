@@ -1,9 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-include(APPPATH . 'modules/ADMINISTRATOR_Controller.php');
+include(APPPATH . 'modules/Administrator_controller.php');
 
-class Book extends ADMINISTRATOR_Controller
+class Book extends Administrator_controller
 {
 
   public function __construct()

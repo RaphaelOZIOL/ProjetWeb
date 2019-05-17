@@ -1,9 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-include(APPPATH . 'modules/ADMINISTRATOR_Controller.php');
+include(APPPATH . 'modules/Administrator_controller.php');
 
-class Product extends ADMINISTRATOR_Controller
+class Product extends Administrator_controller
 {
 
 

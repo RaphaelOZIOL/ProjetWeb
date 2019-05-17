@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-include(APPPATH . 'modules/ADMINISTRATOR_Controller.php');
-class Connexion extends ADMINISTRATOR_Controller {
+include(APPPATH . 'modules/Administrator_controller.php');
+class Connexion extends Administrator_controller {
 
     function __construct() {
         parent::__construct();

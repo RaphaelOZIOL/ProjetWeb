@@ -1,9 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-include(APPPATH . 'modules/ADMINISTRATOR_Controller.php');
+include(APPPATH . 'modules/Administrator_controller.php');
 
-class CategoryAJAX extends ADMINISTRATOR_Controller
+class Categoryajax extends Administrator_controller
 {
 
   public function __construct()
