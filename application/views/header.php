@@ -61,8 +61,8 @@
     <script>
 
     // CHANGE WHEN DEPLOYING ON SERVER
-   var url_site="http://localhost/LamiDuPain/";
-  //  var url_site="https://lamidupain.herokuapp.com/";
+  // var url_site="http://localhost/LamiDuPain/";
+   var url_site="https://lamidupain.herokuapp.com/";
     var url_connection= url_site + 'connexion';
     var url_deconnnection= url_site + 'connexion/disconnect_to_welcome_page';
     var url_list_product= url_site + 'productajax/list_product';
