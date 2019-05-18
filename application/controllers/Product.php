@@ -38,14 +38,32 @@ class Product extends Administrator_controller
   public function update_product(){
 
     $data['isAdmin']=parent::get_is_Admin();
-    if($data['isAdmin']==2){
+
+    $this->form_validation->set_rules('nameProd', 'Nom du produit', 'trim|htmlspecialchars|required|alpha_numeric_spaces');
+    $this->form_validation->set_rules('price', 'Prix', 'trim|htmlspecialchars|required|numeric');
+    $this->form_validation->set_rules('quantityStock', 'quantité en stock', 'trim|htmlspecialchars|required|numeric');
+    $this->form_validation->set_rules('compoProd', 'Composition du produit', 'trim|htmlspecialchars|alpha_numeric_spaces');
+
+    if ($this->form_validation->run() == FALSE)
+    {
+      $data['bad_form']=true;
+      $this->load->view('welcomePage', $data);
+    }
+
+    else if($data['isAdmin']==2){
+
+      $_POST['nameProd']= $this->security->xss_clean($_POST['nameProd']);
+      $_POST['price']= $this->security->xss_clean($_POST['price']);
+      $_POST['quantityStock']= $this->security->xss_clean($_POST['quantityStock']);
+      $_POST['compoProd']= $this->security->xss_clean($_POST['compoProd']);
+
       $file = $_FILES['srcImg'];
-      if ($file['type']==null){
+      if ($this->security->xss_clean($file, TRUE) === FALSE){
         $data['product_updated']= $this->product_model->update_product_without_img($_POST['IdProd']);
         $this->load->view('welcomePage', $data);
       }
 
-        else if(htmlspecialchars($_POST['nameProd'])!=null ){
+        else{
           $data['product_updated']= $this->product_model->update_product($_POST['IdProd']);
 
           $config['upload_path']          = './assets/images/product/';
@@ -83,17 +101,68 @@ public function create_product(){
 
     $data['isAdmin']=parent::get_is_Admin();
 
-    if($data['isAdmin']==2){
-      if (htmlspecialchars($_POST['nameProd'])!=null){
-        $result[0]= $this->product_model->create_product();
-        $idProd = $this->product_model->get_product_only_id();
-        $data['product_created'] = $this->product_model->update_product_only_img(intval($idProd[0]->IdProd));
-        $id=$idProd[0]->IdProd;
+    $this->form_validation->set_rules('nameProd', 'Nom du produit', 'trim|htmlspecialchars|required|alpha_numeric_spaces');
+    $this->form_validation->set_rules('price', 'Prix', 'trim|htmlspecialchars|required|numeric');
+    $this->form_validation->set_rules('quantityStock', 'quantité en stock', 'trim|htmlspecialchars|required|numeric');
+    $this->form_validation->set_rules('compoProd', 'Composition du produit', 'trim|htmlspecialchars|alpha_numeric_spaces');
 
-        $this->do_upload($id);
+    if ($this->form_validation->run() == FALSE)
+    {
+      $data['bad_form']=true;
+      $this->load->view('welcomePage', $data);
+    }
+
+    else if($data['isAdmin']==2){
+
+        $_POST['nameProd']= $this->security->xss_clean($_POST['nameProd']);
+        $_POST['price']= $this->security->xss_clean($_POST['price']);
+        $_POST['quantityStock']= $this->security->xss_clean($_POST['quantityStock']);
+        $_POST['compoProd']= $this->security->xss_clean($_POST['compoProd']);
+
+        $file = $_FILES['srcImg'];
+        if ($this->security->xss_clean($file, TRUE) === FALSE){
+          $result[0]= $this->product_model->create_product();
+          $this->load->view('welcomePage', $data);
+
+        }
+        else{
+          $result[0]= $this->product_model->create_product();
+          $idProd = $this->product_model->get_product_only_id();
+
+          $data['product_created'] = $this->product_model->update_product_only_img(intval($idProd[0]->IdProd));
+          $id=$idProd[0]->IdProd;
+
+
+
+            $config['upload_path']          = './assets/images/product/';
+            $config['allowed_types']        = 'gif|jpg|png';
+            $config['max_size']             = 100000;
+            $config['max_width']            = 20000;
+            $config['max_height']           = 20000;
+            $config['remove_spaces']        = TRUE;
+            $config['detect_mime']          = TRUE;
+            $config['mod_mime_fix']         = TRUE;
+            $config['file_name']         = $id;
+            $config['overwrite']         = TRUE;
+
+
+            $this->load->library('upload', $config);
+
+            if ( ! $this->upload->do_upload('srcImg'))
+            {
+                    $error = array('error' => $this->upload->display_errors());
+                    $data['product_created']=true;
+                    $this->load->view('welcomePage', $data);
+            }
+            else
+            {
+                    $data1 = array('upload_data' => $this->upload->data());
+                    $this->load->view('welcomePage', $data);
+            }
+          }
 
       }
-    }
+
     else{
       redirect(site_url('connexion'));
     }
@@ -145,7 +214,7 @@ public function create_product(){
               $this->load->view('welcomePage', $data);
         }
         else{
-        
+
           $data['book_already_prod']=true;
 
           $this->load->view('welcomePage', $data);

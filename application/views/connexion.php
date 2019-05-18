@@ -39,7 +39,8 @@
     <div class="form-row">
       <div class="col-md-4 mb-3">
         <label for="identifiant">Email</label>
-        <input type="text" class="form-control" id="identifiant" name="identifiant" placeholder="Email" required>
+        <?php echo form_error('identifiant'); ?>
+        <input type="text" class="form-control" id="identifiant" name="identifiant" value="<?php echo set_value('identifiant'); ?>" placeholder="Email" required>
         <div class="valid-feedback">
           Correct !
         </div>
@@ -50,7 +51,8 @@
     <div class="form-row">
       <div class="col-md-3 mb-3">
         <label for="password">Mot de passe</label>
-        <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" required>
+        <?php echo form_error('password'); ?>
+        <input type="password" class="form-control" id="password" name="password" value="<?php echo set_value('password'); ?>" placeholder="Mot de passe" required>
         <div class="invalid-feedback">
           Veuillez rentrer un bon numéro de téléphone.
         </div>

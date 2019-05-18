@@ -11,6 +11,7 @@ class Profile extends Administrator_controller
 		parent::__construct();
     $this->load->model('administrator_model');
     $this->load->model('shopper_model');
+    $this->load->library('form_validation');
     $data['isAdmin']=parent::get_is_Admin();
     $this->load->view('header',$data);
 	}
@@ -39,16 +40,58 @@ class Profile extends Administrator_controller
               $this->load->view('profile',$data);
      }
      else{
-       echo 'Pas connecté';
+       redirect("connexion");
      }
 	}
 
   public function update_info(){
       $data['isAdmin']=parent::get_is_Admin();
-      
+
 
       if($data['isAdmin']==1){
-        if (htmlspecialchars($_POST['email'])!=null){
+
+        $this->form_validation->set_rules('firstName', 'Prénom', 'trim|htmlspecialchars|required|alpha');
+                $this->form_validation->set_rules('lastName', 'Nom', 'trim|htmlspecialchars|required|alpha');
+                $this->form_validation->set_rules('email', 'Email', 'trim|htmlspecialchars|required|valid_email');
+                $this->form_validation->set_rules('phoneNumber', 'Numéro de téléphone', 'required|htmlspecialchars|exact_length[10]|numeric');
+                $this->form_validation->set_rules('yearBirth', 'Date de naissance', 'htmlspecialchars|required');
+                $this->form_validation->set_rules('street', 'Adresse', 'htmlspecialchars|required|alpha_numeric_spaces');
+                $this->form_validation->set_rules('postalCode', 'Code postal', 'htmlspecialchars|required|exact_length[5]|numeric');
+                $this->form_validation->set_rules('city', 'Ville', 'htmlspecialchars|required');
+
+        if ($this->form_validation->run() == FALSE)
+                {
+                      if(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name(), TRUE) &&
+                          get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_password(), TRUE)){
+
+                          $mail = $this->encryption->decrypt(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name()));
+                          $data['profile_info']= $this->shopper_model->_getUser_info($mail);
+                          $this->load->view('profile',$data);
+                      }
+                      else if(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name(), TRUE) &&
+                              get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_password(), TRUE)){
+
+                                $mail = $this->encryption->decrypt(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name()));
+                                $data['profile_info']= $this->administrator_model->_getUser_info($mail);
+                                $this->load->view('profile',$data);
+                       }
+                       else{
+                         redirect("connexion");
+                       }
+                }
+
+
+        else if (htmlspecialchars($_POST['email'])!=null){
+          $_POST['email']= $this->security->xss_clean($_POST['email']);
+          $_POST['firstName']= $this->security->xss_clean($_POST['firstName']);
+          $_POST['lastName']= $this->security->xss_clean($_POST['lastName']);
+          $_POST['phoneNumber']= $this->security->xss_clean($_POST['phoneNumber']);
+          $_POST['yearBirth']= $this->security->xss_clean($_POST['yearBirth']);
+          $_POST['street']= $this->security->xss_clean($_POST['street']);
+          $_POST['postalCode']= $this->security->xss_clean($_POST['postalCode']);
+          $_POST['postalCode']= $this->security->xss_clean($_POST['postalCode']);
+
+
           $mail = $this->encryption->decrypt(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name()));
           if(htmlspecialchars($_POST['email'])==$mail){
             $result = $this->shopper_model->update_shopper_user_no_pwd($mail);
@@ -72,7 +115,45 @@ class Profile extends Administrator_controller
       }
 
       else if($data['isAdmin']==2){
-        if (htmlspecialchars($_POST['email'])!=null){
+
+        $this->form_validation->set_rules('firstName', 'Prénom', 'trim|htmlspecialchars|required|alpha');
+                $this->form_validation->set_rules('lastName', 'Nom', 'trim|htmlspecialchars|required|alpha');
+                $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+                $this->form_validation->set_rules('phoneNumber', 'Numéro de téléphone', 'required|exact_length[10]|numeric');
+                $this->form_validation->set_rules('yearBirth', 'Date de naissance', 'required');
+                $this->form_validation->set_rules('street', 'Adresse', 'required|alpha_numeric_spaces');
+                $this->form_validation->set_rules('postalCode', 'Code postal', 'required|exact_length[5]|numeric');
+                $this->form_validation->set_rules('city', 'Ville', 'required');
+
+        if ($this->form_validation->run() == FALSE)
+                {
+
+                      if(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name(), TRUE) &&
+                              get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_password(), TRUE)){
+
+                                $mail = $this->encryption->decrypt(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name()));
+                                $data['profile_info']= $this->administrator_model->_getUser_info($mail);
+                                $this->load->view('profile',$data);
+                       }
+                       else{
+                         redirect("connexion");
+                       }
+
+                }
+
+
+        else if (htmlspecialchars($_POST['email'])!=null){
+
+          $_POST['email']= $this->security->xss_clean($_POST['email']);
+          $_POST['firstName']= $this->security->xss_clean($_POST['firstName']);
+          $_POST['lastName']= $this->security->xss_clean($_POST['lastName']);
+          $_POST['phoneNumber']= $this->security->xss_clean($_POST['phoneNumber']);
+          $_POST['yearBirth']= $this->security->xss_clean($_POST['yearBirth']);
+          $_POST['street']= $this->security->xss_clean($_POST['street']);
+          $_POST['postalCode']= $this->security->xss_clean($_POST['postalCode']);
+          $_POST['postalCode']= $this->security->xss_clean($_POST['postalCode']);
+
+
           $mail = $this->encryption->decrypt(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name()));
           if(htmlspecialchars($_POST['email'])==$mail){
             $result = $this->administrator_model->update_admin_user($mail);
@@ -85,7 +166,7 @@ class Profile extends Administrator_controller
             }
           }
           else{
-            $this->load->view("connexion");
+            redirect("connexion");
           }
         }
         else{
@@ -106,6 +187,10 @@ class Profile extends Administrator_controller
 
 
       if($data['isAdmin']==1){
+
+        $_POST['newPass']= $this->security->xss_clean($_POST['newPass']);
+        $_POST['confirmPassword']= $this->security->xss_clean($_POST['confirmPassword']);
+
         if ((get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name(), TRUE) &&
                 get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_password(), TRUE))
                 || htmlspecialchars($_POST['newPass'])!=null || htmlspecialchars($_POST['confirmPassword'])!=null){
@@ -115,7 +200,6 @@ class Profile extends Administrator_controller
             if($result != false){
                    parent::delete_cookie_shopper();
                    $data['isAdmin']=parent::get_is_Admin();
-                   $this->load->view("header",$data);
                    $this->load->view("success");
 
             }
@@ -137,6 +221,10 @@ class Profile extends Administrator_controller
       }
 
       else if($data['isAdmin']==2){
+
+        $_POST['newPass']= $this->security->xss_clean($_POST['newPass']);
+        $_POST['confirmPassword']= $this->security->xss_clean($_POST['confirmPassword']);
+
         if ((get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name(), TRUE) &&
                 get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_password(), TRUE))
                  || htmlspecialchars($_POST['newPass'])!=null || htmlspecialchars($_POST['confirmPassword'])!=null){
@@ -146,7 +234,6 @@ class Profile extends Administrator_controller
               if($result != false){
                    parent::delete_cookie_admin();
                    $data['isAdmin']=parent::get_is_Admin();
-                   $this->load->view("header",$data);
                    $this->load->view("success");
               }
 

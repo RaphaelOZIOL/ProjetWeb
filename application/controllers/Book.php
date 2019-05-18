@@ -30,56 +30,49 @@ public function index(){
 public function book_product(){
   //var_dump($_POST);
   $data1['isAdmin']=parent::get_is_Admin();
-      if(!isset($_POST['idProd'])){
-        //redirect(site_url("connexion"));
 
-        echo json_encode($data1);
+      $this->form_validation->set_rules('quantityProduct', 'Quantité', 'trim|htmlspecialchars|required|numeric');
+      $this->form_validation->set_rules('dateDay', 'Jour', 'trim|htmlspecialchars|required');
+      $this->form_validation->set_rules('dateHour', 'Heure', 'trim|htmlspecialchars|required');
+      $this->form_validation->set_rules('comment', 'Commentaire pour la réservation', 'trim|htmlspecialchars|alpha_numeric_spaces');
 
+      if ($this->form_validation->run() == FALSE)
+      {
+        echo json_encode("false",JSON_UNESCAPED_SLASHES);
       }
       else{
+          $_POST['quantityProduct']= $this->security->xss_clean($_POST['quantityProduct']);
+          $_POST['dateDay']= $this->security->xss_clean($_POST['dateDay']);
+          $_POST['dateHour']= $this->security->xss_clean($_POST['dateHour']);
+          $_POST['comment']= $this->security->xss_clean($_POST['comment']);
 
-        /*$rules = array(
-            array(
-                'field' => 'quantityProduct',
-                'label' => 'Quantité à réserver :',
-                'rules' => 'min=1'
-            )
-
-        );
-
-        $this->form_validation->set_rules($rules);
-
-
-        if ($this->form_validation->run() == FALSE)
-        {
-          $data1['form_not_valid']=true;
-          echo json_encode($data1);
-        }*/
-        //else{
           $mail = $this->encryption->decrypt(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name()));
           if($mail!=null && $data1['isAdmin']==1){
             //redirect(site_url("connexion"));
-              $date = new DateTime();
+              $date = mktime(0, 0, 0, date("m")  , date("d"), date("Y"));
               $seven_day  = mktime(0, 0, 0, date("m")  , date("d")+7, date("Y"));
               $date_end_post = $_POST['dateDay'];
               if($seven_day < strtotime($date_end_post)){
                 $data1['TooLate']=true;
                 echo json_encode($data1);
               }
-              else{
+              else if($date<strtotime($date_end_post)){
                 $data1['TooLate']=false;
                 $idProd = htmlspecialchars($_POST['idProd']);
                 $data= $this->book_model->book_product($mail,$idProd);
                 echo json_encode($data1);
-
+              }
+              else{
+                $data1['before_book_impossible']=true;
+                echo json_encode($data1);
               }
             }
             //Not shopper
-            echo json_encode($data1);
+            else{
+              $data1['not_shopper']=true;
+              echo json_encode($data1);
+            }
 
-      //  }
-
-        //$this->list_book();
       }
 }
 

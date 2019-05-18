@@ -11,7 +11,7 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
     <link rel="stylesheet" type="text/css" href="<?php echo site_url();?>assets/css/welcome.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="icon" type="image/png" href="<?php echo site_url('assets/images/pain_icone.png')?> "/>
+    <link rel="icon" type="image/png" href="<?php echo site_url('assets/images/logo_lami_du_pain.png')?> "/>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
@@ -61,7 +61,7 @@
     <script>
 
     // CHANGE WHEN DEPLOYING ON SERVER
-  // var url_site="http://localhost/LamiDuPain/";
+  //var url_site="http://localhost/LamiDuPain/";
    var url_site="https://lamidupain.herokuapp.com/";
     var url_connection= url_site + 'connexion';
     var url_deconnnection= url_site + 'connexion/disconnect_to_welcome_page';
@@ -175,32 +175,46 @@
                                                           url  : url,
                                                           dataType : "JSON",
                                                           success: function(data){
-                                                            for(i=0; i<data["product"].length; i++){
-                                                                if(i%4==0){
-                                                                  htmlProd += '<div class="row">';
-                                                                }
-                                                                  htmlProd += '<div class="col-md-3">'+
-                                                                            '<div class="card-deck">'+
-                                                                              '<div class="card">'+
-                                                                                  '<img class="card-img-top" src="' + data["product"][i]["srcImg"] + '" alt="Image de ' + data["product"][i]["nameProd"] + '">' +
-                                                                                '<div class="card-block">'+
-                                                                                    '<h5 class="card-title" onclick=loadProduct(this) id="' + data['product'][i]['IdProd'] +'">'+ data['product'][i]['nameProd'] +' - ' + data['product'][i]['price'] + ' € </h5>'+
-                                                                                  '<p class="card-text">' + data['product'][i]['compoProd'] + '</p>'+
-                                                                                  '<p class="card-text">' + data['product'][i]['quantityStock'] + ' pièces</p>'+
 
+                                                            for(i=0; i<data["product"].length; i++){
+                                                                if(i%3==0){
+                                                                  htmlProd += '<div class="card-deck container-fluid justify-content-center">';
+                                                                }
+                                                                  htmlProd += '<div class="card col-12 col-sm-6 col-md-4 bg-light border-primary mb-3">'+
+                                                                            '<div class="card-deck">'+
+                                                                              '<div class="card-header">'+
+                                                                                  '<img class="card-img-top" src="' + data["product"][i]["srcImg"] + '" alt="Image de ' + data["product"][i]["nameProd"] + '">' +
+                                                                              '</div>'+
+                                                                                '<div class="card-body text-center">'+
+                                                                                    '<h5 class="card-title col-md-12"  id="' + data["product"][i]["IdProd"] +'">'+ data["product"][i]["nameProd"] +'</h5>'+
+                                                                                    '<h5 class="card-title col-md-12">Prix : ' + data["product"][i]["price"] + ' € </h5>'+
+
+                                                                                    '<p class="card-text">' + data["product"][i]["compoProd"] + '</p>'+
+                                                                                    '<p class="card-text">' + data["product"][i]["quantityStock"] + ' pièces</p>'+
                                                                                 '</div>'+
+
+                                                                                '<div class="text-center col-md-12">'+
+                                                                                    '<button type="button" onclick=loadProduct(this) id=' + data["product"][i]["IdProd"] + ' class="btn btn-outline-success btn-lg col-md-12 mr-md-2 mt-md-2 mb-md-2 ">Réserver</button>';
+
+                                                                                   if(data[1]==2){
+                                                                                        htmlProd +=
+                                                                                      '<button type="button" onclick=load_update_product(this) id=' + data["product"][i]["IdProd"] + ' class="btn btn-outline-warning btn-lg col-md-12 mr-md-2 mt-md-2 mb-md-2 ">Modifier</button>';
+                                                                                    }
+
+
+
+                                                                  htmlProd+='</div>'+
                                                                               '</div>'+
                                                                             '</div>';
 
-                                                                if(i%4==3){
+                                                                if(i%3==2){
                                                                   htmlProd += '</div>';
                                                                 }
 
-                                                                htmlProd += '</div>';
+
                                                             }
-                                                            if(i%4!=0){
-                                                              htmlProd +='</div>';
-                                                            }
+
+
                                                             $('#body').html(htmlProd);
 
                                                           }
@@ -238,41 +252,41 @@
                       var htmlProduct = '';
                       var i;
                       for(i=0; i<data[0].length; i++){
-
-
-                        if(i%3==0){
-                          htmlProduct += '<div class="card-deck container-fluid justify-content-center">';
-                        }
-                          htmlProduct += '<div class="card col-12 col-sm-6 col-md-4 bg-light border-primary mb-3">'+
-                                    '<div class="card-deck">'+
-                                      '<div class="card-header">'+
-                                          '<img class="card-img-top" src="' + data[0][i].srcImg + '" alt="Image de ' + data[0][i].nameProd + '">' +
-                                      '</div>'+
-                                        '<div class="card-body text-center">'+
-                                            '<h5 class="card-title col-md-12"  id="' + data[0][i].IdProd +'">'+ data[0][i].nameProd +'</h5>'+
-                                            '<h5 class="card-title col-md-12">Prix : ' + data[0][i].price + ' € </h5>'+
-
-                                            '<p class="card-text">' + data[0][i].compoProd + '</p>'+
-                                            '<p class="card-text">' + data[0][i].quantityStock + ' pièces</p>'+
+                          if(i%3==0){
+                            htmlProduct += '<div class="card-deck container-fluid justify-content-center">';
+                          }
+                            htmlProduct += '<div class="card col-12 col-sm-6 col-md-4 bg-light border-primary mb-3">'+
+                                      '<div class="card-deck">'+
+                                        '<div class="card-header">'+
+                                            '<img class="card-img-top" src="' + data[0][i].srcImg + '" alt="Image de ' + data[0][i].nameProd + '">' +
                                         '</div>'+
+                                          '<div class="card-body text-center">'+
+                                              '<h5 class="card-title col-md-12"  id="' + data[0][i].IdProd +'">'+ data[0][i].nameProd +'</h5>'+
+                                              '<h5 class="card-title col-md-12">Prix : ' + data[0][i].price + ' € </h5>'+
 
-                                        '<div class="text-center col-md-12">'+
-                                            '<button type="button" onclick=loadProduct(this) id=' + data[0][i].IdProd + ' class="btn btn-outline-success btn-lg col-md-12 mr-md-2 mt-md-2 mb-md-2 ">Réserver</button>';
+                                              '<p class="card-text">' + data[0][i].compoProd + '</p>'+
+                                              '<p class="card-text">' + data[0][i].quantityStock + ' pièces</p>'+
+                                          '</div>'+
 
-                                           if(data[1]==2){
-                                                htmlProduct +=
-                                              '<button type="button" onclick=load_update_product(this) id=' + data[0][i].IdProd + ' class="btn btn-outline-warning btn-lg col-md-12 mr-md-2 mt-md-2 mb-md-2 ">Modifier</button>';
-                                            }
+                                          '<div class="text-center col-md-12">'+
+                                              '<button type="button" onclick=loadProduct(this) id=' + data[0][i].IdProd + ' class="btn btn-outline-success btn-lg col-md-12 mr-md-2 mt-md-2 mb-md-2 ">Réserver</button>';
+
+                                             if(data[1]==2){
+                                                  htmlProduct +=
+                                                '<button type="button" onclick=load_update_product(this) id=' + data[0][i].IdProd + ' class="btn btn-outline-warning btn-lg col-md-12 mr-md-2 mt-md-2 mb-md-2 ">Modifier</button>';
+                                              }
 
 
 
-                          htmlProduct+='</div>'+
-                                      '</div>'+
-                                    '</div>';
+                            htmlProduct+='</div>'+
+                                        '</div>'+
+                                      '</div>';
 
-                        if(i%3==2){
-                          htmlProduct += '</div>';
-                        }
+                          if(i%3==2){
+                            htmlProduct += '</div>';
+                          }
+
+
                       }
 
 
@@ -445,6 +459,8 @@
                                                   if(msg.isAdmin==null){
                                                     alert("Vous devez être connecté avec un compte client pour pouvoir réserver !");
                                                   }
+                                                  else if(msg.isAdmin==2)
+                                                   alert("Vous ne pouvez pas réserver en tant qu'admin !");
                                                   else if(msg.form_not_valid==true){
                                                     alert("Vous n'avez pas rentrer de bonnes valeurs dans les champs du formulaire !");
 
@@ -580,20 +596,20 @@
                                                 '<div class="form-group row">'+
                                                   '<label for="price" class="col-4 col-form-label">Prix :</label>'+
                                                   '<div class="col-8">'+
-                                                    '<input id="price" name="price" class="form-control here" type="number" step="0.01">'+
+                                                    '<input id="price" name="price" class="form-control here" type="number" required step="0.01">'+
                                                   '</div>'+
                                                 '</div>'+
                                                 '<div class="form-group row">'+
                                                   '<label for="quantityStock" class="col-4 col-form-label">Quantité en stock :</label>'+
                                                   '<div class="col-8">'+
-                                                    '<input id="quantityStock" name="quantityStock" class="form-control here" type="number">'+
+                                                    '<input id="quantityStock" name="quantityStock" class="form-control here" required type="number">'+
                                                   '</div>'+
                                                 '</div>'+
                                                 '<div class="form-group row">'+
                                                   '<div class="md-form amber-textarea active-amber-textarea col-md-12">'+
                                                     '<i class="fas fa-pencil-alt prefix"></i>'+
                                                     '<label for="compoProd">Composition du produit :</label>'+
-                                                    '<textarea id="compoProd" name="compoProd" placeholder="" class="md-textarea form-control here" rows="3"></textarea>'+
+                                                    '<textarea id="compoProd" name="compoProd" placeholder="" class="md-textarea form-control here" required rows="3"></textarea>'+
                                                   '</div>'+
                                                 '</div>'+
                                                 '<div class="form-group row">'+
@@ -607,9 +623,9 @@
                                                   '</div>'+
                                                 '</div>'+
                                                 '<div class="form-group row">'+
-                                                  '<label for="srcImg" class="col-4 col-form-label">Sélectionner une image pour votre catégorie :</label>'+
+                                                  '<label for="srcImg" class="col-4 col-form-label">Sélectionner une image pour votre produit :</label>'+
                                                   '<div class="col-8">'+
-                                                    '<input type="file" id="srcImg" name="srcImg" />'+
+                                                    '<input type="file" id="srcImg" name="srcImg" required />'+
                                                   '</div>'+
                                                '</div>'+
 
@@ -663,7 +679,7 @@
                                         '<div class="form-group row">'+
                                           '<label for="srcImg" class="col-4 col-form-label">Sélectionner une image pour votre catégorie :</label>'+
                                           '<div class="col-8">'+
-                                            '<input type="file" id="srcImg" name="srcImg" />'+
+                                            '<input type="file" id="srcImg" name="srcImg" required />'+
                                           '</div>'+
                                        '</div>'+
                                       '<div class="form-group row">'+
@@ -941,14 +957,14 @@
                   '<div class="form-row">'+
                     '<div class="col-md-4 mb-3">'+
                       '<label for="firstName">Prénom</label>'+
-                      '<input type="text" class="form-control" id="firstName" placeholder="Prénom" required>'+
+                      '<input type="text" class="form-control" id="firstName" name="firstName" placeholder="Prénom" required>'+
                       '<div class="valid-feedback">'+
                         'Correct !'+
                       '</div>'+
                     '</div>'+
                     '<div class="col-md-4 mb-3">'+
                       '<label for="lastName">Nom</label>'+
-                      '<input type="text" class="form-control" id="lastName" placeholder="Nom" required>'+
+                      '<input type="text" class="form-control" id="lastName" name="lastName" placeholder="Nom" required>'+
                       '<div class="valid-feedback">'+
                         'Correct !'+
                       '</div>'+
@@ -959,7 +975,7 @@
                         '<div class="input-group-prepend">'+
                           '<span class="input-group-text" id="inputGroupPrepend">@</span>'+
                         '</div>'+
-                        '<input type="text" class="form-control" id="email" placeholder="email" aria-describedby="inputGroupPrepend" required>'+
+                        '<input type="text" class="form-control" id="email" name="email" placeholder="email" aria-describedby="inputGroupPrepend" required>'+
                         '<div class="invalid-feedback">'+
                           'Veuillez rentrer une bonne adresse email.'+
                         '</div>'+
@@ -970,14 +986,14 @@
                   '<div class="form-row">'+
                     '<div class="col-md-3 mb-3">'+
                       '<label for="phoneNumber">Numéro de téléphone</label>'+
-                      '<input type="text" class="form-control" id="phoneNumber" placeholder="téléphone" required>'+
+                      '<input type="text" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="0466459386" required>'+
                       '<div class="invalid-feedback">'+
                         'Veuillez rentrer un bon numéro de téléphone.'+
                       '</div>'+
                     '</div>'+
                     '<div class="col-md-3 mb-3">'+
                       '<label for="yearBirth">Date de Naissance</label>'+
-                      '<input type="date" class="form-control" id="yearBirth" required>'+
+                      '<input type="date" class="form-control" name="yearBirth" id="yearBirth" required>'+
                       '<div class="invalid-feedback">'+
                         'Veuillez rentrer une bonne date de naissance.'+
                       '</div>'+
@@ -987,14 +1003,14 @@
                   '<div class="form-row">'+
                     '<div class="col-md-3 mb-3">'+
                       '<label for="password">Mot de passe</label>'+
-                      '<input type="text" class="form-control" id="password" placeholder="Mot de passe" required>'+
+                      '<input type="text" class="form-control" name="password" id="password" placeholder="Mot de passe" required>'+
                       '<div class="invalid-feedback">'+
                         'Veuillez rentrer un mot de passe correct.'+
                       '</div>'+
                     '</div>'+
                     '<div class="col-md-3 mb-3">'+
                       '<label for="passwordConfirm">Confirmation mot de passe</label>'+
-                      '<input type="text" class="form-control" id="passwordConfirm" required>'+
+                      '<input type="text" class="form-control" name="passwordConfirm" id="passwordConfirm" required>'+
                       '<div class="invalid-feedback">'+
                         'Veuillez rentrer un mot de passe correct.'+
                       '</div>'+
@@ -1004,21 +1020,21 @@
                   '<div class="form-row">'+
                     '<div class="col-md-6 mb-3">'+
                       '<label for="street">Adresse</label>'+
-                      '<input type="text" class="form-control" id="street" placeholder="numéro + rue" required>'+
+                      '<input type="text" class="form-control" name="street" id="street" placeholder="numéro + rue" required>'+
                       '<div class="invalid-feedback">'+
                         'Veuillez rentrer une adresse valide.'+
                       '</div>'+
                     '</div>'+
                     '<div class="col-md-3 mb-3">'+
                       '<label for="city">Ville</label>'+
-                      '<input type="text" class="form-control" id="city" placeholder="Ville" required>'+
+                      '<input type="text" class="form-control" name="city" id="city" placeholder="Ville" required>'+
                       '<div class="invalid-feedback">'+
                         'Veuillez rentrer une ville valide'+
                       '</div>'+
                     '</div>'+
                     '<div class="col-md-3 mb-3">'+
                       '<label for="postalCode">Code Postal</label>'+
-                      '<input type="text" class="form-control" id="postalCode" placeholder="Code Postal" required>'+
+                      '<input type="text" class="form-control" name="postalCode" id="postalCode" placeholder="Code Postal" required>'+
                       '<div class="invalid-feedback">'+
                         'Veuillez rentrer un code postal valide.'+
                       '</div>'+
@@ -1042,9 +1058,9 @@
                           var postalCode= $('#postalCode').val();
                           var street= $('#street').val();
                           var password= $('#password').val();
+                          var passwordConfirm= $('#passwordConfirm').val();
                           var city= $('#city').val();
 
-                          // AJOUTER CONFIRM PASSWORD APRES
 
                           $.ajax({
                               type : "POST",
@@ -1052,9 +1068,15 @@
                               dataType : "JSON",
                               data : {firstName:firstName,lastName:lastName,email:email,
                                 yearBirth:yearBirth, phoneNumber:phoneNumber , postalCode:postalCode,
-                                street:street,password:password,city:city},
-                              success: function(msg){
+                                street:street,password:password,passwordConfirm:password,city:city},
+                              success: function(form_validate){
+                                if(form_validate=="true"){
+                                  alert("Vous vous êtes inscrits avec succès ! Veuilez maintenant vous connecter si vous voulez réserser des produits !")
                                   loadListProduct();
+                                }
+                                else{
+                                  alert("Nous somme désolés mais quelques champs sont incorrects veuillez vérifiez vos informations ! Vérifiez que vos informations sont au bon format. Si le problème persiste cela vient du fait que l'adresse email est déjà utilisée")
+                                }
                               }
                           });
                           return false;
@@ -1063,7 +1085,7 @@
 
 
             //  for disabling form submissions if there are invalid fields
-            function form_validation(){
+            /*function form_validation(){
               'use strict';
               window.addEventListener('load', function() {
                 // Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -1079,7 +1101,7 @@
                   }, false);
                 });
               }, false);
-            }
+            }*/
     </script>
 
 

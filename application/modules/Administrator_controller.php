@@ -33,10 +33,13 @@ class Administrator_controller extends CI_Controller {
         parent::__construct();
         $this->load->helper('cookie');
         $this->load->library('encryption');
+        $this->load->library('form_validation');
+
         $this->load->model('administrator_model');
         $this->load->model('shopper_model');
 
         /*IF WE ARE ON CONNECTING PAGE */
+
         if ($this->input->post('identifiant', TRUE) && $this->input->post('password', TRUE))
         {
             /* ADMIN MODE*/

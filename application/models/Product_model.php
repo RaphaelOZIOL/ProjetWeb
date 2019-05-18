@@ -37,8 +37,8 @@ class Product_model extends CI_Model
 	{
     $this->db->select('IdProd');
     $this->db->from('product');
-    $this->db->where(array('nameProd' => $_POST['nameProd'],
-                            'compoProd' => $_POST['compoProd']));
+    $this->db->where(array('nameProd' => htmlspecialchars($_POST['nameProd']),
+                            'compoProd' => htmlspecialchars($_POST['compoProd'])));
     $query = $this->db->get()->result();
     return $query;
 
