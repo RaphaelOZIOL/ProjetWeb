@@ -1,6 +1,10 @@
 <!DOCTYPE html>
+<?php header('X-Frame-Options: SAMEORIGIN');
+header('X-Content-Type-Options: nosniff');
+header("X-XSS-Protection: 1; mode=block");?>
 <html>
   <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -61,8 +65,8 @@
     <script>
 
     // CHANGE WHEN DEPLOYING ON SERVER
-  //var url_site="http://localhost/LamiDuPain/";
-   var url_site="https://lamidupain.herokuapp.com/";
+  var url_site="http://localhost/LamiDuPain/";
+   //var url_site="https://lamidupain.herokuapp.com/";
     var url_connection= url_site + 'connexion';
     var url_deconnnection= url_site + 'connexion/disconnect_to_welcome_page';
     var url_list_product= url_site + 'productajax/list_product';
@@ -1003,14 +1007,14 @@
                   '<div class="form-row">'+
                     '<div class="col-md-3 mb-3">'+
                       '<label for="password">Mot de passe</label>'+
-                      '<input type="text" class="form-control" name="password" id="password" placeholder="Mot de passe" required>'+
+                      '<input type="text" autocomplete="off" class="form-control" name="password" id="password" placeholder="Mot de passe" required>'+
                       '<div class="invalid-feedback">'+
                         'Veuillez rentrer un mot de passe correct.'+
                       '</div>'+
                     '</div>'+
                     '<div class="col-md-3 mb-3">'+
                       '<label for="passwordConfirm">Confirmation mot de passe</label>'+
-                      '<input type="text" class="form-control" name="passwordConfirm" id="passwordConfirm" required>'+
+                      '<input type="text" autocomplete="off" class="form-control" name="passwordConfirm" id="passwordConfirm" required>'+
                       '<div class="invalid-feedback">'+
                         'Veuillez rentrer un mot de passe correct.'+
                       '</div>'+

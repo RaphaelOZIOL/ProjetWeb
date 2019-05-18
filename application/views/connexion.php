@@ -1,5 +1,6 @@
 
   <body>
+    
 
     <div class="container" id="div_search">
     </div>
@@ -11,25 +12,6 @@
     echo "<script>alert(\"Vous devez vous connecter pour accéder à ce contenue.\")</script>";
     }
     ?>
-
-  <!--  <h1>Login</h1>
-    <div id="body">
-        <form action="" method="post" >
-            <p>Identifiant :</p>
-            <code><input type="text" name="identifiant" value="" /></code>
-            <p>Mot de passe :</p>
-            <code><input type="password" name="password" value="" /></code>
-
-            <input type="submit" name="login" value="Connexion">
-        </form>
-    </div>
-
-  </div>
-  </body>
-</html>-->
-
-
-
 
 <div class="container" id="connexion_user">
   <div class="col-md-1 mb-5 mt-5">
@@ -50,11 +32,11 @@
 
     <div class="form-row">
       <div class="col-md-3 mb-3">
-        <label for="password">Mot de passe</label>
+        <label for="password" ="off">Mot de passe</label>
         <?php echo form_error('password'); ?>
-        <input type="password" class="form-control" id="password" name="password" value="<?php echo set_value('password'); ?>" placeholder="Mot de passe" required>
+        <input type="password" autocomplete="off" class="form-control" id="password" name="password" value="<?php echo set_value('password'); ?>" placeholder="Mot de passe" required>
         <div class="invalid-feedback">
-          Veuillez rentrer un bon numéro de téléphone.
+
         </div>
       </div>
 

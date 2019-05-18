@@ -1,6 +1,7 @@
 
 
 <body>
+  
   <?php
     if (isset($product_created) && $product_created==true){
       echo "<script>alert(\"Le produit a été créé avec succès\")</script>";
@@ -74,7 +75,7 @@
 <!--  -->
 
 <!-- Registration page -->
-  
+
 <!--  -->
 
 <!-- Category page -->

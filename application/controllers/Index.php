@@ -1,5 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+
+
 include(APPPATH . 'modules/Administrator_controller.php'); // chemin vers le controlleur parent
 class Index extends Administrator_controller {
 
