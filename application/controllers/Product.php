@@ -133,12 +133,12 @@ public function create_product(){
 
 
 
-            $config['upload_path']          = './assets/images/';
-            $config['allowed_types']        = 'jpg|png';
+            $config['upload_path']          = './assets/product/';
+            $config['allowed_types']        = 'png';
             $config['max_size']             = 10000;
             $config['max_width']            = 2000;
             $config['max_height']           = 2000;
-            $config['file_name']         = "imagetest";
+            $config['file_name']         = "product".$id;
             $config['overwrite']         = TRUE;
 
 
