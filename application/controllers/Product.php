@@ -141,7 +141,11 @@ public function create_product(){
             $config['max_size']             = 100000;
             $config['max_width']            = 20000;
             $config['max_height']           = 20000;
-            $config['file_name']         = $id;
+            $config['remove_spaces']        = TRUE;
+            $config['detect_mime']          = TRUE;
+            $config['mod_mime_fix']         = TRUE;
+            $config['file_name']         = "image";
+            $config['overwrite']         = TRUE;
 
 
             $this->load->library('upload', $config);
@@ -149,7 +153,7 @@ public function create_product(){
             if ( ! $this->upload->do_upload('srcImg'))
             {
                     $error = array('error' => $this->upload->display_errors());
-                    $data['product_updated_but_img_err']=true;
+                    $data['product_created_but_img_err']=true;
                     $this->load->view('welcomePage', $data);
             }
             else
