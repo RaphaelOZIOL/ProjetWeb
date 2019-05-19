@@ -136,7 +136,7 @@ public function create_product(){
 
 
 
-            $config['upload_path']          = './assets/product/';
+            $config['upload_path']          = './tmp';
             $config['allowed_types']        = 'gif|jpg|png';
             $config['max_size']             = 100000;
             $config['max_width']            = 20000;
@@ -153,7 +153,7 @@ public function create_product(){
             if ( ! $this->upload->do_upload('srcImg'))
             {
                     $error = array('error' => $this->upload->display_errors());
-                    $data['product_created']=true;
+                    $data['product_updated_but_img_err']=true;
                     $this->load->view('welcomePage', $data);
             }
             else
