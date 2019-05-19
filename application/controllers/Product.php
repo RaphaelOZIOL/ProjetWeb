@@ -68,7 +68,7 @@ class Product extends Administrator_controller
         else{
           $data['product_updated']= $this->product_model->update_product($_POST['IdProd']);
 
-          $config['upload_path']          = './tmp/assets/images/product/';
+          $config['upload_path']          = './assets/images/product/';
           $config['allowed_types']        = 'gif|jpg|png';
           $config['max_size']             = 100000;
           $config['max_width']            = 20000;
@@ -136,7 +136,7 @@ public function create_product(){
 
 
 
-            $config['upload_path']          = './tmp';
+            $config['upload_path']          = './tmp/';
             $config['allowed_types']        = 'gif|jpg|png';
             $config['max_size']             = 100000;
             $config['max_width']            = 20000;
