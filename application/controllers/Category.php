@@ -50,7 +50,7 @@ class Category extends Administrator_controller
 
             $result[0]= $this->category_model->update_category($_POST['IdCat']);
 
-            $config['upload_path']          = './assets/images/category/';
+            $config['upload_path']          = './assets/images/';
             $config['allowed_types']        = 'gif|jpg|png';
             $config['max_size']             = 100000;
             $config['max_width']            = 20000;
@@ -58,7 +58,7 @@ class Category extends Administrator_controller
             $config['remove_spaces']        = TRUE;
             $config['detect_mime']          = TRUE;
             $config['mod_mime_fix']         = TRUE;
-            $config['file_name']         = $_POST['IdCat'];
+            $config['file_name']         = "category".$_POST['IdCat'];
             $config['overwrite']         = TRUE;
 
 
@@ -114,7 +114,7 @@ public function create_category(){
             $id=$idCat[0]->IdCat;
 
 
-            $config['upload_path']          = './assets/images/category/';
+            $config['upload_path']          = './assets/images/';
             $config['allowed_types']        = 'gif|jpg|png';
             $config['max_size']             = 100000;
             $config['max_width']            = 20000;
@@ -122,7 +122,7 @@ public function create_category(){
             $config['remove_spaces']        = TRUE;
             $config['detect_mime']          = TRUE;
             $config['mod_mime_fix']         = TRUE;
-            $config['file_name']         = $id;
+            $config['file_name']         = "category".$id;
             $config['overwrite']         = TRUE;
 
             $this->load->library('upload', $config);

@@ -68,12 +68,12 @@ class Product extends Administrator_controller
         else{
           $data['product_updated']= $this->product_model->update_product($_POST['IdProd']);
 
-          $config['upload_path']          = './assets/images/product/';
+          $config['upload_path']          = './assets/images/';
           $config['allowed_types']        = 'jpg|png';
           $config['max_size']             = 10000;
           $config['max_width']            = 2000;
           $config['max_height']           = 20000;
-          $config['file_name']         = $_POST['IdProd'];
+          $config['file_name']         = "product".$_POST['IdProd'];
           $config['overwrite']         = TRUE;
 
 

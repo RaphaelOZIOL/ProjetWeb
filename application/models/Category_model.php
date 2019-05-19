@@ -47,7 +47,7 @@ class Category_model extends CI_Model
   public function update_category_only_img($idCat)
   {
     $data = array(
-      'imgSrc'  => base_url()."assets/images/category/".$idCat.".png",
+      'imgSrc'  => base_url()."assets/images/"."category".$idCat.".png",
         );
     $this->db->where('IdCat', $idCat);
     $result=$this->db->update($this->table,$data);
@@ -75,7 +75,7 @@ class Category_model extends CI_Model
 	{
     $data = array(
             'nameCat'  => htmlspecialchars($_POST['nameCat']),
-            'imgSrc'  => base_url()."assets/images/category/".$idCat.".png",
+            'imgSrc'  => base_url()."assets/images/"."product".$idCat.".png",
         );
     $this->db->where('IdCat', $idCat);
     $result=$this->db->update($this->table,$data);
