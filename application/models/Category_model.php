@@ -75,7 +75,7 @@ class Category_model extends CI_Model
 	{
     $data = array(
             'nameCat'  => htmlspecialchars($_POST['nameCat']),
-            'imgSrc'  => base_url()."assets/images/"."product".$idCat.".png",
+            'imgSrc'  => base_url()."assets/images/"."category".$idCat.".png",
         );
     $this->db->where('IdCat', $idCat);
     $result=$this->db->update($this->table,$data);

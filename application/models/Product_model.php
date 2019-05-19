@@ -95,7 +95,7 @@ class Product_model extends CI_Model
             'quantityStock' => htmlspecialchars($_POST['quantityStock']),
             'compoProd' => htmlspecialchars($_POST['compoProd']),
             'IdCat' => htmlspecialchars($_POST['IdCat']),
-            'srcImg'  => base_url()."assets/images/product/".$idProd.".png",
+            'srcImg'  => base_url()."assets/images/"."product".$idProd.".png",
         );
     $this->db->where('IdProd', $idProd);
     $result=$this->db->update($this->table,$data);
