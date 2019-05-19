@@ -137,20 +137,22 @@ public function create_product(){
 
 
             $config['upload_path']          = './assets/images/product/';
-            $config['allowed_types']        = 'png';
+            $config['allowed_types']        = 'jpg|png';
             $config['max_size']             = 100000;
             $config['max_width']            = 20000;
             $config['max_height']           = 20000;
             $config['remove_spaces']        = TRUE;
             $config['detect_mime']          = TRUE;
             $config['mod_mime_fix']         = TRUE;
-            $config['file_name']         = "image";
+            $config['file_name']         = $id;
             $config['overwrite']         = TRUE;
 
 
             $this->load->library('upload', $config);
-
-            if ( ! $this->upload->do_upload('srcImg'))
+            $this->upload->do_upload('srcImg');
+            $this->load->view('welcomePage', $data);
+            
+            /*if ( ! )
             {
                     $error = array('error' => $this->upload->display_errors());
                     $data['product_created_but_img_err']=true;
@@ -160,7 +162,7 @@ public function create_product(){
             {
                     $data1 = array('upload_data' => $this->upload->data());
                     $this->load->view('welcomePage', $data);
-            }
+            }*/
           }
 
       }
