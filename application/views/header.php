@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<?php header('X-Frame-Options: SAMEORIGIN');
-header('X-Content-Type-Options: nosniff');
-header("X-XSS-Protection: 1; mode=block");?>
+
 <html>
   <head>
 
@@ -65,7 +63,7 @@ header("X-XSS-Protection: 1; mode=block");?>
     <script>
 
     // CHANGE WHEN DEPLOYING ON SERVER
-  //var url_site="http://localhost/LamiDuPain/";
+// var url_site="http://localhost/LamiDuPain/";
   var url_site="https://lamidupain.herokuapp.com/";
 
 

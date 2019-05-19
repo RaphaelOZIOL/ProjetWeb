@@ -13,12 +13,3 @@ RewriteCond $1 !^(index.php|assets/|robots.txt)
 
 #   Toutes les autres URL vont être redirigées vers le fichier index.php.
 RewriteRule ^(.*)$ index.php/$1 [L]
-
-
-<IfModule headers_module.c>
-Header always set Referrer-Policy "strict-origin-when-cross-origin"
-</IfModule>
-
-<IfModule mod_headers.c>
-  Header set X-XSS-Protection "1; mode=block"
-</IfModule>
