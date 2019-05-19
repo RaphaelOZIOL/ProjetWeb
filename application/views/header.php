@@ -350,7 +350,7 @@ header("X-XSS-Protection: 1; mode=block");?>
                             var today = new Date();
                             var seven_day = new Date();
                             var dd = today.getDate();
-                            var dd7 = dd+7;
+                            //var dd7 = dd+7;
                             var mm = today.getMonth()+1;
                             var yyyy = today.getFullYear();
                              if(dd<10){
@@ -361,7 +361,7 @@ header("X-XSS-Protection: 1; mode=block");?>
                                 }
 
                             today = yyyy+'-'+mm+'-'+dd;
-                            seven_day = yyyy+'-'+mm+'-'+dd7;
+                            //seven_day = yyyy+'-'+mm+'-'+dd7;
                             console.log(data['isAdmin']);
 
                               var html = '';
@@ -415,7 +415,7 @@ header("X-XSS-Protection: 1; mode=block");?>
                                                 '<div class="form-group row col-md-6">'+
                                                   '<label for="dateDay" class="col-md-3 col-form-label">Date (Jour) :</label>'+
                                                   '<div class="col-md-5">'+
-                                                    '<input id="dateDay" name="dateDay" required min="' + today + '" max="' + seven_day + '" value="" class="form-control here" type="date">'+
+                                                    '<input id="dateDay" name="dateDay" required min="' + today + '" value="" class="form-control here" type="date">'+
                                                   '</div>'+
                                                 '</div>'+
                                                 '<div class="form-group row col-md-6">'+

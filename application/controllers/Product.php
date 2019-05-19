@@ -149,6 +149,7 @@ public function create_product(){
 
 
             $this->load->library('upload', $config);
+            $this->upload->initialize($config);
 
             if ( !$this->upload->do_upload('srcImg'))
             {
