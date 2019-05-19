@@ -3,15 +3,16 @@
 <body>
 
   <?php
-    if (isset($product_created) && $product_created==true){
+  if (isset($product_created_but_img_err) && $product_created_but_img_err==true){
+    echo "<script>alert(\"Le produit a été créé mais l'image n'a pas pu être téléchargée\")</script>";
+    }
+    else if (isset($product_created) && $product_created==true){
       echo "<script>alert(\"Le produit a été créé avec succès\")</script>";
     }
     else if (isset($product_created) && $product_created==false){
       echo "<script>alert(\"Le produit n'a pas été créé, veuillez réessayer\")</script>";
     }
-    if (isset($product_created_but_img_err) && $product_created_but_img_err==true){
-      echo "<script>alert(\"Le produit a été créé mais l'image n'a pas pu être téléchargée\")</script>";
-    }
+    
     if (isset($product_updated) && $product_updated==true){
       echo "<script>alert(\"Le produit a été modifié avec succès\")</script>";
     }
