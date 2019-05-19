@@ -34,13 +34,13 @@ class Register extends CI_Controller
         $this->form_validation->set_rules('firstName', 'Prénom', 'trim|htmlspecialchars|required|alpha');
                 $this->form_validation->set_rules('lastName', 'Nom', 'trim|htmlspecialchars|required|alpha');
                 $this->form_validation->set_rules('email', 'Email', 'trim|htmlspecialchars|required|valid_email|is_unique[shopper.email]|is_unique[admin.email]');
-                $this->form_validation->set_rules('phoneNumber', 'Numéro de téléphone', 'required|htmlspecialchars|exact_length[10]|numeric');
-                $this->form_validation->set_rules('yearBirth', 'Date de naissance', 'htmlspecialchars|required');
-                $this->form_validation->set_rules('street', 'Adresse', 'htmlspecialchars|required|alpha_numeric_spaces');
-                $this->form_validation->set_rules('password', 'Mot de passe', 'htmlspecialchars|required|alpha_numeric');
-                $this->form_validation->set_rules('passwordConfirm', 'Confirmation du mot de passe', 'htmlspecialchars|required|alpha_numeric');
-                $this->form_validation->set_rules('postalCode', 'Code postal', 'htmlspecialchars|required|exact_length[5]|numeric');
-                $this->form_validation->set_rules('city', 'Ville', 'htmlspecialchars|required');
+                $this->form_validation->set_rules('phoneNumber', 'Numéro de téléphone', 'trim|required|htmlspecialchars|exact_length[10]|numeric');
+                $this->form_validation->set_rules('yearBirth', 'Date de naissance', 'trim|htmlspecialchars|required');
+                $this->form_validation->set_rules('street', 'Adresse', 'trim|htmlspecialchars|required|alpha_numeric_spaces');
+                $this->form_validation->set_rules('password', 'Mot de passe', 'trim|htmlspecialchars|required|alpha_numeric');
+                $this->form_validation->set_rules('passwordConfirm', 'Confirmation du mot de passe', 'trim|htmlspecialchars|required|alpha_numeric');
+                $this->form_validation->set_rules('postalCode', 'Code postal', 'trim|htmlspecialchars|required|exact_length[5]|numeric');
+                $this->form_validation->set_rules('city', 'Ville', 'trim|htmlspecialchars|required');
 
         if ($this->form_validation->run() == FALSE)
         {

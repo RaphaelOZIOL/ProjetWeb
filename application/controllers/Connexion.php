@@ -41,7 +41,7 @@ class Connexion extends Administrator_controller {
     public function disconnect_to_welcome_page(){
         $this->disconnect();
       //  $this->load->view('header',$data);
-        redirect(site_url('product'));
+        redirect(site_url(''));
         //$this->load->view('welcomePage',$data);
     }
 }

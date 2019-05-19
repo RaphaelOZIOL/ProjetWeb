@@ -1,7 +1,7 @@
 
 
 <body>
-  
+
   <?php
     if (isset($product_created) && $product_created==true){
       echo "<script>alert(\"Le produit a été créé avec succès\")</script>";
@@ -37,30 +37,98 @@
 <!-- WELCOME PAGE -->
   <?php if($isAdmin==0){ ?>
   <div class="container full-height text-center my-auto" id="welcome">
-      <h1 class="mb-md-1 display-3">L'Ami du Pain</h1>
-      <h3 class="mb-5">
-        <em>Bienvenue sur le site de l'Ami du Pain</em>
-      </h3>
-      <button class="btn btn-primary btn-xl js-scroll-trigger" onclick="loadListProduct()">Voir les produits</button>
-      <button class="btn btn-primary btn-xl js-scroll-trigger" onclick="loadListCategory()">Voir les catégories</button>
 
-      <a class="btn btn-primary btn-xl js-scroll-trigger" href="<?php echo site_url("connexion")?>">Se connecter</a>
+    <div class="row">
+        <div class="col-md-4 ">
+          <img src="<?php echo site_url("assets/images/logo_lami_du_pain.png") ?>" class="img-responsive img-fluid" alt="Logo de l'ami du pain">
+        </div>
+        <div class="col-md-8 align-item-center">
+          <h1 class="mb-md-1 display-3">L'Ami du Pain</h1>
+          <h3 class="mb-5">
+            <em>Bienvenue sur le site de l'Ami du Pain</em>
+          </h3>
+        </div>
     </div>
+
+      <div class="row col-md-12">
+        <div class=col-md-4>
+          <button class="btn btn-outline-primary btn-lg mb-2" onclick="loadListProduct()">Voir les produits</button>
+        </div>
+        <div class=col-md-4>
+          <button class="btn btn-outline-primary btn-lg mb-2" onclick="loadListCategory()">Voir les catégories</button>
+        </div>
+        <div class=col-md-4>
+          <a class="btn btn-outline-primary btn-lg mb-2" href="<?php echo site_url("connexion")?>">Se connecter</a>
+        </div>
+      </div>
+
+
+
+      <p class="lead mt-3">Sur ce site vous aurez la possibilité de réserver vos produits préférés en avance pour que l'on vous les préparent de la meilleur des façons.</p>
+      <p class="lead mt-3">Pour cela rien de plus simple ! Il vous suffit de vous créer un compte et de commencer à réserver vos produits.</p>
+      <div class="alert alert-warning mt-3 mb-5" role="alert">
+        Sachez que vous ne pouvez réserver qu'au plus de 7 jours et que le paiement se fera sur place lors de votre arrivée.
+      </div>
+    </div>
+
   <?php } else if($isAdmin==1){?>
     <div class="container full-height text-center my-auto" id="welcome_user">
-        <h1 class="mb-md-1 display-3">L'Amie du Pain</h1>
+        <h1 class="mb-md-1 display-3">L'Ami du Pain</h1>
+        <h3 class="mb-5">
+          <em>Espace client</em>
+        </h3>
 
-        <button class="btn btn-primary btn-xl js-scroll-trigger" onclick="loadListProduct()">Voir les produits</button>
-        <button class="btn btn-primary btn-xl js-scroll-trigger" onclick="loadListCategory()">Voir les catégories</button>
-        <a class="btn btn-primary btn-xl js-scroll-trigger" href="<?php echo site_url("book")?>">Vos réservations</a>
+        <div class="row col-md-12">
+          <div class=col-md-4>
+            <button class="btn btn-outline-primary btn-lg mb-2" onclick="loadListProduct()">Voir les produits</button>
+          </div>
+          <div class=col-md-4>
+            <button class="btn btn-outline-primary btn-lg mb-2" onclick="loadListCategory()">Voir les catégories</button>
+          </div>
+          <div class=col-md-4>
+            <a class="btn btn-outline-primary btn-lg mb-2" href="<?php echo site_url("book")?>">Vos réservations</a>
+          </div>
+        </div>
+
       </div>
 <?php } else if($isAdmin==2){?>
   <div class="container full-height text-center my-auto" id="welcome_user">
-      <h1 class="mb-md-1 display-3">L'Amie du Pain</h1>
+      <h1 class="mb-md-1 display-3">L'Ami du Pain</h1>
+      <h3 class="mb-5">
+        <em>Espace administrateur</em>
+      </h3>
 
-      <button class="btn btn-primary btn-xl js-scroll-trigger" onclick="loadListProduct()">Voir les produits</button>
-      <button class="btn btn-primary btn-xl js-scroll-trigger" onclick="loadListCategory()">Voir les catégories</button>
-      <a class="btn btn-primary btn-xl js-scroll-trigger" href="<?php echo site_url("book")?>">Les réservations des clients</a>
+      <div class="row col-md-12">
+        <div class=col-md-4>
+          <button class="btn btn-outline-primary btn-lg mb-5 col-md-8" onclick="loadListProduct()">Voir les produits</button>
+        </div>
+        <div class=col-md-4>
+          <button class="btn btn-outline-primary btn-lg mb-2 col-md-8" onclick="loadListCategory()">Voir les catégories</button>
+        </div>
+        <div class=col-md-4>
+          <a class="btn btn-outline-primary btn-lg mb-2 col-md-8" href="<?php echo site_url("book")?>">Les réservations</a>
+        </div>
+      </div>
+      <div class="row col-md-12">
+        <div class=col-md-4>
+          <button class="btn btn-outline-primary btn-lg mb-5 col-md-8" onclick="load_create_product()">Ajouter un produit</button>
+        </div>
+        <div class=col-md-4>
+          <button class="btn btn-outline-primary btn-lg mb-2 col-md-8" onclick="loadListProduct()">Modifier un produit</button>
+        </div>
+        <div class=col-md-4>
+          <button class="btn btn-outline-primary btn-lg mb-2 col-md-9" onclick="loadListProduct()"?>Supprimer un produit</button>
+        </div>
+      </div>
+      <div class="row col-md-12">
+        <div class=col-md-6>
+          <button class="btn btn-outline-primary btn-lg mb-2 col-md-8" onclick="load_create_category()">Ajouter une catégorie</button>
+        </div>
+        <div class=col-md-6>
+          <button class="btn btn-outline-primary btn-lg mb-2 col-md-8" onclick="loadListCategory()">Modifier une catégorie</button>
+        </div>
+      </div>
+
     </div>
 <?php }?>
 

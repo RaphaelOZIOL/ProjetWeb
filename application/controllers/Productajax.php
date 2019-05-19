@@ -34,7 +34,7 @@ class Productajax extends Administrator_controller
     $produit['isAdmin']=$data['isAdmin']=parent::get_is_Admin();
     $mail = $this->encryption->decrypt(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name()));
     if($mail==null && $produit['isAdmin']!=2){
-      redirect(site_url("connexion"));
+      redirect(site_url("connection"));
     }
     //$result;
     //if(isset($_GET['IdCat'])){intval($_GET['IdCat'])

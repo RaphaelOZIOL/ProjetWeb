@@ -33,11 +33,11 @@ header("X-XSS-Protection: 1; mode=block");?>
           <li><a class="nav-link border-right mr-md-2" onclick="loadListCategory()">Catégories</a></li>
 
           <?php if($isAdmin==1){ ?>
-            <li><a class="nav-link border-right mr-md-2" href="<?php echo site_url("book/list_book")?>">Vos réservations</a></li>
+            <li><a class="nav-link border-right mr-md-2" href="<?php echo site_url('reservations/client');?>">Vos réservations</a></li>
           <?php } ?>
           <?php if($isAdmin==2){ ?>
-            <li><a class="nav-link border-right mr-md-2" href="<?php echo site_url("book/list_book_all_admin")?>">Réservations des clients</a></li>
-            <li><a class="nav-link border-right mr-md-2" onclick=load_create_update_page()>Ajout/Modification</a></li>
+            <li><a class="nav-link border-right mr-md-2" href="<?php echo site_url("reservations/liste");?>">Réservations des clients</a></li>
+            <li><a class="nav-link border-right mr-md-2" onclick=load_create_update_page()>Ajout/Modification/Suppression</a></li>
 
           <?php } ?>
         </ul>
@@ -47,12 +47,12 @@ header("X-XSS-Protection: 1; mode=block");?>
 
           <?php if($isAdmin==0){ ?>
             <li><a class=nav-link onclick=makeRegistration()><span class="glyphicon glyphicon-user"></span>S'inscrire</a></li>
-            <li><a class=nav-link href="<?php echo site_url("connexion")?>"><span class="glyphicon glyphicon-log-in"></span>Se connecter</a></li>
+            <li><a class=nav-link href="<?php echo site_url("connection");?>"><span class="glyphicon glyphicon-log-in"></span>Se connecter</a></li>
           <?php }
           if($isAdmin==1 || $isAdmin==2){
           ?>
-          <li><a class=nav-link href="<?php echo site_url("profile")?>"><span class="glyphicon glyphicon-user"></span>Profil</a></li>
-          <li><a class=nav-link href="<?php echo site_url("connexion/disconnect_to_welcome_page")?>"><span class="glyphicon glyphicon-user"></span>Se Déconnecter</a></li>
+          <li><a class=nav-link href="<?php echo site_url("profil");?>"><span class="glyphicon glyphicon-user"></span>Profil</a></li>
+          <li><a class=nav-link href="<?php echo site_url("deconnecter");?>"><span class="glyphicon glyphicon-user"></span>Se Déconnecter</a></li>
 
           <?php } ?>
 
@@ -65,27 +65,30 @@ header("X-XSS-Protection: 1; mode=block");?>
     <script>
 
     // CHANGE WHEN DEPLOYING ON SERVER
-  var url_site="http://localhost/LamiDuPain/";
-   //var url_site="https://lamidupain.herokuapp.com/";
-    var url_connection= url_site + 'connexion';
-    var url_deconnnection= url_site + 'connexion/disconnect_to_welcome_page';
-    var url_list_product= url_site + 'productajax/list_product';
+  //var url_site="http://localhost/LamiDuPain/";
+  var url_site="https://lamidupain.herokuapp.com/";
+
+
+    var url_connection= url_site + 'connection';
+    var url_deconnnection= url_site + 'deconnecter';
+    var url_list_product= url_site + 'produits/liste';
     var url_list_product_by_category= url_site + 'categoryajax/get_product_by_category/';
-    var url_product_id= url_site + 'productajax/afficher_idProd';
+    var url_product_id= url_site + 'produits/produit/id';
     var url_product_info= url_site + 'productajax/product_info/';
-    var url_registration= url_site + 'register/registration';
-    var url_category= url_site + 'categoryajax/list_category';
-    var url_profile= url_site + 'profile';
-    var url_book_product= url_site + 'book/book_product';
-    var url_product_create= url_site + 'product/create_product';
-    var url_category_create= url_site + 'category/create_category';
-    var url_category_info= url_site + "categoryajax/info_category";
-    var url_category_update= url_site + "category/update_category";
-    var url_upload_img= url_site + "category/do_upload_category";
-    var url_product_info_admin= url_site + 'productajax/product_info_admin';
-    var url_product_update= url_site + 'product/update_product';
+    var url_registration= url_site + 'inscription';
+    var url_category= url_site + 'categories';
+    var url_profile= url_site + 'profil';
+    var url_book_product= url_site + 'reserver';
+    var url_product_create= url_site + 'produits/produit/creer';
+    var url_category_create= url_site + 'categories/categorie/creer';
+    var url_category_info= url_site + "categories/categorie/information";
+    var url_category_update= url_site + "categories/categorie/modifier";
+    var url_upload_img= url_site + "categories/categorie/telecharger";
+    var url_product_info_admin= url_site + 'produits/produit/information/administrateur';
+    var url_product_update= url_site + 'produits/produit/modifier';
     var url_delete_product= url_site + 'product/delete_product/';
     var url_search_product= url_site + 'searchproduct/search/';
+
 
 
     function display_button_connected(data){
@@ -115,8 +118,13 @@ header("X-XSS-Protection: 1; mode=block");?>
                   dataType : 'json',
                   success : function(data){
                       var htmlProduct = '';
-                      var htmlSearch='<label> Recherche : </label>'+
-                              '<input type="search" id="productSearch" name="productSearch" aria-label="chercher">';
+                      var htmlSearch=    '<form class="form-inline col-md-4 mt-4 mb-4">'+
+                                            '<i class="fas fa-search" aria-hidden="true"></i>'+
+                                            '<input class="form-control form-control-sm ml-3 w-75" type="search" placeholder="Rechercher un produit" id="productSearch" name="productSearch" aria-label="Chercher">'+
+                                          '</form>'+
+                                          '<div class="col-md-12 mt-4 mb-4 text-center">'+
+                                            '<h3>Liste des produits</h3>'+
+                                          '</div>';
                       var i;
                       for(i=0; i<data[0].length; i++){
                           if(i%3==0){
@@ -124,23 +132,23 @@ header("X-XSS-Protection: 1; mode=block");?>
                           }
                             htmlProduct += '<div class="card col-12 col-sm-6 col-md-4 bg-light border-primary mb-3">'+
                                       '<div class="card-deck">'+
-                                        '<div class="card-header">'+
+                                        '<div class="card-header col-md-12">'+
                                             '<img class="card-img-top" src="' + data[0][i].srcImg + '" alt="Image de ' + data[0][i].nameProd + '">' +
                                         '</div>'+
                                           '<div class="card-body text-center">'+
-                                              '<h5 class="card-title col-md-12"  id="' + data[0][i].IdProd +'">'+ data[0][i].nameProd +'</h5>'+
-                                              '<h5 class="card-title col-md-12">Prix : ' + data[0][i].price + ' € </h5>'+
+                                              '<h5 class="card-title col-md-12 pl-0 pr-0"  id="' + data[0][i].IdProd +'">'+ data[0][i].nameProd +'</h5>'+
+                                              '<h5 class="card-title col-md-12 pl-0 pr-0">Prix : ' + data[0][i].price + ' € </h5>'+
 
                                               '<p class="card-text">' + data[0][i].compoProd + '</p>'+
                                               '<p class="card-text">' + data[0][i].quantityStock + ' pièces</p>'+
                                           '</div>'+
 
-                                          '<div class="text-center col-md-12">'+
-                                              '<button type="button" onclick=loadProduct(this) id=' + data[0][i].IdProd + ' class="btn btn-outline-success btn-lg col-md-12 mr-md-2 mt-md-2 mb-md-2 ">Réserver</button>';
+                                          '<div class="text-center col-md-12 force-to-bottom">'+
+                                              '<button type="button" onclick=loadProduct(this) id=' + data[0][i].IdProd + ' class="btn btn-outline-success btn-lg col-md-12 mr-2 mt-3 mb-2 pl-0 pr-0">Réserver</button>';
 
                                              if(data[1]==2){
                                                   htmlProduct +=
-                                                '<button type="button" onclick=load_update_product(this) id=' + data[0][i].IdProd + ' class="btn btn-outline-warning btn-lg col-md-12 mr-md-2 mt-md-2 mb-md-2 ">Modifier</button>';
+                                                '<button type="button" onclick=load_update_product(this) id=' + data[0][i].IdProd + ' class="btn btn-outline-warning btn-lg col-md-12 mr-2 mt-2 mb-0 pl-0 pr-0">Modifier/Supprimer</button>';
                                               }
 
 
@@ -186,23 +194,23 @@ header("X-XSS-Protection: 1; mode=block");?>
                                                                 }
                                                                   htmlProd += '<div class="card col-12 col-sm-6 col-md-4 bg-light border-primary mb-3">'+
                                                                             '<div class="card-deck">'+
-                                                                              '<div class="card-header">'+
+                                                                              '<div class="card-header col-md-12">'+
                                                                                   '<img class="card-img-top" src="' + data["product"][i]["srcImg"] + '" alt="Image de ' + data["product"][i]["nameProd"] + '">' +
                                                                               '</div>'+
                                                                                 '<div class="card-body text-center">'+
-                                                                                    '<h5 class="card-title col-md-12"  id="' + data["product"][i]["IdProd"] +'">'+ data["product"][i]["nameProd"] +'</h5>'+
-                                                                                    '<h5 class="card-title col-md-12">Prix : ' + data["product"][i]["price"] + ' € </h5>'+
+                                                                                    '<h5 class="card-title col-md-12 pl-0 pr-0"  id="' + data["product"][i]["IdProd"] +'">'+ data["product"][i]["nameProd"] +'</h5>'+
+                                                                                    '<h5 class="card-title col-md-12 pl-0 pr-0">Prix : ' + data["product"][i]["price"] + ' € </h5>'+
 
                                                                                     '<p class="card-text">' + data["product"][i]["compoProd"] + '</p>'+
                                                                                     '<p class="card-text">' + data["product"][i]["quantityStock"] + ' pièces</p>'+
                                                                                 '</div>'+
 
-                                                                                '<div class="text-center col-md-12">'+
-                                                                                    '<button type="button" onclick=loadProduct(this) id=' + data["product"][i]["IdProd"] + ' class="btn btn-outline-success btn-lg col-md-12 mr-md-2 mt-md-2 mb-md-2 ">Réserver</button>';
+                                                                                '<div class="text-center col-md-12 force-to-bottom">'+
+                                                                                    '<button type="button" onclick=loadProduct(this) id=' + data["product"][i]["IdProd"] + ' class="btn btn-outline-success btn-lg col-md-12 mr-2 mt-3 mb-2 pl-0 pr-0">Réserver</button>';
 
                                                                                    if(data[1]==2){
                                                                                         htmlProd +=
-                                                                                      '<button type="button" onclick=load_update_product(this) id=' + data["product"][i]["IdProd"] + ' class="btn btn-outline-warning btn-lg col-md-12 mr-md-2 mt-md-2 mb-md-2 ">Modifier</button>';
+                                                                                      '<button type="button" onclick=load_update_product(this) id=' + data["product"][i]["IdProd"] + ' class="btn btn-outline-warning btn-lg col-md-12 mr-2 mt-2 mb-0 pl-0 pr-0 ">Modifier/Supprimer</button>';
                                                                                     }
 
 
@@ -261,23 +269,23 @@ header("X-XSS-Protection: 1; mode=block");?>
                           }
                             htmlProduct += '<div class="card col-12 col-sm-6 col-md-4 bg-light border-primary mb-3">'+
                                       '<div class="card-deck">'+
-                                        '<div class="card-header">'+
+                                        '<div class="card-header col-md-12">'+
                                             '<img class="card-img-top" src="' + data[0][i].srcImg + '" alt="Image de ' + data[0][i].nameProd + '">' +
                                         '</div>'+
                                           '<div class="card-body text-center">'+
-                                              '<h5 class="card-title col-md-12"  id="' + data[0][i].IdProd +'">'+ data[0][i].nameProd +'</h5>'+
-                                              '<h5 class="card-title col-md-12">Prix : ' + data[0][i].price + ' € </h5>'+
+                                              '<h5 class="card-title col-md-12 pl-0 pr-0"  id="' + data[0][i].IdProd +'">'+ data[0][i].nameProd +'</h5>'+
+                                              '<h5 class="card-title col-md-12 pl-0 pr-0">Prix : ' + data[0][i].price + ' € </h5>'+
 
                                               '<p class="card-text">' + data[0][i].compoProd + '</p>'+
                                               '<p class="card-text">' + data[0][i].quantityStock + ' pièces</p>'+
                                           '</div>'+
 
-                                          '<div class="text-center col-md-12">'+
-                                              '<button type="button" onclick=loadProduct(this) id=' + data[0][i].IdProd + ' class="btn btn-outline-success btn-lg col-md-12 mr-md-2 mt-md-2 mb-md-2 ">Réserver</button>';
+                                          '<div class="text-center col-md-12 force-to-bottom">'+
+                                              '<button type="button" onclick=loadProduct(this) id=' + data[0][i].IdProd + ' class="btn btn-outline-success btn-lg col-md-12 mr-2 mt-3 mb-2 pl-0 pr-0">Réserver</button>';
 
                                              if(data[1]==2){
                                                   htmlProduct +=
-                                                '<button type="button" onclick=load_update_product(this) id=' + data[0][i].IdProd + ' class="btn btn-outline-warning btn-lg col-md-12 mr-md-2 mt-md-2 mb-md-2 ">Modifier</button>';
+                                                '<button type="button" onclick=load_update_product(this) id=' + data[0][i].IdProd + ' class="btn btn-outline-warning btn-lg col-md-12 mr-2 mt-2 mb-0 pl-0 pr-0 ">Modifier/Supprimer</button>';
                                               }
 
 
@@ -377,8 +385,8 @@ header("X-XSS-Protection: 1; mode=block");?>
                                         //If connected on admin show button admin
                                         if(data['isAdmin']==2){
                                             html+='<div class="row">'+
-                                              '<button type="button" onclick=load_update_product(this) id=' + data['product_info'][0].IdProd + ' class="btn btn-outline-warning btn-lg col-md-4 mr-md-2 mt-md-2 mb-md-2 ">Modifier Produit</button>'+
-                                              '<a href=' + url_delete_product + data['product_info'][0].IdProd + ' id=' + data['product_info'][0].IdProd + ' class="btn btn-outline-danger btn-lg col-md-4 mr-md-2 mt-md-2 mb-md-2 ">Supprimer Produit</a>'+
+                                              '<button type="button" onclick=load_update_product(this) id=' + data['product_info'][0].IdProd + ' class="btn btn-outline-warning btn-lg col-md-4 mr-md-2 mt-md-2 mb-md-2 ">Modifier le produit</button>'+
+                                              '<a href=' + url_delete_product + data['product_info'][0].IdProd + ' id=' + data['product_info'][0].IdProd + ' class="btn btn-outline-danger btn-lg col-md-4 mr-md-2 mt-md-2 mb-md-2 ">Supprimer le produit</a>'+
                                             '</div>';
                                           }
 
@@ -463,18 +471,20 @@ header("X-XSS-Protection: 1; mode=block");?>
                                                   if(msg.isAdmin==null){
                                                     alert("Vous devez être connecté avec un compte client pour pouvoir réserver !");
                                                   }
-                                                  else if(msg.isAdmin==2)
-                                                   alert("Vous ne pouvez pas réserver en tant qu'admin !");
+                                                  else if(msg.isAdmin==2){
+                                                    alert("Vous ne pouvez pas réserver en tant qu'administrateur !");
+                                                  }
                                                   else if(msg.form_not_valid==true){
-                                                    alert("Vous n'avez pas rentrer de bonnes valeurs dans les champs du formulaire !");
-
+                                                    alert("Vous n'avez pas rentré de bonnes valeurs dans les champs du formulaire !");
+                                                  }
+                                                  else if(msg.before_book_impossible==true){
+                                                    alert("Vous ne pouvez pas réserver dans le passé désolé !");
                                                   }
                                                   else if(msg.TooLate==true){
                                                     alert("Attention vous ne pouvez pas réserver au plus de 7 jours !");
-
                                                   }
                                                   else{
-                                                  //alert("Réservation effectuée !");
+                                                    alert("Réservation confirmée ! Vous pouvez maintenant la consulter dans l'onglet 'Vos réservations' !");
                                                     loadListProduct();
                                                   }
                                               }
@@ -506,28 +516,32 @@ header("X-XSS-Protection: 1; mode=block");?>
                   console.log(data);
                     var htmlCat = '';
                     var i;
+                    htmlCat += '<div class="col-md-12 mt-4 mb-4 text-center">'+
+                                '<h3>Liste des catégories</h3>'+
+                              '</div>';
                     for(i=0; i<data[0].length; i++){
 
                           if(i%3==0){
                             htmlCat += '<div class="card-deck container-fluid justify-content-center">';
                           }
                             htmlCat+=
-                                      '<div class="card col-md-4 bg-light border-primary mb-3" >'+
-                                      '<div class="card-header"><img class="card-img" src="' + data[0][i].imgSrc + '" alt="Image de ' + data[0][i].nameCat + '"></div>'+
+                                      '<div class="card col-12 col-sm-6 col-md-4 bg-light border-primary mb-3" >'+
+                                      '<div class="card-deck">'+
+                                      '<div class="card-header col-md-12"><img class="card-img-top" src="' + data[0][i].imgSrc + '" alt="Image de ' + data[0][i].nameCat + '"></div>'+
                                       '<div class="card-body text-center text-primary">'+
-                                          '<h5 class="col-md-12 mt-1 text-uppercase">' + data[0][i].nameCat + '</h5>'+
+                                          '<h5 class="card-title col-md-12 pl-0 pr-0">' + data[0][i].nameCat + '</h5>'+
                                       '</div>'+
-                                      '<div class=" text-center">';
+                                      '<div class=" text-center col-md-12 force-to-bottom">'+
+
+                                          '<button type=button class="btn btn-outline-success btn-lg col-md-12 mr-2 mt-3 mb-2 pl-0 pr-0 " id="' + data[0][i].IdCat + '" onclick=loadListProductByCategory(this) >Allez voir !</button>';
 
                                   if(data[1]==2){
-                                      htmlCat+='<button type="button" onclick=load_update_category(this) id="' + data[0][i].IdCat + '" class="btn btn-outline-warning btn-lg col-md-12 mr-md-2 mb-mt-2 mt-md-2 ">Modifier catégorie</button>';
-                                  }
+                                      htmlCat+=
+                                            '<button type="button" onclick=load_update_category(this) id="' + data[0][i].IdCat + '" class="btn btn-outline-warning btn-lg col-md-12 mr-2 mt-2 mb-0 pl-0 pr-0 ">Modifier catégorie</button>';
+                                          }
 
-                                  htmlCat+=
-                                        '<button type=button class="btn btn-outline-success btn-lg col-md-12 mr-md-2 mt-md-2 card-title my-auto col-12 " id="' + data[0][i].IdCat + '" onclick=loadListProductByCategory(this) >Allez voir !</button>'+
-
+                                  htmlCat+='</div>'+
                                       '</div>'+
-
                                     '</div>';
                           if(i%3==2){
                             htmlCat += '</div>';
@@ -540,6 +554,8 @@ header("X-XSS-Protection: 1; mode=block");?>
         }
 
         function load_create_update_page(){
+          document.getElementById('div_search').style.display="none";
+
             var html="";
             html+='<div class=container>'+
                     '<div class="row">'+
@@ -582,9 +598,12 @@ header("X-XSS-Protection: 1; mode=block");?>
                           '<div class="card">'+
                               '<div class="card-body">'+
                                   '<div class="row">'+
-                                      '<div class="col-md-12">'+
+                                      '<div class="col-md-7">'+
                                           '<h4>Ajouter un produit</h4>'+
                                           '<hr>'+
+                                      '</div>'+
+                                      '<div class="col-md-5  d-flex flex-row-reverse mb-2">'+
+                                        '<button name="listProduct" type="submit" onclick=loadListProduct() class="btn btn-primary pull-right">Retour aux produits</button>'+
                                       '</div>'+
                                   '</div>'+
                                   '<div class="row">'+
@@ -666,9 +685,12 @@ header("X-XSS-Protection: 1; mode=block");?>
                     '<div class="card">'+
                         '<div class="card-body">'+
                             '<div class="row">'+
-                                '<div class="col-md-12">'+
+                                '<div class="col-md-7">'+
                                     '<h4>Ajouter une catégorie</h4>'+
                                     '<hr>'+
+                                '</div>'+
+                                '<div class="col-md-5  d-flex flex-row-reverse mb-2">'+
+                                  '<button name="listCategory" type="submit" onclick=loadListCategory() class="btn btn-primary pull-right">Retour aux catégories</button>'+
                                 '</div>'+
                             '</div>'+
                             '<div class="row">'+
@@ -703,25 +725,6 @@ header("X-XSS-Protection: 1; mode=block");?>
 
         $('#body').html(html);
 
-        /*$('#form_create_category').submit(function(e){
-                    var dataForm = $(this).serialize();
-                    $.ajax({
-                        type : "POST",
-                        url  : url_category_create,
-                        dataType : "JSON",
-                        data : dataForm,
-                        success: function(msg){
-                            //loadListProduct();
-                            if(msg==true){
-                              alert("Catégorie créée avec succès, vous pouvez maintenant la consulter dans la liste des catégories !");
-                            }
-                            else{
-                              alert("Erreur dans la création de la catégorie");
-                            }
-                        }
-                    });
-                    return false;
-                });*/
         }
 
         function load_update_product(e){
@@ -756,7 +759,7 @@ header("X-XSS-Protection: 1; mode=block");?>
                                       ' <h4>Modifier le produit ' + dataProduct[0].nameProd + '</h4>'+
                                        '<hr>'+
                                    '</div>'+
-                                   '<div class="col-md-5 align-item-end">'+
+                                   '<div class="col-md-5  d-flex flex-row-reverse mb-2">'+
                                      '<button name="listProduct" type="submit" onclick=loadListProduct() class="btn btn-primary pull-right">Retour aux produits</button>'+
                                    '</div>'+
                                '</div>'+
@@ -867,7 +870,7 @@ header("X-XSS-Protection: 1; mode=block");?>
                                    ' <h4>Modifier la catégorie ' + dataCategory[0].nameCat + '</h4>'+
                                     '<hr>'+
                                 '</div>'+
-                                '<div class="col-md-5 align-item-end">'+
+                                '<div class="col-md-5  d-flex flex-row-reverse mb-2">'+
                                   '<button name="listCategory" type="submit" onclick=loadListCategory() class="btn btn-primary pull-right">Retour aux catégories</button>'+
                                 '</div>'+
                             '</div>'+
@@ -1007,14 +1010,14 @@ header("X-XSS-Protection: 1; mode=block");?>
                   '<div class="form-row">'+
                     '<div class="col-md-3 mb-3">'+
                       '<label for="password">Mot de passe</label>'+
-                      '<input type="text" autocomplete="off" class="form-control" name="password" id="password" placeholder="Mot de passe" required>'+
+                      '<input type="password" autocomplete="off" class="form-control" name="password" id="password" placeholder="Mot de passe" required>'+
                       '<div class="invalid-feedback">'+
                         'Veuillez rentrer un mot de passe correct.'+
                       '</div>'+
                     '</div>'+
                     '<div class="col-md-3 mb-3">'+
                       '<label for="passwordConfirm">Confirmation mot de passe</label>'+
-                      '<input type="text" autocomplete="off" class="form-control" name="passwordConfirm" id="passwordConfirm" required>'+
+                      '<input type="password" autocomplete="off" class="form-control" name="passwordConfirm" id="passwordConfirm" required>'+
                       '<div class="invalid-feedback">'+
                         'Veuillez rentrer un mot de passe correct.'+
                       '</div>'+

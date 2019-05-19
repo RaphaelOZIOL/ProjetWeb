@@ -1,16 +1,27 @@
 <body>
-  
+
   <div class="container" id="div_search">
   </div>
   <div class=container id="body">
 
+    <?php
+    if(isset($reservation_admin_done) && $reservation_admin_done==true){
+      ?>
+      <div class="alert alert-success" role="alert">
+          Cette réservation a été payée et enlevée des réservations en attente avec succès !
+      </div>
+  <?php  }
+    ?>
 
-<table id="dtBookAdmin" class="table table-striped table-bordered" cellspacing="10em" width="100%">
+
+<table id="dtBookAdmin" class="table table-striped table-bordered mt-4" cellspacing="10em" width="100%">
   <thead>
     <tr>
-      <th class="th-sm">Réserver pour le
+      <th class="th-sm">Réservé pour le
       </th>
       <th class="th-sm">Client
+      </th>
+      <th class="th-sm">Numéro de téléphone
       </th>
       <th class="th-sm">Produit
       </th>
@@ -32,7 +43,7 @@
     <tr>
       <td><?php echo $list_book[$i]->date; ?></td>
       <td><?php echo ($list_book[$i]->firstName." ".$list_book[$i]->lastName); ?></td>
-
+      <td><?php echo $list_book[$i]->phoneNumber; ?></td>
       <td><?php echo $list_book[$i]->nameProd; ?></td>
       <td><?php echo $list_book[$i]->comment; ?></td>
       <td><?php echo ($list_book[$i]->quantity." pièces"); ?></td>

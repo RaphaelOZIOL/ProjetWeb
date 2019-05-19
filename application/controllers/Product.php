@@ -166,7 +166,7 @@ public function create_product(){
       }
 
     else{
-      redirect(site_url('connexion'));
+      redirect(site_url('connection'));
     }
 }
 

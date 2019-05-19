@@ -87,6 +87,7 @@ class Administrator_controller extends CI_Controller {
             else
             {
                 $this->is_Admin=0;
+                
                 redirect(site_url("connexion"));
             }
         }

@@ -42,7 +42,7 @@ class Profile extends Administrator_controller
               $this->load->view('profile',$data);
      }
      else{
-       redirect("connexion");
+       redirect("connection");
      }
 	}
 
@@ -55,11 +55,11 @@ class Profile extends Administrator_controller
         $this->form_validation->set_rules('firstName', 'Prénom', 'trim|htmlspecialchars|required|alpha');
                 $this->form_validation->set_rules('lastName', 'Nom', 'trim|htmlspecialchars|required|alpha');
                 $this->form_validation->set_rules('email', 'Email', 'trim|htmlspecialchars|required|valid_email');
-                $this->form_validation->set_rules('phoneNumber', 'Numéro de téléphone', 'required|htmlspecialchars|exact_length[10]|numeric');
-                $this->form_validation->set_rules('yearBirth', 'Date de naissance', 'htmlspecialchars|required');
-                $this->form_validation->set_rules('street', 'Adresse', 'htmlspecialchars|required|alpha_numeric_spaces');
-                $this->form_validation->set_rules('postalCode', 'Code postal', 'htmlspecialchars|required|exact_length[5]|numeric');
-                $this->form_validation->set_rules('city', 'Ville', 'htmlspecialchars|required');
+                $this->form_validation->set_rules('phoneNumber', 'Numéro de téléphone', 'trim|required|htmlspecialchars|exact_length[10]|numeric');
+                $this->form_validation->set_rules('yearBirth', 'Date de naissance', 'trim|htmlspecialchars|required');
+                $this->form_validation->set_rules('street', 'Adresse', 'trim|htmlspecialchars|required|alpha_numeric_spaces');
+                $this->form_validation->set_rules('postalCode', 'Code postal', 'trim|htmlspecialchars|required|exact_length[5]|numeric');
+                $this->form_validation->set_rules('city', 'Ville', 'trim|htmlspecialchars|required');
 
         if ($this->form_validation->run() == FALSE)
                 {
@@ -70,15 +70,9 @@ class Profile extends Administrator_controller
                           $data['profile_info']= $this->shopper_model->_getUser_info($mail);
                           $this->load->view('profile',$data);
                       }
-                      else if(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name(), TRUE) &&
-                              get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_password(), TRUE)){
 
-                                $mail = $this->encryption->decrypt(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name()));
-                                $data['profile_info']= $this->administrator_model->_getUser_info($mail);
-                                $this->load->view('profile',$data);
-                       }
                        else{
-                         redirect("connexion");
+                         redirect("connection");
                        }
                 }
 
@@ -120,12 +114,12 @@ class Profile extends Administrator_controller
 
         $this->form_validation->set_rules('firstName', 'Prénom', 'trim|htmlspecialchars|required|alpha');
                 $this->form_validation->set_rules('lastName', 'Nom', 'trim|htmlspecialchars|required|alpha');
-                $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
-                $this->form_validation->set_rules('phoneNumber', 'Numéro de téléphone', 'required|exact_length[10]|numeric');
-                $this->form_validation->set_rules('yearBirth', 'Date de naissance', 'required');
-                $this->form_validation->set_rules('street', 'Adresse', 'required|alpha_numeric_spaces');
-                $this->form_validation->set_rules('postalCode', 'Code postal', 'required|exact_length[5]|numeric');
-                $this->form_validation->set_rules('city', 'Ville', 'required');
+                $this->form_validation->set_rules('email', 'Email', 'trim|htmlspecialchars|required|valid_email');
+                $this->form_validation->set_rules('phoneNumber', 'Numéro de téléphone', 'trim|htmlspecialchars|required|exact_length[10]|numeric');
+                $this->form_validation->set_rules('yearBirth', 'Date de naissance', 'trim|htmlspecialchars|required');
+                $this->form_validation->set_rules('street', 'Adresse', 'trim|htmlspecialchars|required|alpha_numeric_spaces');
+                $this->form_validation->set_rules('postalCode', 'Code postal', 'trim|htmlspecialchars|required|exact_length[5]|numeric');
+                $this->form_validation->set_rules('city', 'Ville', 'trim|htmlspecialchars|required');
 
         if ($this->form_validation->run() == FALSE)
                 {
@@ -135,10 +129,11 @@ class Profile extends Administrator_controller
 
                                 $mail = $this->encryption->decrypt(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name()));
                                 $data['profile_info']= $this->administrator_model->_getUser_info($mail);
+
                                 $this->load->view('profile',$data);
                        }
                        else{
-                         redirect("connexion");
+                         redirect("connection");
                        }
 
                 }
@@ -168,7 +163,7 @@ class Profile extends Administrator_controller
             }
           }
           else{
-            redirect("connexion");
+            redirect("connection");
           }
         }
         else{
@@ -176,7 +171,7 @@ class Profile extends Administrator_controller
         }
       }
       else{
-        redirect("connexion");
+        redirect("connection");
       }
   }
 
@@ -200,9 +195,10 @@ class Profile extends Administrator_controller
             $mail = $this->encryption->decrypt(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_shopper_name()));
             $result = $this->shopper_model->update_shopper_user_only_pwd($mail);
             if($result != false){
-                   parent::delete_cookie_shopper();
+                   $this->disconnect();
                    $data['isAdmin']=parent::get_is_Admin();
-                   $this->load->view("success");
+                   $data['pwd_updated']=true;
+                   $this->load->view("connexion",$data);
 
             }
 
@@ -234,9 +230,11 @@ class Profile extends Administrator_controller
             $mail = $this->encryption->decrypt(get_cookie($this->config->item('cookie_prefix').parent::get_cookie_admin_name()));
               $result = $this->administrator_model->update_admin_user_only_pwd($mail);
               if($result != false){
-                   parent::delete_cookie_admin();
+                   //parent::delete_cookie_admin();
+                   $this->disconnect();
                    $data['isAdmin']=parent::get_is_Admin();
-                   $this->load->view("success");
+                   $data['pwd_updated']=true;
+                   $this->load->view("connexion",$data);
               }
 
             else{
@@ -262,11 +260,19 @@ class Profile extends Administrator_controller
   }
 }
 
+public function disconnect(){
+    $data['isAdmin']=parent::get_is_Admin();
+    if($data['isAdmin']==1){
+      parent::delete_cookie_shopper();
+    }
+    else if($data['isAdmin']==2){
+      parent::delete_cookie_admin();
+    }
+}
 
-  public function test()
-  {
-    $this->load->view('test');
-
-  }
+public function disconnect_to_welcome_page(){
+    $this->disconnect();
+    redirect(site_url(''));
+}
 
 }

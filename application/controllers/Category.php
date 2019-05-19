@@ -80,7 +80,7 @@ class Category extends Administrator_controller
     }
 
     else{
-        redirect(site_url('connexion'));
+        redirect(site_url('connection'));
     }
 
 }
@@ -146,7 +146,7 @@ public function create_category(){
       }
 
     else{
-      redirect(site_url('connexion'));
+      redirect(site_url('connection'));
     }
 }
 

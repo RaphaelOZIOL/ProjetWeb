@@ -5,6 +5,23 @@
 #registration_user{
   display:none;
 }
+.product .img-responsive {
+    margin: 0 auto;
+}
+
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #333;
+    background-color: #fff;
+}
+
+.force-to-bottom {
+    position:absolute;
+    bottom: 5%;
+    width: 100%;
+}
 
 .active-pink-textarea.md-form label.active {
     color: #f48fb1;

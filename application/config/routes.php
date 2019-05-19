@@ -50,20 +50,42 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 /*
-$route['connection'] = 'connexion';
-$route['produits'] = '';
-$route['categories'] = '';
-$route['inscription'] = '';
-$route['reservations'] = 'book/list_book';
-$route['reservations/client'] = 'book/list_book_all_admin';
-$route['profil'] = 'profile';
-$route['profil/modification'] = 'profile/update_info_pwd_view';
+
 */
 //$route['produit'] = 'product/create_product';
 
 
 
 //$route['default_controller'] = 'product';
+$route['connection'] = 'connexion';
+$route['produits'] = '';
+$route['categories'] = '';
+$route['reservations/client'] = 'book/list_book';
+$route['reservations/liste'] = 'book/list_book_all_admin';
+$route['profil'] = 'profile';
+$route['profil/modification'] = 'profile/update_info_pwd_view';
+$route['deconnecter']='connexion/disconnect_to_welcome_page';
+$route['produits/liste']='productajax/list_product';
+
+$route['categories/categorie'] = 'categoryajax/get_product_by_category';
+$route['produits/produit/id'] = 'productajax/afficher_idProd';
+$route['produits/produit/information/'] = 'productajax/product_info/';
+$route['inscription'] = 'register/registration';
+$route['categories'] = 'categoryajax/list_category';
+$route['reserver'] = 'book/book_product';
+$route['produits/produit/creer']='product/create_product';
+$route['categories/categorie/creer']='category/create_category';
+
+$route['categories/categorie/information'] = 'categoryajax/info_category';
+$route['categories/categorie/modifier'] = 'category/update_category';
+$route['categories/categorie/telecharger'] = 'category/do_upload_category';
+$route['produits/produit/information/administrateur'] = 'productajax/product_info_admin';
+$route['produits/produit/modifier']='product/update_product';
+$route['produits/produit/supprimer/']='product/delete_product/';
+$route['produits/produit/chercher/']='searchproduct/search/';
+
+
+
 
 
 $route['default_controller'] = 'product';

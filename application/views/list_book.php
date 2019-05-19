@@ -1,14 +1,22 @@
 <body>
-  
+
   <div class="container" id="div_search">
   </div>
   <div class=container id="body">
+    <?php
+    if(isset($reservation_canceled) && $reservation_canceled==true){
+      ?>
+      <div class="alert alert-success" role="alert">
+          Votre réservation a été annulée avec succès !
+      </div>
+  <?php  }
+    ?>
 
-
-  <table id="dtBook" class="table table-striped table-bordered" cellspacing="10em" width="100%">
+<div class="container">
+  <table id="dtBook" class="table table-striped table-bordered col-md-12" cellspacing="10em" width="100%">
     <thead>
       <tr>
-        <th class="th-sm">Réserver pour le
+        <th class="th-sm">Réservé pour le
         </th>
         <th class="th-sm">A récupérer à
         </th>
@@ -49,6 +57,7 @@
     </tbody>
 
   </table>
+</div>
 
   <script>
   $(document).ready(function () {

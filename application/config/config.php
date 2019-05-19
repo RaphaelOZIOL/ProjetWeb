@@ -21,7 +21,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 | If you need to allow multiple domains, remember that this file is still
 | a PHP script and you can easily do that on your own.
-|'https://lamidupain.herokuapp.com/'
+|'https://lamidupain.herokuapp.com/'http://localhost/LamiDuPain/
 */
 $config['base_url'] = 'https://lamidupain.herokuapp.com/';
 
@@ -432,7 +432,7 @@ $config['standardize_newlines'] = FALSE;
 |          for backwards compatibility purposes!
 |
 */
-$config['global_xss_filtering'] = FALSE;
+$config['global_xss_filtering'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 
   <body>
-    
+
 
     <div class="container" id="div_search">
     </div>
@@ -8,10 +8,19 @@
 
 
     <?php if (isset($not_connected) && $not_connected==true)
-    {
-    echo "<script>alert(\"Vous devez vous connecter pour accéder à ce contenue.\")</script>";
-    }
-    ?>
+    {?>
+      <div class="alert alert-error" role="alert">
+          Vous devez vous connecter pour accéder à ce contenue.
+      </div>
+  <?php  }?>
+
+  <?php if (isset($pwd_updated) && $pwd_updated==true)
+  {?>
+    <div class="alert alert-success" role="alert">
+        Votre mot de passe a été changé avec succès pour votre sécurité veuillez vous reconnecter avec votre nouveau mot de passe.
+    </div>
+<?php  }?>
+
 
 <div class="container" id="connexion_user">
   <div class="col-md-1 mb-5 mt-5">
@@ -19,9 +28,8 @@
   </div>
   <form id="form_registration" class="needs-validation" action="<?=site_url("connexion")?>" method="post">
     <div class="form-row">
-      <div class="col-md-4 mb-3">
+      <div class="col-md-4 mb-4">
         <label for="identifiant">Email</label>
-        <?php echo form_error('identifiant'); ?>
         <input type="text" class="form-control" id="identifiant" name="identifiant" value="<?php echo set_value('identifiant'); ?>" placeholder="Email" required>
         <div class="valid-feedback">
           Correct !
@@ -31,9 +39,8 @@
     </div>
 
     <div class="form-row">
-      <div class="col-md-3 mb-3">
+      <div class="col-md-4 mb-4">
         <label for="password" ="off">Mot de passe</label>
-        <?php echo form_error('password'); ?>
         <input type="password" autocomplete="off" class="form-control" id="password" name="password" value="<?php echo set_value('password'); ?>" placeholder="Mot de passe" required>
         <div class="invalid-feedback">
 
@@ -43,7 +50,7 @@
     </div>
 
 
-    <div class="d-flex">
+    <div>
       <button class="btn btn-primary ml-auto p-2" type="submit" id="button_save">Se connecter</button>
     </div>
 

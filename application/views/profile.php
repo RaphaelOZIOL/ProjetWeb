@@ -1,5 +1,5 @@
 <body>
-	
+
 	<div class="container" id="div_search">
   </div>
   <div class=container id="body">
@@ -103,7 +103,12 @@
 	                              </div>
 
 	                              <div class="form-group row">
-	                                <div class="offset-4 col-8">
+
+																		<div class="col-md-6">
+																			<a name="updatePassword" class="btn btn-primary" href="<?php echo site_url("profile/update_info_pwd_view")?>" >Modifier votre mot de passe</a>
+																		</div>
+
+	                                <div class=" col-md-6">
 	                                  <button name="submit"  type="submit" class="btn btn-primary">Enregistrer vos modifications</button>
 	                                </div>
 	                              </div>
@@ -120,11 +125,7 @@
 		</div>
 
 	</div>
-	<div class="row">
-		<div class=" col-md-3">
-			<a name="updatePassword" href="<?php echo site_url("profile/update_info_pwd_view")?>" >Modifier votre mot de passe</a>
-		</div>
-	</div>
+
 
 </div>
 </body>

@@ -5,15 +5,22 @@
   <div class=container id="body">
   </div>
 
-  <?php
-    if (isset($pwd_not_same) && $pwd_not_same==true)
-    {
-    echo "<script>alert(\"Les mots de passes sont différents, veuillez réessayer\")</script>";
-    }
-    if (isset($err_database) && $err_database==true)
-    {
-    echo "<script>alert(\"Erreur venant du serveur veuillez réessayer ultérieurement \")</script>";
-    }
+
+<?php
+if(isset($pwd_not_same) && $pwd_not_same==true){
+  ?>
+  <div class="alert alert-error" role="alert">
+      Les mots de passes sont différents, veuillez réessayer.
+  </div>
+<?php  }
+?>
+<?php
+if(isset($err_database) && $err_database==true){
+  ?>
+  <div class="alert alert-error" role="alert">
+      Erreur venant du serveur veuillez réessayer ultérieurement nous sommes désolé du dérangement.
+  </div>
+<?php  }
 ?>
 
 
