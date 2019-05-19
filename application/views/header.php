@@ -648,7 +648,7 @@ header("X-XSS-Protection: 1; mode=block");?>
                                                 '<div class="form-group row">'+
                                                   '<label for="srcImg" class="col-4 col-form-label">Sélectionner une image pour votre produit :</label>'+
                                                   '<div class="col-8">'+
-                                                    '<input type="file" id="srcImg" name="srcImg" required />'+
+                                                    '<input type="file" id="srcImg" class="form-control-file" name="srcImg" size="50" required />'+
                                                   '</div>'+
                                                '</div>'+
 

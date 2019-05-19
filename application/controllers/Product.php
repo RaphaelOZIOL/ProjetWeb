@@ -149,10 +149,8 @@ public function create_product(){
 
 
             $this->load->library('upload', $config);
-            $this->upload->do_upload('srcImg');
-            $this->load->view('welcomePage', $data);
-            
-            /*if ( ! )
+
+            if ( !$this->upload->do_upload('srcImg'))
             {
                     $error = array('error' => $this->upload->display_errors());
                     $data['product_created_but_img_err']=true;
@@ -162,7 +160,7 @@ public function create_product(){
             {
                     $data1 = array('upload_data' => $this->upload->data());
                     $this->load->view('welcomePage', $data);
-            }*/
+            }
           }
 
       }
@@ -172,7 +170,7 @@ public function create_product(){
     }
 }
 
-  public function do_upload($id){
+/*  public function do_upload($id){
     $config['upload_path']          = './assets/images/product/';
     $config['allowed_types']        = 'gif|jpg|png';
     $config['max_size']             = 100000;
@@ -198,7 +196,7 @@ public function create_product(){
             $data['isAdmin']=parent::get_is_Admin();
             $this->load->view('welcomePage', $data);
     }
-  }
+  }*/
 
   public function delete_product($idProd){
     $data['isAdmin']=parent::get_is_Admin();
