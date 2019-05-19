@@ -59,17 +59,17 @@ class Product extends Administrator_controller
       $_POST['quantityStock']= $this->security->xss_clean($_POST['quantityStock']);
       $_POST['compoProd']= $this->security->xss_clean($_POST['compoProd']);
 
-      $file = $_FILES['srcImg'];
+      /*$file = $_FILES['srcImg'];
       if ($this->security->xss_clean($file, TRUE) === FALSE){
         $data['product_updated']= $this->product_model->update_product_without_img($_POST['IdProd']);
         $this->load->view('welcomePage', $data);
-      }
+      }*/
 
-        else{
+        //else{
           $data['product_updated']= $this->product_model->update_product($_POST['IdProd']);
 
           $config['upload_path']          = './assets/images/product/';
-          $config['allowed_types']        = 'gif|jpg|png';
+          $config['allowed_types']        = 'jpg|png';
           $config['max_size']             = 10000;
           $config['max_width']            = 2000;
           $config['max_height']           = 20000;
@@ -90,7 +90,7 @@ class Product extends Administrator_controller
                   $data1 = array('upload_data' => $this->upload->data());
                   $this->load->view('welcomePage', $data);
           }
-        }
+      //  }
 
    }
 
