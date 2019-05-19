@@ -70,12 +70,9 @@ class Product extends Administrator_controller
 
           $config['upload_path']          = './assets/images/product/';
           $config['allowed_types']        = 'gif|jpg|png';
-          $config['max_size']             = 100000;
-          $config['max_width']            = 20000;
+          $config['max_size']             = 10000;
+          $config['max_width']            = 2000;
           $config['max_height']           = 20000;
-          $config['remove_spaces']        = TRUE;
-          $config['detect_mime']          = TRUE;
-          $config['mod_mime_fix']         = TRUE;
           $config['file_name']         = $_POST['IdProd'];
           $config['overwrite']         = TRUE;
 
@@ -138,18 +135,14 @@ public function create_product(){
 
             $config['upload_path']          = './assets/images/product/';
             $config['allowed_types']        = 'jpg|png';
-            $config['max_size']             = 100000;
-            $config['max_width']            = 20000;
-            $config['max_height']           = 20000;
-            $config['remove_spaces']        = TRUE;
-            $config['detect_mime']          = TRUE;
-            $config['mod_mime_fix']         = TRUE;
+            $config['max_size']             = 10000;
+            $config['max_width']            = 2000;
+            $config['max_height']           = 2000;
             $config['file_name']         = $id;
             $config['overwrite']         = TRUE;
 
 
             $this->load->library('upload', $config);
-            $this->upload->initialize($config);
 
             if ( !$this->upload->do_upload('srcImg'))
             {
