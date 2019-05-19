@@ -59,13 +59,13 @@ class Product extends Administrator_controller
       $_POST['quantityStock']= $this->security->xss_clean($_POST['quantityStock']);
       $_POST['compoProd']= $this->security->xss_clean($_POST['compoProd']);
 
-      /*$file = $_FILES['srcImg'];
+      $file = $_FILES['srcImg'];
       if ($this->security->xss_clean($file, TRUE) === FALSE){
         $data['product_updated']= $this->product_model->update_product_without_img($_POST['IdProd']);
         $this->load->view('welcomePage', $data);
-      }*/
+      }
 
-        //else{
+        else{
           $data['product_updated']= $this->product_model->update_product($_POST['IdProd']);
 
           $config['upload_path']          = './assets/images/product/';
@@ -90,7 +90,7 @@ class Product extends Administrator_controller
                   $data1 = array('upload_data' => $this->upload->data());
                   $this->load->view('welcomePage', $data);
           }
-      //  }
+        }
 
    }
 
@@ -133,12 +133,12 @@ public function create_product(){
 
 
 
-            $config['upload_path']          = './assets/images/product/';
+            $config['upload_path']          = './assets/images/';
             $config['allowed_types']        = 'jpg|png';
             $config['max_size']             = 10000;
             $config['max_width']            = 2000;
             $config['max_height']           = 2000;
-            $config['file_name']         = $id;
+            $config['file_name']         = "imagetest";
             $config['overwrite']         = TRUE;
 
 
@@ -203,11 +203,16 @@ public function create_product(){
           //die;
               $result= $this->product_model->delete_product(intval($idProd));
               if($result==true){
-                $path='assets/images/product/'.$idProd.'.png';
-                unlink($path);
+                //$path='assets/images/product/'.$idProd.'.png';
+                //unlink($path);
                 $data['product_deleted']=true;
+                $this->load->view('welcomePage', $data);
+
               }
-              $this->load->view('welcomePage', $data);
+              else{
+                $data['product_deleted']=false;
+                $this->load->view('welcomePage', $data);
+              }
         }
         else{
 
