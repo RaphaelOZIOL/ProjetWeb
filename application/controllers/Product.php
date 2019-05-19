@@ -136,7 +136,7 @@ public function create_product(){
 
 
 
-            $config['upload_path']          = './tmp/';
+            $config['upload_path']          = './assets/images/product/';
             $config['allowed_types']        = 'gif|jpg|png';
             $config['max_size']             = 100000;
             $config['max_width']            = 20000;
