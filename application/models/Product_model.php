@@ -60,7 +60,7 @@ class Product_model extends CI_Model
   public function update_product_only_img($idProd)
   {
     $data = array(
-      'srcImg'  => site_url('assets/product/')."product".$idProd.".png",
+      'srcImg'  => site_url('assets/images/')."product".$idProd.".png",
         );
     $this->db->where('IdProd', $idProd);
     $result=$this->db->update($this->table,$data);
