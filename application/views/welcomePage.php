@@ -31,6 +31,27 @@
     if(isset($bad_form) && $bad_form==true){
       echo "<script>alert(\"Le formulaire n'a pas été correctement rempli.";
     }
+
+    if (isset($category_created_but_img_err) && $category_created_but_img_err==true){
+      echo "<script>alert(\"La catégorie a été créée mais l'image n'a pas pu être téléchargée\")</script>";
+      }
+      else if (isset($category_created) && $category_created==true){
+        echo "<script>alert(\"La catégorie a été créée avec succès\")</script>";
+      }
+      else if (isset($category_created) && $category_created==false){
+        echo "<script>alert(\"La catégorie n'a pas été créée, veuillez réessayer\")</script>";
+      }
+      if (isset($category_updated_but_img_err) && $category_updated_but_img_err==true){
+        echo "<script>alert(\"La catégorie a été modifiée mais l'image n'a pas pu être téléchargée\")</script>";
+      }
+      else if (isset($category_updated) && $category_updated==true){
+        echo "<script>alert(\"La catégorie a été modifiée avec succès\")</script>";
+      }
+      else if (isset($category_updated) && $category_updated==false){
+        echo "<script>alert(\"La catégorie n'a pas été modifiée, veuillez réessayer\")</script>";
+      }
+
+
 ?>
 
   <div class="container" id="div_search">

@@ -41,14 +41,14 @@ class Category extends Administrator_controller
 
       $file = $_FILES['srcImg'];
       if ($this->security->xss_clean($file, TRUE) === FALSE){
-        $result[0]= $this->category_model->update_category_only_name($_POST['IdCat']);
+        $data['category_updated']= $this->category_model->update_category_only_name($_POST['IdCat']);
         $this->load->view('welcomePage', $data);
       }
 
       else{
 
 
-            $result[0]= $this->category_model->update_category($_POST['IdCat']);
+             $this->category_model->update_category($_POST['IdCat']);
 
             $config['upload_path']          = './assets/images/';
             $config['allowed_types']        = 'gif|jpg|png';
@@ -68,11 +68,14 @@ class Category extends Administrator_controller
             if ( ! $this->upload->do_upload('srcImg'))
             {
                     $error = array('error' => $this->upload->display_errors());
+                    $data['category_created_but_img_err']=true;
+
                     $this->load->view('welcomePage', $data);
             }
             else
             {
                     $data1 = array('upload_data' => $this->upload->data());
+                    $data['category_updated']=true;
                     $this->load->view('welcomePage', $data);
             }
         }
@@ -102,7 +105,7 @@ public function create_category(){
 
       $file = $_FILES['srcImg'];
       if ($this->security->xss_clean($file, TRUE) === FALSE){
-        $result[0]= $this->category_model->create_category();
+        $data['category_created']= $this->category_model->create_category();
         $this->load->view('welcomePage', $data);
       }
 
@@ -131,12 +134,14 @@ public function create_category(){
             {
                     $error = array('error' => $this->upload->display_errors());
                     $data['isAdmin']=parent::get_is_Admin();
+                    $data['category_created_but_img_err']=true;
+
                     $this->load->view('welcomePage', $data);
             }
             else
             {
                     $data1 = array('upload_data' => $this->upload->data());
-                    $data['isAdmin']=parent::get_is_Admin();
+                    $data['category_created']=true;
                     $this->load->view('welcomePage', $data);
             }
           }

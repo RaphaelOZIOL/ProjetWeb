@@ -422,7 +422,7 @@
                                                 '<div class="form-group row col-md-6">'+
                                                   '<label for="dateHour" class="col-md-3 col-form-label">Date (Heure) :</label>'+
                                                   '<div class="col-md-5">'+
-                                                    '<input id="dateHour" name="dateHour" min="06:00" max="20:00" required value="" class="form-control here" type="time">'+
+                                                    '<input id="dateHour" name="dateHour" min="06:00" max="19:59" required value="" class="form-control here" type="time">'+
                                                   '</div>'+
                                                 '</div>'+
                                               '</div>'+
@@ -483,6 +483,9 @@
                                                   }
                                                   else if(msg.TooLate==true){
                                                     alert("Attention vous ne pouvez pas réserver au plus de 7 jours !");
+                                                  }
+                                                  else if(msg.not_open==true){
+                                                    alert("Le magasin n'est pas ouvert durant ces horaires, veuillez en choisir une entre 8h et 20h.");
                                                   }
                                                   else{
                                                     alert("Réservation confirmée ! Vous pouvez maintenant la consulter dans l'onglet 'Vos réservations' !");

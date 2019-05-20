@@ -61,6 +61,10 @@ public function book_product(){
                 $data1['TooLate']=true;
                 echo json_encode($data1);
               }
+              else if((strtotime($_POST['dateHour'])<strtotime("06:00")) ||(strtotime($_POST['dateHour'])>strtotime("20:00"))){
+                $data1['not_open']=true;
+                echo json_encode($data1);
+              }
               else if($date<strtotime($date_end_post)){
                 $data1['TooLate']=false;
                 $idProd = htmlspecialchars($_POST['idProd']);
