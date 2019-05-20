@@ -9,7 +9,7 @@
 <?php
 if(isset($pwd_not_same) && $pwd_not_same==true){
   ?>
-  <div class="alert alert-error" role="alert">
+  <div class="alert alert-danger" role="alert">
       Les mots de passes sont différents, veuillez réessayer.
   </div>
 <?php  }
@@ -17,7 +17,7 @@ if(isset($pwd_not_same) && $pwd_not_same==true){
 <?php
 if(isset($err_database) && $err_database==true){
   ?>
-  <div class="alert alert-error" role="alert">
+  <div class="alert alert-danger" role="alert">
       Erreur venant du serveur veuillez réessayer ultérieurement nous sommes désolé du dérangement.
   </div>
 <?php  }
